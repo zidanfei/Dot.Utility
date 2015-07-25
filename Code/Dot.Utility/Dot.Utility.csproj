@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5C1E66C-761C-42D5-9CFE-A52ACAABE6E2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dot.Utility</RootNamespace>
+    <AssemblyName>Dot.Utility</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>e65dd044</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>dot.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.97.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.97.0\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.97.0\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Selectors" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Channels" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveDirectory\ADHelp.cs" />
+    <Compile Include="ActiveDirectory\ADHelper.cs" />
+    <Compile Include="ActiveDirectory\Computer.cs" />
+    <Compile Include="ActiveDirectory\Group.cs" />
+    <Compile Include="ActiveDirectory\NameHelper.cs" />
+    <Compile Include="ActiveDirectory\OU.cs" />
+    <Compile Include="ActiveDirectory\User.cs" />
+    <Compile Include="Compile\AssemblyLoader.cs" />
+    <Compile Include="Compile\DllPackageHelper.cs" />
+    <Compile Include="Compile\DynamicCompileHelper.cs" />
+    <Compile Include="Compile\DynamicMethodBuilder.cs" />
+    <Compile Include="Compile\DynamicMethodExecutor.cs" />
+    <Compile Include="Compile\ReflectHelper.cs" />
+    <Compile Include="Compile\ReflectUtility.cs" />
+    <Compile Include="Config\ConfigHelper.cs" />
+    <Compile Include="Cryptography\Base64Decoder.cs" />
+    <Compile Include="Cryptography\Base64Encoder.cs" />
+    <Compile Include="Cryptography\DEncrypt.cs" />
+    <Compile Include="Cryptography\DESEncrypt.cs" />
+    <Compile Include="Cryptography\Encrypt.cs" />
+    <Compile Include="Cryptography\GetCRC2.cs" />
+    <Compile Include="Cryptography\HashEncode.cs" />
+    <Compile Include="Cryptography\MySecurity.cs" />
+    <Compile Include="Cryptography\RSACryption.cs" />
+    <Compile Include="Cryptography\SecurityHelper.cs" />
+    <Compile Include="DataConvert.cs" />
+    <Compile Include="Data\OleDbHelper.cs" />
+    <Compile Include="Data\OracleHelper.cs" />
+    <Compile Include="Data\SQLiteHelper.cs" />
+    <Compile Include="Data\SqlServerHelper.cs" />
+    <Compile Include="DTO\BusinessLogicFault.cs" />
+    <Compile Include="DTO\GenericFault.cs" />
+    <Compile Include="DTO\WSResponse.cs" />
+    <Compile Include="Enum\DataState.cs" />
+    <Compile Include="Enum\EnumHelper.cs" />
+    <Compile Include="Exceptions\ConfigException.cs" />
+    <Compile Include="Exceptions\ExceptionHelper.cs" />
+    <Compile Include="Exceptions\IWSException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Exceptions\ObjectExistException.cs" />
+    <Compile Include="Exceptions\ObjectNotExistException.cs" />
+    <Compile Include="Exceptions\ReferencedException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="File\FileOperate.cs" />
+    <Compile Include="File\StreamHelper.cs" />
+    <Compile Include="Log\LogFactory.cs" />
+    <Compile Include="Mail\EmailHelper.cs" />
+    <Compile Include="Media\Diagram\Application\ChangedEventArgs.cs" />
+    <Compile Include="Media\Diagram\Application\ChangedEventHandler.cs" />
+    <Compile Include="Media\Diagram\Application\CopyDelayedsCollection.cs" />
+    <Compile Include="Media\Diagram\Application\CopyDictionary.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Media\Diagram\Application\DiagramDocument.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramOverview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Media\Diagram\Application\DiagramPalette.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Media\Diagram\Application\DiagramSelection.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramUndoManager.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Media\Diagram\Application\DiagramViewGridStyle.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramViewLicenseProvider.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramViewScrollBarVisibility.cs" />
+    <Compile Include="Media\Diagram\Application\DiagramViewSnapStyle.cs" />
+    <Compile Include="Media\Diagram\Application\InputEventArgs.cs" />
+    <Compile Include="Media\Diagram\Application\InputEventHandler.cs" />
+    <Compile Include="Media\Diagram\Application\SelectionEventArgs.cs" />
+    <Compile Include="Media\Diagram\Application\SelectionEventHandler.cs" />
+    <Compile Include="Media\Diagram\CollectionEnumerator.cs" />
+    <Compile Include="Media\Diagram\DiagramLayer.cs" />
+    <Compile Include="Media\Diagram\DocumentValidCycle.cs" />
+    <Compile Include="Media\Diagram\IActionObject.cs" />
+    <Compile Include="Media\Diagram\IGraphPart.cs" />
+    <Compile Include="Media\Diagram\IIdentifiablePart.cs" />
+    <Compile Include="Media\Diagram\ILayerAbilities.cs" />
+    <Compile Include="Media\Diagram\ILayerCollectionContainer.cs" />
+    <Compile Include="Media\Diagram\INodeIconConstraint.cs" />
+    <Compile Include="Media\Diagram\InputState.cs" />
+    <Compile Include="Media\Diagram\IUndoableEdit.cs" />
+    <Compile Include="Media\Diagram\LayerCollection.cs" />
+    <Compile Include="Media\Diagram\LayerCollectionEnumerator.cs" />
+    <Compile Include="Media\Diagram\LayerCollectionObjectEnumerator.cs" />
+    <Compile Include="Media\Diagram\LayerEnumerator.cs" />
+    <Compile Include="Media\Diagram\Perspective.cs" />
+    <Compile Include="Media\Diagram\PointFConverter.cs" />
+    <Compile Include="Media\Diagram\PortFilteredLinkEnumerator.cs" />
+    <Compile Include="Media\Diagram\PositionArray.cs" />
+    <Compile Include="Media\Diagram\Shapes\DiagramControl.cs" />
+    <Compile Include="Media\Diagram\Shapes\DiagramImage.cs" />
+    <Compile Include="Media\Diagram\Shapes\DiagramShape.cs" />
+    <Compile Include="Media\Diagram\Shapes\DiagramShapeCollection.cs" />
+    <Compile Include="Media\Diagram\Shapes\DiagramShapeEventArgs.cs" />
+    <Compile Include="Media\Diagram\Shapes\DiagramShapeEventHandler.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\CubeGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\CylinderGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\DiamondGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\DigramGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\EllipseGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\HandleGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\HexagonGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\HexagonGraphReshapeBehavior.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\LineGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\OctagonGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\OverviewRectangleGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\ParallelogramGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\PieGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\PolygonGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\PolygonGraphStyle.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\RectangleGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\RoundedRectangleGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\StrokeGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\StrokeGraphStyle.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\TrapezoidGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Graphes\TriangleGraph.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\Balloon.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\Button.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\CommentShape.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\GroupEnumerator.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\GroupShape.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\IDiagramLine.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\ListGroup.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\MultiTextNodeListGroup.cs" />
+    <Compile Include="Media\Diagram\Shapes\Groups\TextLine.cs" />
+    <Compile Include="Media\Diagram\Shapes\IDiagramControl.cs" />
+    <Compile Include="Media\Diagram\Shapes\IDiagramShapeCollection.cs" />
+    <Compile Include="Media\Diagram\Shapes\IShapeHandle.cs" />
+    <Compile Include="Media\Diagram\Shapes\LineAdjustingStyle.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\BasicNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\BoxIconNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\BoxNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\DiagramNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\GeneralNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\IconicNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\IDiagramNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\ITextNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\MultiTextNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\NodeIcon.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\NodeLinkEnumerator.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\NodeNodeEnumerator.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\NodePortEnumerator.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\SimpleNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\SubGraphHandle.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\SubGraphNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\SubGraphNodeState.cs" />
+    <Compile Include="Media\Diagram\Shapes\Nodes\TextNode.cs" />
+    <Compile Include="Media\Diagram\Shapes\Ports\BoxPort.cs" />
+    <Compile Include="Media\Diagram\Shapes\Ports\DiagramPort.cs" />
+    <Compile Include="Media\Diagram\Shapes\Ports\DiagramPortStyle.cs" />
+    <Compile Include="Media\Diagram\Shapes\Ports\GeneralNodePort.cs" />
+    <Compile Include="Media\Diagram\Shapes\Ports\IDiagramPort.cs" />
+    <Compile Include="Media\Diagram\Shapes\Ports\PortLinkEnumerator.cs" />
+    <Compile Include="Media\Diagram\Shapes\ShapeStyle.cs" />
+    <Compile Include="Media\Diagram\Shapes\StrokeArrowheadStyle.cs" />
+    <Compile Include="Media\Diagram\Shapes\Texts\DiagramText.cs" />
+    <Compile Include="Media\Diagram\Shapes\Texts\GeneralNodePortLabelText.cs" />
+    <Compile Include="Media\Diagram\Shapes\Texts\TextEditorStyle.cs" />
+    <Compile Include="Media\Diagram\SizeFConverter.cs" />
+    <Compile Include="Media\Diagram\Tools\DiagramTool.cs" />
+    <Compile Include="Media\Diagram\Tools\IDiagramTool.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolAction.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolContext.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolDragging.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolLinking.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolLinkingNew.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolManager.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolPanning.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolRelinking.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolResizing.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolRubberBanding.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolSelecting.cs" />
+    <Compile Include="Media\Diagram\Tools\ToolZooming.cs" />
+    <Compile Include="Media\Diagram\UndoManagerCompoundEdit.cs" />
+    <Compile Include="Media\ImageClass.cs" />
+    <Compile Include="Media\VideoConvert.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Net\FTP\FTPClient.cs" />
+    <Compile Include="Net\FTP\FTPHelper.cs" />
+    <Compile Include="Net\FTP\FTPOperater.cs" />
+    <Compile Include="Net\HttpHelper.cs" />
+    <Compile Include="Net\IPHelper.cs" />
+    <Compile Include="Net\LocalMachine.cs" />
+    <Compile Include="Office\ExcelHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetryHandler.cs" />
+    <Compile Include="Security\CustomX509Validator.cs" />
+    <Compile Include="Security\DisposableObject.cs" />
+    <Compile Include="Security\ThreadSafety\MyMutex.cs" />
+    <Compile Include="Security\ThreadSafety\ThreadSafeDictionary.cs" />
+    <Compile Include="Security\ThreadSafety\ThreadSafeHashtable.cs" />
+    <Compile Include="Security\ThreadSafety\ThreadSafeJumpQueue.cs" />
+    <Compile Include="Security\ThreadSafety\ThreadSafeList.cs" />
+    <Compile Include="Security\ThreadSafety\ThreadSafeThreeDictionary.cs" />
+    <Compile Include="Security\WebSafe.cs" />
+    <Compile Include="Security\YZMHelper.cs" />
+    <Compile Include="Serialization\ConvertJson.cs" />
+    <Compile Include="Serialization\ObjectToByteArrayExtension.cs" />
+    <Compile Include="Service\WebServiceInvoker.cs" />
+    <Compile Include="String\EcanConvertToCh.cs" />
+    <Compile Include="String\PasswordHelper.cs" />
+    <Compile Include="String\PinyinHelper.cs" />
+    <Compile Include="String\StringHelper.cs" />
+    <Compile Include="System\EventLogManager.cs" />
+    <Compile Include="System\INIFile.cs" />
+    <Compile Include="System\INIHelper.cs" />
+    <Compile Include="System\RegistryOperator.cs" />
+    <Compile Include="System\StopWatch.cs" />
+    <Compile Include="System\WindowsHelper.cs" />
+    <Compile Include="System\ZipHelper.cs" />
+    <Compile Include="Validator\Check.cs" />
+    <Compile Include="Web\DirectoryHelper.cs" />
+    <Compile Include="Web\FileHelper.cs" />
+    <Compile Include="Web\IIS\IISHelper.cs" />
+    <Compile Include="Web\IIS\VirtualDirectory.cs" />
+    <Compile Include="Web\IIS\WebSiteAdmin.cs" />
+    <Compile Include="Web\IIS\WebSiteInfo.cs" />
+    <Compile Include="Web\ImageDown.cs" />
+    <Compile Include="Web\ImageUpload.cs" />
+    <Compile Include="Web\JsHelper.cs" />
+    <Compile Include="Web\WebImageHelper.cs" />
+    <Compile Include="Web\WebServiceHelper.cs" />
+    <Compile Include="WeekHelper.cs" />
+    <Compile Include="Xml\XmlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="App_Data\iWSDB.DB" />
+    <None Include="dot.pfx" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
+    <Content Include="Security\WebSafe使用说明.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.97.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.97.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.97.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.97.0\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
