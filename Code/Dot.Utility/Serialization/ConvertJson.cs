@@ -100,13 +100,26 @@ namespace Dot.Utility
                     Json.Append("{");
                     for (int j = 0; j < pi.Length; j++)
                     {
-                        Type type = pi[j].GetValue(list[i], null).GetType();
-                        Json.Append("\"" + pi[j].Name.ToString() + "\":" + StringFormat(pi[j].GetValue(list[i], null).ToString(), type));
+                        var val = pi[j].GetValue(list[i], null);
+                        Type type;
+                        string value;
+                        if (null != val)
+                        {
+                            type = val.GetType();
+                            value = val.ToString();
+                        }
+                        else
+                        {
+                            type = typeof(string);
+                            value = string.Empty;
+                        }
+                        Json.Append("\"" + pi[j].Name.ToString() + "\":" + StringFormat(value, type));
 
                         if (j < pi.Length - 1)
                         {
                             Json.Append(",");
                         }
+
                     }
                     Json.Append("}");
                     if (i < list.Count - 1)

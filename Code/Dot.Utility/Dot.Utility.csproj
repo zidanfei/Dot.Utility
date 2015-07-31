@@ -326,7 +326,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Data\iWSDB.DB" />
+    <None Include="App_Data\NameDB.DB" />
     <None Include="dot.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
