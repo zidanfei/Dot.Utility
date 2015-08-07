@@ -243,7 +243,7 @@ namespace Dot.Utility.ActiveDirectory
             string name = string.Empty;
             for (int i = 0; i < Chstr.Length; i++)
             {
-                var chinese = SQLiteHelper.ExecuteDataset("Data Source=" + System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config\\iWSDB.DB"),CommandType.Text,
+                var chinese = SQLiteHelper.ExecuteDataset("Data Source=" + System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config\\NameDB.DB"),CommandType.Text,
                     @"select * from ChinesePinyin
                 where Chinese='" + Chstr.Substring(i, 1) + "'");
                 if (chinese.Tables[0].Rows.Count > 0)

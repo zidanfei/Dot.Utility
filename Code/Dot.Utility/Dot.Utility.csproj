@@ -137,6 +137,7 @@
     <Compile Include="Exceptions\ObjectNotExistException.cs" />
     <Compile Include="Exceptions\ReferencedException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
     <Compile Include="Log\LogFactory.cs" />
@@ -326,7 +327,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="App_Data\iWSDB.DB" />
+    <None Include="App_Data\NameDB.DB" />
     <None Include="dot.pfx" />
     <None Include="dot.snk" />
     <None Include="packages.config" />
