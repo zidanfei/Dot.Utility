@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>dot.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>dot.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
@@ -328,6 +328,7 @@
     <None Include="app.config" />
     <None Include="App_Data\iWSDB.DB" />
     <None Include="dot.pfx" />
+    <None Include="dot.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
