@@ -8,7 +8,7 @@ namespace System
     public static class DateTimeExtensions
     {
         /// <summary>
-        /// 返回当前实例加上days个星期后的日期
+        /// 返回当前实例加上days个天后的日期（跨过周末）
         /// </summary>
         /// <param name="date"></param>
         /// <param name="days"></param>
@@ -47,28 +47,6 @@ namespace System
             return new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
         }
 
-        /// <summary>
-        /// 忽略时间，只比较两个Datetime实例的日期部分
-        /// </summary>
-        /// <param name="instance"></param>
-        /// <param name="compareTo"></param>
-        /// <param name="ignoreTime"></param>
-        /// <returns>
-        /// 1: instance 晚于 compareTo
-        /// 0: instance 等于 compareTo
-        /// -1: instance 早于 compareTo
-        /// </returns>
-        public static int CompareTo(this DateTime instance, DateTime compareTo, bool ignoreTime)
-        {
-            if (ignoreTime)
-            {
-                return instance.ToString("yyyyMMdd").CompareTo(compareTo.ToString("yyyyMMdd"));
-            }
-            else
-            {
-                return instance.CompareTo(compareTo);
-            }
-        }
 
     }
 }

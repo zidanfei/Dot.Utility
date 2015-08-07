@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ueditor", "ueditor\ueditor.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Web", "Dot.Web\Dot.Web.csproj", "{0A1D7971-9036-4BF7-91F2-363876827119}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.UtilityTests", "Dot.UtilityTests\Dot.UtilityTests.csproj", "{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{0A1D7971-9036-4BF7-91F2-363876827119}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A1D7971-9036-4BF7-91F2-363876827119}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A1D7971-9036-4BF7-91F2-363876827119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

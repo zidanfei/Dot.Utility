@@ -132,9 +132,7 @@
     <Compile Include="Enum\DataState.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
-    <Compile Include="Exceptions\ExceptionHelper.cs" />
-    <Compile Include="Exceptions\IWSException.cs" />
-    <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Exceptions\DotException.cs" />
     <Compile Include="Exceptions\ObjectExistException.cs" />
     <Compile Include="Exceptions\ObjectNotExistException.cs" />
     <Compile Include="Exceptions\ReferencedException.cs" />
@@ -143,6 +141,7 @@
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
     <Compile Include="Log\LogFactory.cs" />
+    <Compile Include="Log\Loghelper.cs" />
     <Compile Include="Mail\EmailHelper.cs" />
     <Compile Include="Media\Diagram\Application\ChangedEventArgs.cs" />
     <Compile Include="Media\Diagram\Application\ChangedEventHandler.cs" />

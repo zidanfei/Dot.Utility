@@ -8,56 +8,7 @@ namespace Dot.Utility
 {
     public class FileOperate
     {
-        #region 写文件
-        protected void Write_Txt(string FileName, string Content)
-        {
-            Encoding code = Encoding.GetEncoding("gb2312");
-            string htmlfilename = HttpContext.Current.Server.MapPath("Precious\\" + FileName + ".txt");　//保存文件的路径
-            string str = Content;
-            StreamWriter sw = null;
-            {
-                try
-                {
-                    sw = new StreamWriter(htmlfilename, false, code);
-                    sw.Write(str);
-                    sw.Flush();
-                }
-                catch { }
-            }
-            sw.Close();
-            sw.Dispose();
-
-        }
-        #endregion
-
-        #region 读文件
-        protected string Read_Txt(string filename)
-        {
-
-            Encoding code = Encoding.GetEncoding("gb2312");
-            string temp = HttpContext.Current.Server.MapPath("Precious\\" + filename + ".txt");
-            string str = "";
-            if (File.Exists(temp))
-            {
-                StreamReader sr = null;
-                try
-                {
-                    sr = new StreamReader(temp, code);
-                    str = sr.ReadToEnd(); // 读取文件
-                }
-                catch { }
-                sr.Close();
-                sr.Dispose();
-            }
-            else
-            {
-                str = "";
-            }
-
-
-            return str;
-        }
-        #endregion
+       
 
         #region 取得文件后缀名
         /****************************************
@@ -580,7 +531,7 @@ namespace Dot.Utility
         /// </summary>
         /// <param name="filePath">文件详细路径</param>
         /// <returns></returns>
-        public static string GetFileAttibe(string filePath)
+        public static string GetFileAttribute(string filePath)
         {
             string str = "";
             System.IO.FileInfo objFI = new System.IO.FileInfo(filePath);

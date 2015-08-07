@@ -7,24 +7,24 @@ namespace Dot.Utility.Exceptions
 {
 
     [System.Serializable]
-    public class iWSException : Exception
+    public class DotException : Exception
     {
       
-         public iWSException(string message) : base(message)
+         public DotException(string message) : base(message)
         {
         }
 
-        public iWSException(string message,Exception ex)
+        public DotException(string message,Exception ex)
             : base(message,ex)
         {
         }
 
-        public iWSException()
+        public DotException()
             : base()
         {
         }
 
-        public iWSException(SerializationInfo serializationInfo,StreamingContext context)
+        public DotException(SerializationInfo serializationInfo,StreamingContext context)
             : base(serializationInfo,context)
         {
         }

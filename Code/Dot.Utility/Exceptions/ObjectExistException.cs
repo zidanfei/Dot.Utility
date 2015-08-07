@@ -11,7 +11,7 @@ namespace Dot.Utility.Exceptions
     /// 对象已存在的异常信息
     /// </summary>
     [Serializable]
-    public class ObjectExistException : iWSException
+    public class ObjectExistException : DotException
     {
         /// <summary>
         /// Contstructor.

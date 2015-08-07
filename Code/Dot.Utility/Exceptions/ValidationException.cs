@@ -11,7 +11,7 @@ namespace Dot.Utility.Exceptions
     /// 验证失败的异常信息
     /// </summary>
     [Serializable]
-    public class ValidationException : iWSException
+    public class ValidationException : DotException
     {
         public ValidationException(string message)
             : base(message)

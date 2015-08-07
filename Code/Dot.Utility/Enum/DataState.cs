@@ -8,31 +8,24 @@ namespace Dot.Utility
 {
     public enum DataState
     {
-        // Summary:
-        //     The row has been created but is not part of any System.Data.DataRowCollection.
-        //     A System.Data.DataRow is in this state immediately after it has been created
-        //     and before it is added to a collection, or if it has been removed from a
-        //     collection.
+        // 摘要: 
+        //     该实体未由上下文跟踪。刚使用新运算符或某个 System.Data.Entity.DbSet Create 方法创建实体后，实体就处于此状态。
         Detached = 1,
         //
-        // Summary:
-        //     The row has not changed since System.Data.DataRow.AcceptChanges() was last
-        //     called.
+        // 摘要: 
+        //     实体将由上下文跟踪并存在于数据库中，其属性值与数据库中的值相同。
         Unchanged = 2,
         //
-        // Summary:
-        //     The row has been added to a System.Data.DataRowCollection, and System.Data.DataRow.AcceptChanges()
-        //     has not been called.
+        // 摘要: 
+        //     实体将由上下文跟踪，但是在数据库中还不存在。
         Added = 4,
         //
-        // Summary:
-        //     The row was deleted using the System.Data.DataRow.Delete() method of the
-        //     System.Data.DataRow.
+        // 摘要: 
+        //     实体将由上下文跟踪并存在于数据库中，但是已被标记为在下次调用 SaveChanges 时从数据库中删除。
         Deleted = 8,
         //
-        // Summary:
-        //     The row has been modified and System.Data.DataRow.AcceptChanges() has not
-        //     been called.
+        // 摘要: 
+        //     实体将由上下文跟踪并存在于数据库中，已修改其中的一些或所有属性值。
         Modified = 16,
     }
 }

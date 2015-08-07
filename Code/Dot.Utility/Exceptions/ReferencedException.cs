@@ -9,7 +9,7 @@ namespace Dot.Utility.Exceptions
     /// 引用的异常信息
     /// </summary>
     [Serializable]
-    public class ReferencedException : iWSException
+    public class ReferencedException : DotException
     {
        
          public ReferencedException(string message) : base(message)

@@ -9,7 +9,7 @@ namespace Dot.Utility.Exceptions
     /// 配置的异常信息
     /// </summary>
     [System.Serializable]
-    public class ConfigException : iWSException
+    public class ConfigException : DotException
     {
 
         public ConfigException(string message)

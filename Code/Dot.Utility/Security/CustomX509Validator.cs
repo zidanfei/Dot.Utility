@@ -32,9 +32,9 @@ namespace Dot.Utility.Security
             if (string.IsNullOrEmpty(password))
                 throw new ArgumentNullException("password");
             if (null == ConfigHelper.GetAppSettingOrDefault("WCFUserName"))
-                throw new NotFoundException("缺少配置WCFUserName");
+                throw new ConfigException("缺少配置WCFUserName");
             if (null == ConfigHelper.GetAppSettingOrDefault("WCFPassword"))
-                throw new NotFoundException("缺少配置WCFPassword");
+                throw new ConfigException("缺少配置WCFPassword");
 
             if (userName.Equals(ConfigHelper.GetAppSettingOrDefault("WCFUserName"), StringComparison.OrdinalIgnoreCase)
                 && password == ConfigHelper.GetAppSettingOrDefault("WCFPassword"))
@@ -86,10 +86,10 @@ namespace Dot.Utility.Security
             store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadWrite);
             X509Certificate2Collection fcollection = (X509Certificate2Collection)store.Certificates;
             if (string.IsNullOrWhiteSpace( ConfigHelper.GetAppSettingOrDefault("ClientCertName")))
-                throw new NotFoundException("缺少配置ClientCertName");
+                throw new ConfigException("缺少配置ClientCertName");
             string ClientCertName = ConfigHelper.GetAppSettingOrDefault("ClientCertName");
             if (string.IsNullOrWhiteSpace(ClientCertName))
-                throw new NotFoundException("缺少配置ClientCertName");
+                throw new ConfigException("缺少配置ClientCertName");
             X509Certificate2Collection collection = fcollection.Find(X509FindType.FindBySubjectName, ClientCertName, false);
             if (collection.Count > 0)
             {
