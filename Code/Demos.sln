@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jquery-easyui-1.4.3", "jque
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ueditor", "ueditor\ueditor.csproj", "{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Web", "Dot.Web\Dot.Web.csproj", "{0A1D7971-9036-4BF7-91F2-363876827119}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A1D7971-9036-4BF7-91F2-363876827119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1D7971-9036-4BF7-91F2-363876827119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1D7971-9036-4BF7-91F2-363876827119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1D7971-9036-4BF7-91F2-363876827119}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

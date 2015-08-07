@@ -79,6 +79,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="demo1.aspx" />
     <Content Include="dialogs\anchor\anchor.html" />
     <Content Include="dialogs\attachment\attachment.css" />
     <Content Include="dialogs\attachment\attachment.html" />
@@ -352,6 +353,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="demo1.aspx.cs">
+      <DependentUpon>demo1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="demo1.aspx.designer.cs">
+      <DependentUpon>demo1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="net\App_Code\Config.cs" />
     <Compile Include="net\App_Code\ConfigHandler.cs" />
     <Compile Include="net\App_Code\CrawlerHandler.cs" />

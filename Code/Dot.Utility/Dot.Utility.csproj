@@ -137,6 +137,7 @@
     <Compile Include="Exceptions\ObjectNotExistException.cs" />
     <Compile Include="Exceptions\ReferencedException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
     <Compile Include="Log\LogFactory.cs" />
