@@ -13,7 +13,7 @@ namespace Dot.Utility.Net
     /// <summary>
     /// HttpHelper class
     /// </summary>
-    public class HttpHelper 
+    public class HttpHelper
     {
         public HttpHelper()
         {
@@ -39,7 +39,7 @@ namespace Dot.Utility.Net
         /// <param name="url"></param>
         /// <param name="content"></param>
         /// <returns>Return content</returns>
-        public string Post(string url, string content, string referer = null, string contentType = "application/x-www-form-urlencoded")
+        public string Post(string url, string content, string referer = null, string contentType = "application/x-www-form-urlencoded", CookieContainer cookies = null)
         {
             int failedTimes = _tryTimes;
             while (failedTimes-- > 0)
@@ -51,7 +51,10 @@ namespace Dot.Utility.Net
                         Thread.Sleep(_delayTime * 1000);
                     }
                     HttpWebRequest req = (HttpWebRequest)WebRequest.Create(new Uri(url));
-                    req.CookieContainer = _cc;
+                    if (cookies != null)
+                        req.CookieContainer = cookies;
+                    else
+                        req.CookieContainer = _cc;
                     req.Referer = referer;
                     byte[] buff = Encoding.GetEncoding(ChatSet).GetBytes(content);
                     req.Method = "POST";
@@ -95,14 +98,13 @@ namespace Dot.Utility.Net
         /// </summary>
         /// <param name="url"></param>
         /// <returns>Return content</returns>
-        public string Get(string url, string referer)
+        public string Get(string url, string referer, string userAgent = null, CookieCollection cookies = null)
         {
             int failedTimes = _tryTimes;
 
             try
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(new Uri(url));
-                req.CookieContainer = _cc;
                 req.Referer = referer;
 
                 req.Method = "GET";
@@ -112,7 +114,15 @@ namespace Dot.Utility.Net
                     req.UseDefaultCredentials = true;
                 }
                 req.Proxy = _proxy;
-                //req.Connection = "Keep-Alive";
+                if (!string.IsNullOrEmpty(userAgent))
+                {
+                    req.UserAgent = userAgent;
+                }
+                if (cookies != null)
+                {
+                    req.CookieContainer = new CookieContainer();
+                    req.CookieContainer.Add(cookies);
+                }
 
                 //接收返回字串
                 HttpWebResponse res = (HttpWebResponse)req.GetResponse();
@@ -125,8 +135,6 @@ namespace Dot.Utility.Net
                 //TraceLog.Error("HTTP GET Error: " + e.Message);
                 //TraceLog.Error("Url: " + url);
             }
-
-            return string.Empty;
         }
 
         /// <summary>
@@ -180,13 +188,25 @@ namespace Dot.Utility.Net
             }
         }
 
-      
+
 
         public void Download(string url, string localfile)
         {
-            WebClient client = new WebClient();
-            client.DownloadFile(url, localfile);
+            //WebClient client = new WebClient();
+            //client.DownloadFile(url, localfile);
+
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "GET";
+            using (WebResponse wr = req.GetResponse())
+            {
+                HttpWebResponse myResponse = (HttpWebResponse)req.GetResponse();
+                var strpath = myResponse.ResponseUri.ToString();
+                WebClient client = new WebClient();
+                client.DownloadFile(strpath, localfile);
+            }
         }
+
+
 
         #region Member Fields
         private CookieContainer _cc = new CookieContainer();

@@ -74,10 +74,10 @@ namespace Dot.Utility.Web.IIS
             else
             {
                 entry = new DirectoryEntry(
-    EntryPath,
-    this.UserName,
-    this.Password,
-    AuthenticationTypes.Secure);
+                EntryPath,
+                this.UserName,
+                this.Password,
+                AuthenticationTypes.Secure);
             }
             return entry;
         }

@@ -3,6 +3,7 @@ using Dot.Utility.Exceptions;
 using Dot.Utility.Log;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -95,6 +96,8 @@ namespace Dot.Utility.Mail
         List<Attachment> AttachFileList { get; }
 
     }
+
+    [DebuggerDisplay("From: {From},To: {To},Cc: {Cc},Bcc: {Bcc},Subject: {Subject},Body: {Body}")]
     public class EmailHelper : IEmailHelper
     {
         public EmailHelper(string subject, string to)

@@ -11,7 +11,7 @@
     <AssemblyName>Dot.Utility</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>e65dd044</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>646e5184</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +51,10 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
     </Reference>
@@ -87,6 +91,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -96,7 +101,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveDirectory\ADHelp.cs" />
     <Compile Include="ActiveDirectory\ADHelper.cs" />
     <Compile Include="ActiveDirectory\Computer.cs" />
     <Compile Include="ActiveDirectory\Group.cs" />
@@ -111,21 +115,17 @@
     <Compile Include="Compile\ReflectHelper.cs" />
     <Compile Include="Compile\ReflectUtility.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
-    <Compile Include="Cryptography\Base64Decoder.cs" />
-    <Compile Include="Cryptography\Base64Encoder.cs" />
-    <Compile Include="Cryptography\DEncrypt.cs" />
-    <Compile Include="Cryptography\DESEncrypt.cs" />
-    <Compile Include="Cryptography\Encrypt.cs" />
-    <Compile Include="Cryptography\GetCRC2.cs" />
+    <Compile Include="Cryptography\Base64Encode.cs" />
+    <Compile Include="Cryptography\TripleDESEncryption.cs" />
+    <Compile Include="Cryptography\DESEncryption .cs" />
+    <Compile Include="Cryptography\CRC2Helper.cs" />
     <Compile Include="Cryptography\HashEncode.cs" />
-    <Compile Include="Cryptography\MySecurity.cs" />
-    <Compile Include="Cryptography\RSACryption.cs" />
-    <Compile Include="Cryptography\SecurityHelper.cs" />
-    <Compile Include="DataConvert.cs" />
-    <Compile Include="Data\OleDbHelper.cs" />
-    <Compile Include="Data\OracleHelper.cs" />
-    <Compile Include="Data\SQLiteHelper.cs" />
-    <Compile Include="Data\SqlServerHelper.cs" />
+    <Compile Include="Cryptography\RSAEncryption .cs" />
+    <Compile Include="DataFormat\DataConvert.cs" />
+    <Compile Include="Database\OleDbHelper.cs" />
+    <Compile Include="Database\OracleHelper.cs" />
+    <Compile Include="Database\SQLiteHelper.cs" />
+    <Compile Include="Database\SqlServerHelper.cs" />
     <Compile Include="DTO\BusinessLogicFault.cs" />
     <Compile Include="DTO\GenericFault.cs" />
     <Compile Include="DTO\WSResponse.cs" />
@@ -137,7 +137,7 @@
     <Compile Include="Exceptions\ObjectNotExistException.cs" />
     <Compile Include="Exceptions\ReferencedException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Date\DateTimeExtensions.cs" />
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
     <Compile Include="Log\LogFactory.cs" />
@@ -274,13 +274,12 @@
     <Compile Include="Media\Diagram\Tools\ToolSelecting.cs" />
     <Compile Include="Media\Diagram\Tools\ToolZooming.cs" />
     <Compile Include="Media\Diagram\UndoManagerCompoundEdit.cs" />
-    <Compile Include="Media\ImageClass.cs" />
+    <Compile Include="Media\ImageHelper.cs" />
     <Compile Include="Media\VideoConvert.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Net\FTP\FTPClient.cs" />
     <Compile Include="Net\FTP\FTPHelper.cs" />
-    <Compile Include="Net\FTP\FTPOperater.cs" />
     <Compile Include="Net\HttpHelper.cs" />
     <Compile Include="Net\IPHelper.cs" />
     <Compile Include="Net\LocalMachine.cs" />
@@ -297,10 +296,10 @@
     <Compile Include="Security\ThreadSafety\ThreadSafeThreeDictionary.cs" />
     <Compile Include="Security\WebSafe.cs" />
     <Compile Include="Security\YZMHelper.cs" />
-    <Compile Include="Serialization\ConvertJson.cs" />
+    <Compile Include="Serialization\JsonSerialization.cs" />
     <Compile Include="Serialization\ObjectToByteArrayExtension.cs" />
     <Compile Include="Service\WebServiceInvoker.cs" />
-    <Compile Include="String\EcanConvertToCh.cs" />
+    <Compile Include="String\ChineseToPinYin.cs" />
     <Compile Include="String\PasswordHelper.cs" />
     <Compile Include="String\PinyinHelper.cs" />
     <Compile Include="String\StringHelper.cs" />
@@ -313,17 +312,16 @@
     <Compile Include="System\ZipHelper.cs" />
     <Compile Include="Validator\Check.cs" />
     <Compile Include="Web\DirectoryHelper.cs" />
-    <Compile Include="Web\FileHelper.cs" />
     <Compile Include="Web\IIS\IISHelper.cs" />
     <Compile Include="Web\IIS\VirtualDirectory.cs" />
     <Compile Include="Web\IIS\WebSiteAdmin.cs" />
     <Compile Include="Web\IIS\WebSiteInfo.cs" />
-    <Compile Include="Web\ImageDown.cs" />
     <Compile Include="Web\ImageUpload.cs" />
     <Compile Include="Web\JsHelper.cs" />
     <Compile Include="Web\WebImageHelper.cs" />
     <Compile Include="Web\WebServiceHelper.cs" />
-    <Compile Include="WeekHelper.cs" />
+    <Compile Include="Date\WeekHelper.cs" />
+    <Compile Include="WeChat\WeChatHelper.cs" />
     <Compile Include="Xml\XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -333,6 +331,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\log4net.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ReadMe.txt" />
     <Content Include="Security\WebSafe使用说明.txt" />
   </ItemGroup>

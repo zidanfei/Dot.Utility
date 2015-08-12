@@ -13,10 +13,10 @@ namespace Dot.Utility.ActiveDirectory
 {
     public class ADHelper
     {
-        public String LDAPPath = "LDAP://";
-        public String Domain;
-        public String DomainUser;
-        public String DomainPass;
+        public string LDAPPath = "LDAP://";
+        public string Domain;
+        public string DomainUser;
+        public string DomainPass;
         public DirectoryEntry RootEntry
         {
             get;
@@ -353,7 +353,7 @@ namespace Dot.Utility.ActiveDirectory
         /// <returns></returns>
         public DirectoryEntry GetADGroupInOU(string groupName, string organizeUnit)
         {
-            if (!String.IsNullOrEmpty(groupName))
+            if (!string.IsNullOrEmpty(groupName))
             {
                 DirectoryEntry de = new DirectoryEntry(GetOrganizeNamePath(organizeUnit), DomainUser, DomainPass, AuthenticationTypes.Secure);
                 ;
@@ -815,7 +815,7 @@ namespace Dot.Utility.ActiveDirectory
         {
             if (de.Properties.Contains(propertyName))
             {
-                if (String.IsNullOrEmpty(propertyValue))
+                if (string.IsNullOrEmpty(propertyValue))
                 {
                     de.Properties[propertyName].RemoveAt(0);
                 }
@@ -826,7 +826,7 @@ namespace Dot.Utility.ActiveDirectory
             }
             else
             {
-                if (!String.IsNullOrEmpty(propertyValue))
+                if (!string.IsNullOrEmpty(propertyValue))
                 {
                     de.Properties[propertyName].Add(propertyValue);
                 }
@@ -846,7 +846,7 @@ namespace Dot.Utility.ActiveDirectory
                 if (entry.Properties.Contains(propertyName))
                     return entry.Properties[propertyName][0].ToString();
                 else
-                    return String.Empty;
+                    return string.Empty;
             }
             catch (Exception ex)
             {

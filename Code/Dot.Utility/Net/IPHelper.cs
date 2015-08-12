@@ -35,20 +35,14 @@ namespace Dot.Utility.Net
                 else
                     return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
             }
-            return string.Empty;
-
-            ////可以透过代理服务器
-            //string userIP = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            //if (userIP == null || userIP == "")
-            //{
-            //    //没有代理服务器,如果有代理服务器获取的是代理服务器的IP
-            //    userIP = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-            //}
-            //return userIP;
+            return string.Empty;          
         }
 
 
-        //获取本机的IP
+        /// <summary>
+        /// 获取本机的IP        
+        /// </summary>
+        /// <returns></returns>
         public static string GetLocalIP()
         {
 
@@ -62,7 +56,11 @@ namespace Dot.Utility.Net
             }
             return string.Empty;
         }
-        //获取本机的MAC
+         
+        /// <summary>
+        /// 获取本机的MAC       
+        /// </summary>
+        /// <returns></returns>
         public static string GetLocalMac()
         {
             string mac = null;
@@ -75,8 +73,12 @@ namespace Dot.Utility.Net
             }
             return (mac);
         }
-
-        //获取远程主机IP
+          
+        /// <summary>
+        /// 获取远程主机IP      
+        /// </summary>
+        /// <param name="RemoteHostName">Name of the remote host.</param>
+        /// <returns></returns>
         public static string[] GetRemoteIP(string RemoteHostName)
         {
             IPHostEntry ipEntry = Dns.GetHostEntry(RemoteHostName);
@@ -88,7 +90,13 @@ namespace Dot.Utility.Net
             }
             return (strAddr);
         }
-        //获取远程主机MAC
+        //
+        /// <summary>
+        /// 获取远程主机MAC        
+        /// </summary>
+        /// <param name="localIP">The local ip.</param>
+        /// <param name="remoteIP">The remote ip.</param>
+        /// <returns></returns>
         public static string GetRemoteMac(string localIP, string remoteIP)
         {
             Int32 ldest = inet_addr(remoteIP); //目的ip 

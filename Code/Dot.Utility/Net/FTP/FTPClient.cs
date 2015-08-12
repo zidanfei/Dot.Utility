@@ -5,6 +5,8 @@ using System.IO;
 using System.Text;
 using System.Net.Sockets;
 using System.Threading;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Dot.Utility
 {
@@ -260,6 +262,24 @@ namespace Dot.Utility
         {
             return trType;
         }
+
+
+        /// <summary>
+        /// 测试FTP服务器是否可登陆
+        /// </summary>
+        public bool CanConnect()
+        {
+            try
+            {
+                Connect();
+                DisConnect();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region 文件操作
@@ -444,7 +464,139 @@ namespace Dot.Utility
             {
                 throw new IOException(strReply.Substring(4));
             }
+        }      
+
+        /// <summary>
+        /// 修改文件
+        /// </summary>
+        /// <param name="ftpFolder">本地目录</param>
+        /// <param name="ftpFileName">本地文件名temp</param>
+        /// <param name="localFolder">本地目录</param>
+        /// <param name="localFileName">本地文件名</param>
+        public bool AddMSCFile(string ftpFolder, string ftpFileName, string localFolder, string localFileName, string BscInfo)
+        {
+            string sLine = "";
+            string sResult = "";
+            string path = "获得应用程序所在的完整的路径";
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            try
+            {
+                FileStream fsFile = new FileStream(ftpFolder + "\\" + ftpFileName, FileMode.Open);
+                FileStream fsFileWrite = new FileStream(localFolder + "\\" + localFileName, FileMode.Create);
+                StreamReader sr = new StreamReader(fsFile);
+                StreamWriter sw = new StreamWriter(fsFileWrite);
+                sr.BaseStream.Seek(0, SeekOrigin.Begin);
+                while (sr.Peek() > -1)
+                {
+                    sLine = sr.ReadToEnd();
+                }
+                string[] arStr = sLine.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (int i = 0; i < arStr.Length - 1; i++)
+                {
+                    sResult += BscInfo + "," + arStr[i].Trim() + "\n";
+                }
+                sr.Close();
+                byte[] connect = new UTF8Encoding(true).GetBytes(sResult);
+                fsFileWrite.Write(connect, 0, connect.Length);
+                fsFileWrite.Flush();
+                sw.Close();
+                fsFile.Close();
+                fsFileWrite.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
+
+        /// <summary>  
+        /// 获取FTP文件列表(包括文件夹)
+        /// </summary>   
+        private string[] GetAllList(string url)
+        {
+            List<string> list = new List<string>();
+            FtpWebRequest req = (FtpWebRequest)WebRequest.Create(new Uri(url));
+            req.Credentials = new NetworkCredential(strRemoteUser, strRemotePass);
+            req.Method = WebRequestMethods.Ftp.ListDirectory;
+            req.UseBinary = true;
+            req.UsePassive = true;
+            try
+            {
+                using (FtpWebResponse res = (FtpWebResponse)req.GetResponse())
+                {
+                    using (StreamReader sr = new StreamReader(res.GetResponseStream()))
+                    {
+                        string s;
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            list.Add(s);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return list.ToArray();
+        }
+
+        /// <summary>  
+        /// 获取当前目录下文件列表(不包括文件夹)  
+        /// </summary>  
+        public string[] GetFileList(string url)
+        {
+            StringBuilder result = new StringBuilder();
+            FtpWebRequest reqFTP;
+            try
+            {
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(url));
+                reqFTP.UseBinary = true;
+                reqFTP.Credentials = new NetworkCredential(strRemoteUser, strRemotePass);
+                reqFTP.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                WebResponse response = reqFTP.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+
+                    if (line.IndexOf("<DIR>") == -1)
+                    {
+                        result.Append(Regex.Match(line, @"[\S]+ [\S]+", RegexOptions.IgnoreCase).Value.Split(' ')[1]);
+                        result.Append("\n");
+                    }
+                    line = reader.ReadLine();
+                }
+                result.Remove(result.ToString().LastIndexOf('\n'), 1);
+                reader.Close();
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return result.ToString().Split('\n');
+        }
+
+        /// <summary>  
+        /// 判断当前目录下指定的文件是否存在  
+        /// </summary>  
+        /// <param name="RemoteFileName">远程文件名</param>  
+        public bool FileExist(string RemoteFileName)
+        {
+            string[] fileList = GetFileList("*.*");
+            foreach (string str in fileList)
+            {
+                if (str.Trim() == RemoteFileName.Trim())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         #endregion
 
         #region 上传和下载
@@ -453,7 +605,7 @@ namespace Dot.Utility
         /// </summary>
         /// <param name="strFileNameMask">文件名的匹配字符串</param>
         /// <param name="strFolder">本地目录(不得以\结束)</param>
-        public void Get(string strFileNameMask, string strFolder)
+        public void Download(string strFileNameMask, string strFolder)
         {
             if (!bConnected)
             {
@@ -464,7 +616,7 @@ namespace Dot.Utility
             {
                 if (!strFile.Equals(""))//一般来说strFiles的最后一个元素可能是空字符串
                 {
-                    Get(strFile, strFolder, strFile);
+                    Download(strFile, strFolder, strFile);
                 }
             }
         }
@@ -475,7 +627,7 @@ namespace Dot.Utility
         /// <param name="strRemoteFileName">要下载的文件名</param>
         /// <param name="strFolder">本地目录(不得以\结束)</param>
         /// <param name="strLocalFileName">保存在本地时的文件名</param>
-        public void Get(string strRemoteFileName, string strFolder, string strLocalFileName)
+        public void Download(string strRemoteFileName, string strFolder, string strLocalFileName)
         {
             Socket socketData = CreateDataSocket();
             try
@@ -528,65 +680,18 @@ namespace Dot.Utility
             }
         }
 
-        /// <summary>
-        /// 下载一个文件
-        /// </summary>
-        /// <param name="strRemoteFileName">要下载的文件名</param>
-        /// <param name="strFolder">本地目录(不得以\结束)</param>
-        /// <param name="strLocalFileName">保存在本地时的文件名</param>
-        public void GetNoBinary(string strRemoteFileName, string strFolder, string strLocalFileName)
-        {
-            if (!bConnected)
-            {
-                Connect();
-            }
-
-            if (strLocalFileName.Equals(""))
-            {
-                strLocalFileName = strRemoteFileName;
-            }
-            Socket socketData = CreateDataSocket();
-            SendCommand("RETR " + strRemoteFileName);
-            if (!(iReplyCode == 150 || iReplyCode == 125 || iReplyCode == 226 || iReplyCode == 250))
-            {
-                throw new IOException(strReply.Substring(4));
-            }
-            FileStream output = new FileStream(strFolder + "\\" + strLocalFileName, FileMode.Create);
-            while (true)
-            {
-                int iBytes = socketData.Receive(buffer, buffer.Length, 0);
-                output.Write(buffer, 0, iBytes);
-                if (iBytes <= 0)
-                {
-                    break;
-                }
-            }
-            output.Close();
-            if (socketData.Connected)
-            {
-                socketData.Close();
-            }
-            if (!(iReplyCode == 226 || iReplyCode == 250))
-            {
-                ReadReply();
-                if (!(iReplyCode == 226 || iReplyCode == 250))
-                {
-                    throw new IOException(strReply.Substring(4));
-                }
-            }
-        }
-
+      
         /// <summary>
         /// 上传一批文件
         /// </summary>
         /// <param name="strFolder">本地目录(不得以\结束)</param>
         /// <param name="strFileNameMask">文件名匹配字符(可以包含*和?)</param>
-        public void Put(string strFolder, string strFileNameMask)
+        public void Upload(string strFolder, string strFileNameMask)
         {
             string[] strFiles = Directory.GetFiles(strFolder, strFileNameMask);
             foreach (string strFile in strFiles)
             {
-                Put(strFile);
+                Upload(strFile);
             }
         }
 
@@ -594,7 +699,7 @@ namespace Dot.Utility
         /// 上传一个文件
         /// </summary>
         /// <param name="strFileName">本地文件名</param>
-        public void Put(string strFileName)
+        public void Upload(string strFileName)
         {
             if (!bConnected)
             {

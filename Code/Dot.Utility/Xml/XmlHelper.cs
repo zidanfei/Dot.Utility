@@ -91,7 +91,7 @@ namespace Dot.Utility.Xml
         /// 保存配置
         /// </summary>
         /// <param name="cfg">要保存的配置对象</param>
-        public void SaveConfig(string configPath, object cfg)
+        public static void SaveConfig(string configPath, object cfg)
         {
             if (cfg == null)
                 throw new ArgumentNullException();
@@ -119,32 +119,15 @@ namespace Dot.Utility.Xml
             }
         }
 
-        /// <summary>
-        /// 保存配置
-        /// </summary>
-        /// <param name="cfg">要保存的配置对象</param>
-        public void SaveConfig(string configPath, string configName, object cfg)
-        {
-            Type t = cfg.GetType();
-
-            if (!Directory.Exists(configPath))
-            {
-                Directory.CreateDirectory(configPath);
-            }
-
-            string path = System.IO.Path.Combine(configPath, t.Name + ".xml");
-            System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
-
-            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(path, false, System.Text.Encoding.Unicode))
-            {
-                GetSerializer(t).Serialize(sr, cfg);
-                sr.Close();
-            }
-        }
-
         #endregion
 
-        #region 修改指定XML节的信息
+        #region 修改指定XML节的信息        
+        /// <summary>
+        /// 修改指定XML节的信息       
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="attributeName">Name of the attribute.</param>
+        /// <param name="value">The value.</param>
         public void SetNhibernateXmlAttributeValue(string filePath, string attributeName, string value)
         {
             try
@@ -197,6 +180,12 @@ namespace Dot.Utility.Xml
             }
         }
 
+        /// <summary>
+        /// 获取指定XML节的信息    
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="attributeName">Name of the attribute.</param>
+        /// <returns></returns>
         public string GetNhibernateXmlAttributeValue(string filePath, string attributeName)
         {
             string returnValue = string.Empty;
@@ -260,7 +249,7 @@ namespace Dot.Utility.Xml
         /// <typeparam name=\"T\">对象类型</typeparam> 
         /// <param name=\"t\">对象</param> 
         /// <returns></returns> 
-        public string SerializeToString(object t)
+        public static string Serialize(object t)
         {
             if (t == null)
                 throw new ArgumentNullException("待保存的配置文件信息不能为null");
@@ -279,7 +268,7 @@ namespace Dot.Utility.Xml
         /// <param name=\"type\">对象类型</param> 
         /// <param name=\"s\">对象序列化后的Xml字符串</param> 
         /// <returns></returns> 
-        public object DeserializeStringToObject(Type type, string s)
+        public static object Deserialize(Type type, string s)
         {
             if (string.IsNullOrEmpty(s))
                 throw new ArgumentNullException("配置文件内容为null，无法读取配置文件内容");

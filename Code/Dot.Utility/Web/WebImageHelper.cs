@@ -14,7 +14,7 @@ namespace Dot.Utility.Web
 {
     public class WebImageHelper
     {
-        public static Array MatchHtml(string html, string com)
+        static Array MatchHtml(string html, string com)
         {
             List<string> urls = new List<string>();
 
@@ -51,8 +51,10 @@ namespace Dot.Utility.Web
 
         [DllImport("kernel32.dll")]
         static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
+
         [DllImport("kernel32.dll")]
         static extern bool GetConsoleMode(IntPtr hConsoleHandle, out int mode);
+
         [DllImport("kernel32.dll")]
         static extern IntPtr GetStdHandle(int handle);
         const int STD_INPUT_HANDLE = -10;
@@ -67,6 +69,11 @@ namespace Dot.Utility.Web
             SetConsoleMode(handle, mode);
         }
 
+        /// <summary>
+        /// 下载某个网页图片
+        /// </summary>
+        /// <param name="rootPath">The root path.</param>
+        /// <param name="url">The URL.</param>
         public static void DownLoadImage(string rootPath,string url)
         {
             EnableQuickEditMode();

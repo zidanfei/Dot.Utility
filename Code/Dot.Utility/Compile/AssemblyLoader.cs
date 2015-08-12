@@ -17,7 +17,7 @@ namespace Dot.Utility.Compile
         /// <param name="assemblyPath">程序集文件物理地址</param>
         /// <param name="className">要搜索的类的全名</param>
         /// <returns>得到的实例</returns>
-        public static Object GetObjectByAssembly(String assemblyPath, String className)
+        public static Object GetObjectByAssembly(string assemblyPath, string className)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Dot.Utility.Compile
         /// <param name="assemblyPath">程序集物理路径</param>
         /// <param name="ignoreTypes">指定的类型将不包含在返回的实例集合中</param>
         /// <returns>实例</returns>
-        public static T[] GetImplementations<T>(String path, params Type[] ignoreTypes)
+        public static T[] GetImplementations<T>(string path, params Type[] ignoreTypes)
         {
             return GetImplementations<T>(Assembly.LoadFrom(path), ignoreTypes);
         }

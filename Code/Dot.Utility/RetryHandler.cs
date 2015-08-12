@@ -12,7 +12,7 @@ namespace Dot.Utility
 {
     public static class Common
     {
-        delegate Object AsynchronousHandler(Object instance, String function, Object[] args, Boolean isPublic, Boolean isStatic);
+        delegate Object AsynchronousHandler(Object instance, string function, Object[] args, Boolean isPublic, Boolean isStatic);
         static AsynchronousHandler ah;
 
         /// <summary>
@@ -41,11 +41,11 @@ namespace Dot.Utility
         /// <param name="isPublic">指示该函数是否为公共函数</param>
         /// <param name="isStatic">指示该函数是否为静态函数</param>
         /// <returns>函数调用返回值, 如果函数没有返回值或者调用出错则返回NULL,</returns>
-        public static Object TestInvokeMethod(Object instance, String function, Object[] args, Boolean isPublic, Boolean isStatic)
+        public static Object TestInvokeMethod(Object instance, string function, Object[] args, Boolean isPublic, Boolean isStatic)
         {
             Type type = instance.GetType();
             Int32 errorRecord = 0;
-            String recName = type.Name + "." + function;
+            string recName = type.Name + "." + function;
 
             Object value = AppDomain.CurrentDomain.GetData(recName);
 
@@ -113,7 +113,7 @@ namespace Dot.Utility
         /// <param name="args"></param>
         /// <param name="isPublic"></param>
         /// <param name="isStatic"></param>
-        public static void AsynchronousTestInvokeMethod(Object instance, String function, Object[] args, Boolean isPublic, Boolean isStatic, OperationFinishedHandler ofh)
+        public static void AsynchronousTestInvokeMethod(Object instance, string function, Object[] args, Boolean isPublic, Boolean isStatic, OperationFinishedHandler ofh)
         {
 
             ah = ah ?? new AsynchronousHandler(TestInvokeMethod);
@@ -138,7 +138,7 @@ namespace Dot.Utility
         /// <param name="uri"></param>
         /// <param name="port"></param>
         /// <returns></returns>
-        public static Boolean CheckURI(String uri, Int32 port)
+        public static Boolean CheckURI(string uri, Int32 port)
         {
 
             IPAddress ip = IPAddress.Parse(uri);
