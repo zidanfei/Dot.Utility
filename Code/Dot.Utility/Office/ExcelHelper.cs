@@ -1043,7 +1043,7 @@ namespace Dot.Utility.Office
             return arrayList;
         }
 
-        public static bool isNumeric(String message, out double result)
+        public static bool isNumeric(string message, out double result)
         {
             Regex rex = new Regex(@"^[-]?\d+[.]?\d*$");
             result = -1;

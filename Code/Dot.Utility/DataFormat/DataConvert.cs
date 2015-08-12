@@ -267,6 +267,39 @@ namespace Dot.Utility
         }
 
 
+        /// <summary>  
+        /// 利用反射和泛型  
+        /// </summary>  
+        /// <param name="dt"></param>  
+        /// <returns></returns>  
+        public static DataTable ToDataTable<T>(IList<T> list) where T : class,new()
+        {
+
+            // 定义集合  
+            DataTable dt = new DataTable();
+
+            // 获得此模型的类型  
+            Type type = typeof(T);
+            PropertyInfo[] propertys = type.GetProperties();
+            foreach (var p in propertys)
+            {
+                DataColumn dc = new DataColumn();
+                dc.ColumnName = p.Name;
+                dt.Columns.Add(dc);
+            }
+            foreach (var item in list)
+            {
+                var newrow = dt.NewRow();
+                foreach (DataColumn column in dt.Columns)
+                {
+                    newrow[column.ColumnName] = item.GetType().GetProperty(column.ColumnName).GetValue(item, null);
+                }
+                dt.Rows.Add(newrow);
+            }
+            return dt;
+        }
+
+
         public static string ToShortGuid(Guid Guid)
         {
             byte[] array = Guid.ToByteArray();
