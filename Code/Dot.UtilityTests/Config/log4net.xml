@@ -40,7 +40,11 @@ ALL                         Lowest
       <appender-ref ref="PlatformExceptionLog" />
       <!--<appender-ref ref="DBExceptionLog" />-->
     </logger>
-    
+    <logger name="RunningLog">
+      <level value="DEBUG"/>
+      <appender-ref ref="PlatformExceptionLog" />
+      <!--<appender-ref ref="DBBusinessLog" />-->
+    </logger>
     <!-- 日志输出格式化：
 %m(message):输出的日志消息，如ILog.Debug(…)输出的一条消息
 %n(new line):换行

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -62,6 +65,8 @@
     <Compile Include="File\FileOperateTests.cs" />
     <Compile Include="Log\LoghelperTests.cs" />
     <Compile Include="Mail\EmailHelperTests.cs" />
+    <Compile Include="MemCached\MemcacheConsole.cs" />
+    <Compile Include="MemCached\MemcachedClientTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

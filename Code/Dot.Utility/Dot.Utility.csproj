@@ -129,6 +129,7 @@
     <Compile Include="DTO\BusinessLogicFault.cs" />
     <Compile Include="DTO\GenericFault.cs" />
     <Compile Include="DTO\WSResponse.cs" />
+    <Compile Include="EntityFramework\EntityFrameworkRepositoryBase.cs" />
     <Compile Include="Enum\DataState.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
@@ -278,6 +279,15 @@
     <Compile Include="Media\VideoConvert.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="MemCached\CRCTool.cs" />
+    <Compile Include="MemCached\IterIsolate.cs" />
+    <Compile Include="MemCached\MemCachedClient.cs" />
+    <Compile Include="MemCached\MemCachedConfigSection.cs" />
+    <Compile Include="MemCached\NativeHandler.cs" />
+    <Compile Include="MemCached\NestedIOException.cs" />
+    <Compile Include="MemCached\NetworkStreamIgnoreSeek.cs" />
+    <Compile Include="MemCached\SockIO.cs" />
+    <Compile Include="MemCached\SockIOPool.cs" />
     <Compile Include="Net\FTP\FTPClient.cs" />
     <Compile Include="Net\FTP\FTPHelper.cs" />
     <Compile Include="Net\HttpHelper.cs" />
@@ -334,10 +344,14 @@
     <Content Include="Config\log4net.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ReadMe.txt" />
+    <Content Include="ReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Security\WebSafe使用说明.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="MemCached\StringMessages.resx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.97.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.97.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
