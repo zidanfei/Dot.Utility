@@ -32,32 +32,72 @@ namespace Dot.Utility.EntityFramework
 
         protected DbSet<T> _objectSet;
 
+        /// <summary>
+        /// 获取多条数据
+        /// </summary>
+        /// <returns></returns>
         public virtual IList<T> GetList()
         {
             return _objectSet.ToList();
         }
 
+        /// <summary>
+        /// 获取多条数据
+        /// </summary>
+        /// <param name="pageCount">The page count.</param>
+        /// <returns></returns>
         public virtual IList<T> GetList(out int pageCount)
         {
             pageCount = _objectSet.Count();
             return _objectSet.ToList();
         }
 
+        /// <summary>
+        /// 获取多条数据
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate)
+        {
+            return _objectSet.Where(predicate).ToList();
+        }
+
+        /// <summary>
+        /// 获取多条数据
+        /// 懒查询
+        /// </summary>
+        /// <returns></returns>
         public virtual IQueryable<T> GetQueryList()
         {
             return _objectSet;
         }
 
+        /// <summary>
+        /// 获取多条数据
+        /// 懒查询
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate)
         {
             return _objectSet.Where(predicate);
         }
 
-        public virtual IEnumerable<T> GetList(Expression<Func<T, bool>> predicate)
-        {
-            return _objectSet.Where(predicate).ToList();
-        }
-
+        /// <summary>
+        /// 获取多条数据
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <param name="pageCount">分页个数</param>
+        /// <param name="orderby">正序条件</param>
+        /// <param name="orderbyDescending">降序条件</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">
+        /// pageIndex
+        /// or
+        /// pageSize
+        /// </exception>
         public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending)
         {
 
@@ -90,34 +130,59 @@ namespace Dot.Utility.EntityFramework
 
         }
 
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public virtual int GetCount(Expression<Func<T, bool>> predicate)
         {
             return _objectSet.Where(predicate).Count();
         }
 
+        /// <summary>
+        /// 获取某个实体
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
         public virtual T Get(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
         {
             return _objectSet.Where(predicate).FirstOrDefault();
         }
 
+        /// <summary>
+        /// 插入实体
+        /// 保存到数据库，请调用Save方法
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public virtual void Add(T entity)
         {
             _objectSet.Add(entity);
         }
 
+        /// <summary>
+        /// 更新实体
+        /// 保存到数据库，请调用Save方法
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public virtual void Update(T entity)
         {
             //_dbContext.Entry(entity).State = EntityState.Modified;
         }
 
-        //public abstract void Update(T entity);
 
+        /// <summary>
+        /// 删除实体
+        /// 保存到数据库，请调用Save方法
+        /// </summary>
+        /// <param name="entity">The entity.</param>
         public virtual void Delete(T entity)
         {
             _objectSet.Remove(entity);
         }
+
         /// <summary>
-        /// 
+        /// 保存所有变更。
         /// </summary>
         public virtual void Save()
         {

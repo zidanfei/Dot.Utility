@@ -88,6 +88,10 @@
     <Reference Include="System.IdentityModel.Selectors" />
     <Reference Include="System.identitymodel.services" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Management.Automation_PowerShell_3.0.6.3.9600.17400\lib\net40\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Channels" />
@@ -297,6 +301,19 @@
     <Compile Include="Net\LocalMachine.cs" />
     <Compile Include="Office\ExcelHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PSWrapper\CmdletParameterBase.cs" />
+    <Compile Include="PSWrapper\CmdletParameterObjectException.cs" />
+    <Compile Include="PSWrapper\CmdletParameterSetBase.cs" />
+    <Compile Include="PSWrapper\CmdletParameterSetProcessor.cs" />
+    <Compile Include="PSWrapper\CmdletParameterSwitchValuePair.cs" />
+    <Compile Include="PSWrapper\CmdletProcessor.cs" />
+    <Compile Include="PSWrapper\CmdletStringParameter.cs" />
+    <Compile Include="PSWrapper\CmdletStringProcessor.cs" />
+    <Compile Include="PSWrapper\CmdletSwitchParameter.cs" />
+    <Compile Include="PSWrapper\ICmdletParameter.cs" />
+    <Compile Include="PSWrapper\ICmdletProcessor.cs" />
+    <Compile Include="PSWrapper\PALCmdletInvocationException.cs" />
+    <Compile Include="PSWrapper\ParameterValueTypeEnum.cs" />
     <Compile Include="RetryHandler.cs" />
     <Compile Include="Security\CustomX509Validator.cs" />
     <Compile Include="Security\DisposableObject.cs" />
