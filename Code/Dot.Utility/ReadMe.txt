@@ -1,4 +1,15 @@
-﻿Nuget 引用及版本
+﻿
+
+加入 unity
+
+加入mvc快捷使用功能
+
+加入entity framework快捷使用功能
+支持db first ,code first
+
+加入powershell 快捷使用功能
+
+Nuget 引用及版本
 
 log4net.2.0.3
 EntityFramework.6.1.3
