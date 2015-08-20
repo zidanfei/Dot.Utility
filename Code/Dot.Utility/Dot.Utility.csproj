@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Dot.Utility.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Dot.Utility.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -136,6 +138,7 @@
     <Compile Include="DTO\GenericFault.cs" />
     <Compile Include="DTO\WSResponse.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBase.cs" />
+    <Compile Include="EntityFramework\IRepositoryBase.cs" />
     <Compile Include="Enum\DataState.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />

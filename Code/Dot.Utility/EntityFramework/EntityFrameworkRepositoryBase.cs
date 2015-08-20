@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dot.Utility.EntityFramework
 {
-    public abstract class EntityFrameworkRepositoryBase<T, TContext> : IDisposable
+    public abstract class EntityFrameworkRepositoryBase<T, TContext> :IRepositoryBase<T, TContext>, IDisposable
         where T : class,new()
         where TContext : DbContext, new()
     {
@@ -89,6 +89,7 @@ namespace Dot.Utility.EntityFramework
         /// <param name="predicate">查询条件</param>
         /// <param name="pageIndex">当前页面</param>
         /// <param name="pageSize">分页大小</param>
+        /// <param name="total">总数</param>
         /// <param name="pageCount">分页个数</param>
         /// <param name="orderby">正序条件</param>
         /// <param name="orderbyDescending">降序条件</param>
@@ -98,7 +99,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception>
-        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending)
+        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,out int total, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending)
         {
 
             if (pageIndex <= 0)
@@ -110,9 +111,9 @@ namespace Dot.Utility.EntityFramework
             {
                 expr = expr.Where(predicate);
             }
-            var count = expr.Count();
-            pageCount = int.Parse((count / pageSize).ToString());
-            pageCount = (count % pageSize != 0) ? pageCount + 1 : pageCount;
+            total = expr.Count();
+            pageCount = int.Parse((total / pageSize).ToString());
+            pageCount = (total % pageSize != 0) ? pageCount + 1 : pageCount;
 
             int startn = (pageIndex - 1) * pageSize;
             if (orderby != null)
@@ -127,7 +128,6 @@ namespace Dot.Utility.EntityFramework
             {
                 return expr.Skip(startn).Take(pageSize).ToList();
             }
-
         }
 
         /// <summary>
@@ -138,6 +138,15 @@ namespace Dot.Utility.EntityFramework
         public virtual int GetCount(Expression<Func<T, bool>> predicate)
         {
             return _objectSet.Where(predicate).Count();
+        }
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <returns></returns>
+        public virtual int GetCount()
+        {
+            return _objectSet.Count();
         }
 
         /// <summary>
@@ -167,6 +176,7 @@ namespace Dot.Utility.EntityFramework
         /// <param name="entity">The entity.</param>
         public virtual void Update(T entity)
         {
+
             //_dbContext.Entry(entity).State = EntityState.Modified;
         }
 
