@@ -1,4 +1,5 @@
 ﻿
+using Dot.ComponentModel;
 using Dot.DDD;
 using System;
 using System.Collections.Generic;
@@ -92,19 +93,19 @@ namespace Dot.IOC
         #region RegisterByAttribute
 
         /// <summary>
-        /// 组合所有组件中标记了 <see cref="ContainerItemAttribute"/> 的类型到 IOC 容器中。
+        /// 组合所有组件中标记了 <see cref="ExportAttribute"/> 的类型到 IOC 容器中。
         /// 
         /// 此方法只能调用一次，
         /// 而且应该重写 <see cref="AppImplementationBase.RaiseComposeOperations"/> 方法中调用。
         /// </summary>
-        //public static void RegisterAllPluginsByAttribute()
-        //{
-        //    var assemblies = RafyEnvironment.GetAllPlugins().Select(p => p.Assembly);
-        //    RegisterByAttribute(assemblies);
-        //}
+        public static void RegisterAllPluginsByAttribute()
+        {
+            var assemblies = PluginTable.Assemblys;
+            RegisterByAttribute(assemblies);
+        }
 
         /// <summary>
-        /// 注册指定插件中标记了 <see cref="ContainerItemAttribute" /> 的类型到 IOC 容器中。
+        /// 注册指定插件中标记了 <see cref="ExportAttribute" /> 的类型到 IOC 容器中。
         /// 此方法应该在 ComposeOperations 周期中执行。
         /// 
         /// <example>
@@ -120,7 +121,7 @@ namespace Dot.IOC
         ///     //var container = Composer.ObjectContainer;
         ///     //container.RegisterType<IPlugin, UnityAdapterPlugin>();
         /// 
-        ///     //引用 Rafy.ComponentModel.UnityAdapter 插件后，还可以使用 UnityContainer 来注册，并同时注册拦截器。
+        ///     //引用 .ComponentModel.UnityAdapter 插件后，还可以使用 UnityContainer 来注册，并同时注册拦截器。
         ///     //var container = UnityAdapterHelper.GetUnityContainer(Composer.ObjectContainer);
         ///     //container.RegisterType<IPlugin, UnityAdapterPlugin>();
         /// }
@@ -129,11 +130,11 @@ namespace Dot.IOC
         /// </summary>
         /// <param name="plugin">The plugin.</param>
         /// <exception cref="System.ArgumentNullException">plugin</exception>
-        //public static void RegisterByAttribute(IPlugin plugin)
-        //{
-        //    if (plugin == null) throw new ArgumentNullException("plugin");
-        //    RegisterByAttribute(new Assembly[] { plugin.Assembly });
-        //}
+        public static void RegisterByAttribute(IPlugin plugin)
+        {
+            if (plugin == null) throw new ArgumentNullException("plugin");
+            RegisterByAttribute(new Assembly[] { plugin.Assembly });
+        }
 
         private static void RegisterByAttribute(IEnumerable<Assembly> assemblies)
         {
@@ -147,10 +148,10 @@ namespace Dot.IOC
                     var type = types[i];
                     if (!type.IsInterface && !type.IsAbstract && !type.IsGenericTypeDefinition)
                     {
-                        var attriList = type.GetCustomAttributes(typeof(ContainerItemAttribute), false);
+                        var attriList = type.GetCustomAttributes(typeof(ExportAttribute), false);
                         if (attriList.Length > 0)
                         {
-                            foreach (ContainerItemAttribute attri in attriList)
+                            foreach (ExportAttribute attri in attriList)
                             {
                                 if (attri.RegisterWay == RegisterWay.Type)
                                 {

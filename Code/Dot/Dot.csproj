@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,11 +60,21 @@
     <Compile Include="Cache\CachingAttribute.cs" />
     <Compile Include="Cache\CachingMethod.cs" />
     <Compile Include="Cache\ICacheProvider.cs" />
+    <Compile Include="LocalCache\LocalCacheProvider.cs" />
+    <Compile Include="ComponentModel\AppImplementationBase.cs" />
+    <Compile Include="ComponentModel\AppPlugin.cs" />
+    <Compile Include="ComponentModel\IApp.cs" />
+    <Compile Include="ComponentModel\IClientApp.cs" />
+    <Compile Include="ComponentModel\IPlugin.cs" />
+    <Compile Include="ComponentModel\PluginAssembly.cs" />
+    <Compile Include="ComponentModel\PluginTable.cs" />
+    <Compile Include="ComponentModel\ReuseLevel.cs" />
     <Compile Include="DDD\EventBus.cs" />
     <Compile Include="DDD\IEventBus.cs" />
     <Compile Include="DDD\IEventSubscribers.cs" />
+    <Compile Include="EnvironmentProvider.cs" />
     <Compile Include="IOC\CompositionExtension.cs" />
-    <Compile Include="IOC\ContainerItemAttribute.cs" />
+    <Compile Include="IOC\ExportAttribute.cs" />
     <Compile Include="IOC\IServiceContainer.cs" />
     <Compile Include="IOC\Composer.cs" />
     <Compile Include="IOC\IObjectContainer.cs" />
@@ -72,7 +83,20 @@
     <Compile Include="IOC\ObjectContainerFactory.cs" />
     <Compile Include="IOC\ObjectContainerToServiceConatinerAdapter.cs" />
     <Compile Include="IOC\SimpleObjectContainer.cs" />
+    <Compile Include="IOC\UnityAdapterHelper.cs" />
+    <Compile Include="IOC\UnityAdapterPlugin.cs" />
+    <Compile Include="IOC\UnityContainerAdapter.cs" />
+    <Compile Include="IOC\UnityContainerAdapterFactory.cs" />
+    <Compile Include="IOC\UnityContainerCreatedEventArgs.cs" />
+    <Compile Include="LocalCache\CacheManager.cs" />
+    <Compile Include="LocalCache\CollectionJoinerBase.cs" />
+    <Compile Include="LocalCache\EnumeratorJoinerBase.cs" />
+    <Compile Include="LocalCache\ICache.cs" />
+    <Compile Include="LocalCache\MemoryCache.cs" />
+    <Compile Include="LocalCache\TimedCacheKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DotEnvironment.cs" />
+    <Compile Include="DotEnvironment.Plugins.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dot.snk" />

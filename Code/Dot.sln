@@ -19,6 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.UtilityTests", "Dot.Uti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot", "Dot\Dot.csproj", "{10049683-AC64-4BC9-B1ED-15D32120B082}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{473D7614-54C5-4731-91A9-BE97A5059375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotTests", "DotTests\DotTests.csproj", "{E4B406B4-E89C-431B-8674-F247A8B49282}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{E70A0AC7-3D4B-48BB-BE48-0101A3777AF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Cache", "Dot.Cache\Dot.Cache.csproj", "{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,8 +65,21 @@ Global
 		{10049683-AC64-4BC9-B1ED-15D32120B082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10049683-AC64-4BC9-B1ED-15D32120B082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10049683-AC64-4BC9-B1ED-15D32120B082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4B406B4-E89C-431B-8674-F247A8B49282}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4B406B4-E89C-431B-8674-F247A8B49282}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4B406B4-E89C-431B-8674-F247A8B49282}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4B406B4-E89C-431B-8674-F247A8B49282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE} = {473D7614-54C5-4731-91A9-BE97A5059375}
+		{E4B406B4-E89C-431B-8674-F247A8B49282} = {473D7614-54C5-4731-91A9-BE97A5059375}
+		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067} = {E70A0AC7-3D4B-48BB-BE48-0101A3777AF7}
 	EndGlobalSection
 EndGlobal

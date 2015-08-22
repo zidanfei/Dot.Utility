@@ -59,16 +59,14 @@ namespace Dot.IOC
 
         public static bool IsRegistered(Type interfaceType, string keyName)
         {
-            return true;
-            //var unitContainer = UnityAdapterHelper.GetUnityContainer(Composer.ObjectContainer);
-            //return unitContainer.IsRegistered(interfaceType, keyName);
+            var unitContainer = UnityAdapterHelper.GetUnityContainer(Composer.ObjectContainer);
+            return unitContainer.IsRegistered(interfaceType, keyName);
         }
 
         public static bool IsRegistered(Type interfaceType)
         {
-            return true;
-            //var unitContainer = UnityAdapterHelper.GetUnityContainer(Composer.ObjectContainer);
-            //return unitContainer.IsRegistered(interfaceType);
+            var unitContainer = UnityAdapterHelper.GetUnityContainer(Composer.ObjectContainer);
+            return unitContainer.IsRegistered(interfaceType);
         }
     }
 }
