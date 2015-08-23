@@ -1,4 +1,5 @@
 ﻿
+using Dot.IOC;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -80,7 +81,8 @@ namespace Dot.ComponentModel
         /// </summary>
         protected virtual void InitEnvironment()
         {
-            //如果配置了文化，则修改 UI 文化。否则使用系统默认的文化。
+
+            PluginTable.Assemblys.AddPlugin<DotPlugin>();
           
         }
 
@@ -90,6 +92,7 @@ namespace Dot.ComponentModel
         private void InitAllPlugins()
         {
             DotEnvironment.StartupAppPlugins();
+           
             
         }
 

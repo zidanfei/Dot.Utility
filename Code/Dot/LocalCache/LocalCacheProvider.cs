@@ -12,6 +12,10 @@ namespace Dot.LocalCache
     public class LocalCacheProvider : ICacheProvider
     {
         private string defaultContext = "default";
+        public LocalCacheProvider()
+        {
+
+        }
 
         public void Add(string key, string valKey, object value)
         {

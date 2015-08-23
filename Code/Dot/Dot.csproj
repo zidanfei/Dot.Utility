@@ -84,7 +84,7 @@
     <Compile Include="IOC\ObjectContainerToServiceConatinerAdapter.cs" />
     <Compile Include="IOC\SimpleObjectContainer.cs" />
     <Compile Include="IOC\UnityAdapterHelper.cs" />
-    <Compile Include="IOC\UnityAdapterPlugin.cs" />
+    <Compile Include="ComponentModel\DotPlugin.cs" />
     <Compile Include="IOC\UnityContainerAdapter.cs" />
     <Compile Include="IOC\UnityContainerAdapterFactory.cs" />
     <Compile Include="IOC\UnityContainerCreatedEventArgs.cs" />

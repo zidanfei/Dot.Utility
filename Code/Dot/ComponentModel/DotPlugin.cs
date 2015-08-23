@@ -13,7 +13,7 @@ namespace Dot.IOC
     /// 从 Unity 适配到 IObjectContainer 的插件。
     /// 使用此插件后， 平台的 IOC 框架将由 UnityContainer 来实现。
     /// </summary>
-    public class UnityAdapterPlugin : AppPlugin
+    public class DotPlugin : AppPlugin
     {
         /// <summary>
         /// 启动级别：系统级。

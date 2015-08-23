@@ -11,7 +11,7 @@ namespace Dot.Cache
     {
         #region Private Fields
 
-        private static readonly ICacheProvider instance = Composer.ObjectContainer.Resolve<ICacheProvider>();
+        private static readonly ICacheProvider instance = ObjectContainer.CreateInstance<ICacheProvider>();
         private static readonly IDictionary<string, ICacheProvider> instances = new Dictionary<string, ICacheProvider>();
         private static object _cacheLock = new object();
 

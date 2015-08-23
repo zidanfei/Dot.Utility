@@ -100,7 +100,7 @@ namespace Dot.IOC
         /// </summary>
         public static void RegisterAllPluginsByAttribute()
         {
-            var assemblies = PluginTable.Assemblys;
+            var assemblies = PluginTable.Assemblys; 
             RegisterByAttribute(assemblies);
         }
 
