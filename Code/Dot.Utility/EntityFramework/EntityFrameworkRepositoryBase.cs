@@ -131,6 +131,35 @@ namespace Dot.Utility.EntityFramework
         }
 
         /// <summary>
+        /// 获取多条数据
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <param name="orderby">正序条件</param>
+        /// <param name="orderbyDescending">降序条件</param>
+        /// <returns></returns>
+        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, string> orderby, Func<T, string> orderbyDescending)
+        {
+
+            IQueryable<T> expr = _objectSet;
+            if (predicate != null)
+            {
+                expr = expr.Where(predicate);
+            }
+            if (orderby != null)
+            {
+                return expr.OrderBy(orderby).ToList();
+            }
+            else if (orderbyDescending != null)
+            {
+                return expr.OrderByDescending(orderbyDescending).ToList();
+            }
+            else
+            {
+                return expr.ToList();
+            }
+        }
+
+        /// <summary>
         /// 获取实体个数
         /// </summary>
         /// <param name="predicate">查询条件</param>

@@ -67,6 +67,15 @@ namespace Dot.Utility.EntityFramework
         /// </exception>
         IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,out int total, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending);
 
+          /// <summary>
+        /// 获取多条数据
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <param name="orderby">正序条件</param>
+        /// <param name="orderbyDescending">降序条件</param>
+        /// <returns></returns>
+        IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, string> orderby, Func<T, string> orderbyDescending);
+
         /// <summary>
         /// 获取实体个数
         /// </summary>
