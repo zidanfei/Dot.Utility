@@ -331,6 +331,8 @@
     <Compile Include="Security\YZMHelper.cs" />
     <Compile Include="Serialization\JsonSerialization.cs" />
     <Compile Include="Serialization\ObjectToByteArrayExtension.cs" />
+    <Compile Include="Service\ResponseResult.cs" />
+    <Compile Include="Service\Result.cs" />
     <Compile Include="Service\WebServiceInvoker.cs" />
     <Compile Include="String\ChineseToPinYin.cs" />
     <Compile Include="String\PasswordHelper.cs" />
