@@ -561,7 +561,11 @@ namespace Dot.Utility.ActiveDirectory
         /// <returns></returns>
         public static SearchResultCollection GetAllSubUsers(DirectoryEntry parent)
         {
-            return GetAllSubDirectoryEntrys(parent, Type_User);
+            DirectorySearcher deSearch = new DirectorySearcher(parent);
+            deSearch.Filter = "(&(objectCategory=person)(objectClass=user))";
+            deSearch.SearchScope = SearchScope.Subtree;            
+            SearchResultCollection srList = deSearch.FindAll();
+            return srList;
         }
 
         /// <summary>
@@ -583,7 +587,7 @@ namespace Dot.Utility.ActiveDirectory
         public static SearchResultCollection GetDirectSubUsers(DirectoryEntry parent)
         {
             DirectorySearcher deSearch = new DirectorySearcher(parent);
-            deSearch.Filter = "(objectClass=user)";
+            deSearch.Filter = "(&(objectCategory=person)(objectClass=user))";
             deSearch.SearchScope = SearchScope.OneLevel;
             //try
             //{

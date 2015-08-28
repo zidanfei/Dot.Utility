@@ -81,10 +81,10 @@ namespace Dot
                 {
                     if (_libraries == null)
                     {
-                        var assemblies = EnumerateAllDomainAssemblies().Union(PluginTable.Assemblys).ToArray();
+                        var assemblies = EnumerateAllDomainAssemblies().Union(PluginTable.Plugins).ToArray();
                         _libraries = LoadSortedPlugins(assemblies);
 
-                        PluginTable.Assemblys.Lock();
+                        PluginTable.Plugins.Lock();
                     }
                 }
             }

@@ -70,7 +70,7 @@ namespace Dot.ComponentModel
         /// </summary>
         protected virtual void PrepareToStartup()
         {
-            PluginTable.Assemblys.Unlock();
+            PluginTable.Plugins.Unlock();
 
          
         }
@@ -82,7 +82,7 @@ namespace Dot.ComponentModel
         protected virtual void InitEnvironment()
         {
 
-            PluginTable.Assemblys.AddPlugin<DotPlugin>();
+            PluginTable.Plugins.AddPlugin<DotPlugin>();
           
         }
 

@@ -19,7 +19,7 @@ namespace Dot.ComponentModel
         /// <summary>
         /// 已经添加的实体插件程序集。
         /// </summary>
-        public static PluginTable Assemblys
+        public static PluginTable Plugins
         {
             get { return _assemblys; }
         }

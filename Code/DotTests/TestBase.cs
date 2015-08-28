@@ -19,7 +19,7 @@ namespace Dot
     {
         protected override void InitEnvironment()
         {
-            PluginTable.Assemblys.AddPlugin<Dot.Cache.CachePlugin>();
+            PluginTable.Plugins.AddPlugin<Dot.Cache.CachePlugin>();
 
             base.InitEnvironment();
         }
