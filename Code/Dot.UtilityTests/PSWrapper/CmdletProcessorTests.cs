@@ -29,7 +29,7 @@ namespace Dot.Utility.PSWrapper.Tests
             using (CmdletProcessor cp = new CmdletProcessor())
             {
                 string pspath = System.AppDomain.CurrentDomain.BaseDirectory + "\\PSWrapper\\get-process.ps1";
-                var par = new CmdletParameterSetBase(pspath).AddParameter(new CmdletParameterSwitchValuePair("processName", new CmdletStringParameter("kw")));
+                var par = new CmdletParameterSetBase(pspath).AddParameter(new CmdletParameterSwitchValuePair("processName", new CmdletStringParameter("qq")));
                 var result = cp.RunCmdlet<PSObject>(par);
 
 

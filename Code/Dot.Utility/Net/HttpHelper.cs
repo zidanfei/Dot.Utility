@@ -17,10 +17,10 @@ namespace Dot.Utility.Net
     {
         public HttpHelper()
         {
-            ChatSet = "UTF8";
+            ChatSet = "UTF-8";
         }
 
-        public HttpHelper(string chatset = "UTF8")
+        public HttpHelper(string chatset = "UTF-8")
         {
             ChatSet = chatset;
         }

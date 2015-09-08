@@ -127,6 +127,7 @@
     <Compile Include="ActiveDirectory\NameHelper.cs" />
     <Compile Include="ActiveDirectory\OU.cs" />
     <Compile Include="ActiveDirectory\User.cs" />
+    <Compile Include="CommendHelper.cs" />
     <Compile Include="Compile\AssemblyLoader.cs" />
     <Compile Include="Compile\DllPackageHelper.cs" />
     <Compile Include="Compile\DynamicCompileHelper.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="DTO\WSResponse.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBase.cs" />
     <Compile Include="EntityFramework\IRepositoryBase.cs" />
+    <Compile Include="EntityFramework\UniqueAttribute.cs" />
     <Compile Include="Enum\DataState.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />

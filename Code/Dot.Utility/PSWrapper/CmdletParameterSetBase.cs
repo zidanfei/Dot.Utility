@@ -18,6 +18,8 @@ namespace Dot.Utility.PSWrapper
         public CmdletParameterSetBase(string cmdletName)
         {
             this.cmdletName = cmdletName;
+            if (parameters == null)
+                parameters = new List<CmdletParameterSwitchValuePair>();
         }
 
         private List<CmdletParameterSwitchValuePair> parameters;

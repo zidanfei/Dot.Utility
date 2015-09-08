@@ -11,7 +11,6 @@ namespace Dot.LocalCache
     [Export(typeof(ICacheProvider))]
     public class LocalCacheProvider : ICacheProvider
     {
-        private string defaultContext = "default";
         public LocalCacheProvider()
         {
 
@@ -19,36 +18,32 @@ namespace Dot.LocalCache
 
         public void Add(string key, string valKey, object value)
         {
-            var tempKey = defaultContext;
-            CacheManager.AddOrUpdate(tempKey, key, value, DateTime.Now.AddMinutes(2));
+            CacheManager.AddOrUpdate(key, valKey, value, DateTime.Now.AddMinutes(2));
         }
 
         public void Put(string key, string valKey, object value)
         {
-            var tempKey = defaultContext;
-            CacheManager.Update(tempKey, key, value);
+            CacheManager.Update(key, valKey, value);
         }
 
         public object Get(string key, string valKey)
         {
-            var tempKey = defaultContext;
-            return CacheManager.Get(tempKey, key);
+            return CacheManager.Get(key, valKey);
         }
 
-        public void Remove(string key)
+        public void Remove(string key, string valKey)
         {
-            CacheManager.Remove(defaultContext, key);
+            CacheManager.Remove(key, valKey);
         }
 
-        public bool Exists(string key)
-        {
-            return CacheManager.Contains(defaultContext, key);
-        }
+        //public bool Exists(string key)
+        //{
+        //    return CacheManager.Contains(key,"");
+        //}
 
         public bool Exists(string key, string valKey)
         {
-            var tempKey = defaultContext;
-            return CacheManager.Contains(tempKey, key);
+            return CacheManager.Contains(key, valKey);
         }
     }
 }
