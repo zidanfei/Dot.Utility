@@ -488,7 +488,7 @@ namespace Dot.LocalCache
                     }
                     else
                     {
-                        throw new ArgumentException("Key not found in the cache");
+                        throw new ArgumentException("Key [" + key + "] not found in the cache");
                     }
                 }
                 finally { readWriteLock.DowngradeFromWriterLock(ref lc); }
