@@ -132,7 +132,6 @@
     <Compile Include="Compile\DynamicMethodBuilder.cs" />
     <Compile Include="Compile\DynamicMethodExecutor.cs" />
     <Compile Include="Compile\ReflectHelper.cs" />
-    <Compile Include="Compile\ReflectUtility.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
     <Compile Include="Cryptography\Base64Encode.cs" />
     <Compile Include="Cryptography\TripleDESEncryption.cs" />
