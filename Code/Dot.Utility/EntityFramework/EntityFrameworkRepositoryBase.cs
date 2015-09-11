@@ -98,8 +98,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception> 
-        /// <returns></returns>
-        public virtual IEnumerable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending)
+        internal virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, string> orderby, Func<T, string> orderbyDescending)
         {
 
             if (pageIndex <= 0)
@@ -111,24 +110,22 @@ namespace Dot.Utility.EntityFramework
             {
                 expr = expr.Where(predicate);
             }
-            total = expr.Count();
-            pageCount = int.Parse((total / pageSize).ToString());
-            pageCount = (total % pageSize != 0) ? pageCount + 1 : pageCount;
-
+         
             int startn = (pageIndex - 1) * pageSize;
             if (orderby != null)
             {
-                return expr.OrderBy(orderby).Skip(startn).Take(pageSize);
+                return expr.OrderBy(orderby).Skip(startn).Take(pageSize).AsQueryable<T>();
             }
             else if (orderbyDescending != null)
             {
-                return expr.OrderByDescending(orderbyDescending).Skip(startn).Take(pageSize);
+                return expr.OrderByDescending(orderbyDescending).Skip(startn).Take(pageSize).AsQueryable<T>();
             }
             else
             {
-                return expr.Skip(startn).Take(pageSize);
+                return expr.Skip(startn).Take(pageSize).AsQueryable<T>();
             }
         }
+
 
         /// <summary>
         /// 获取多条数据
@@ -149,33 +146,33 @@ namespace Dot.Utility.EntityFramework
         public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,out int total, 
             out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending)
         {
-            return GetQueryList(predicate, pageIndex, pageSize, out total, out pageCount, orderby, orderbyDescending).ToList();
-            //if (pageIndex <= 0)
-            //    throw new ArgumentException("pageIndex");
-            //if (pageSize <= 0)
-            //    throw new ArgumentException("pageSize");
-            //IQueryable<T> expr = _objectSet;
-            //if (predicate != null)
-            //{
-            //    expr = expr.Where(predicate);
-            //}
-            //total = expr.Count();
-            //pageCount = int.Parse((total / pageSize).ToString());
-            //pageCount = (total % pageSize != 0) ? pageCount + 1 : pageCount;
 
-            //int startn = (pageIndex - 1) * pageSize;
-            //if (orderby != null)
-            //{
-            //    return expr.OrderBy(orderby).Skip(startn).Take(pageSize).ToList();
-            //}
-            //else if (orderbyDescending != null)
-            //{
-            //    return expr.OrderByDescending(orderbyDescending).Skip(startn).Take(pageSize).ToList();
-            //}
-            //else
-            //{
-            //    return expr.Skip(startn).Take(pageSize).ToList();
-            //}
+            if (pageIndex <= 0)
+                throw new ArgumentException("pageIndex");
+            if (pageSize <= 0)
+                throw new ArgumentException("pageSize");
+            IQueryable<T> expr = _objectSet;
+            if (predicate != null)
+            {
+                expr = expr.Where(predicate);
+            }
+            total = expr.Count();
+            pageCount = int.Parse((total / pageSize).ToString());
+            pageCount = (total % pageSize != 0) ? pageCount + 1 : pageCount;
+
+            int startn = (pageIndex - 1) * pageSize;
+            if (orderby != null)
+            {
+                return expr.OrderBy(orderby).Skip(startn).Take(pageSize).ToList();
+            }
+            else if (orderbyDescending != null)
+            {
+                return expr.OrderByDescending(orderbyDescending).Skip(startn).Take(pageSize).ToList();
+            }
+            else
+            {
+                return expr.Skip(startn).Take(pageSize).ToList();
+            }
         }
 
         /// <summary>

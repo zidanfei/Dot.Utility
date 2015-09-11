@@ -48,8 +48,6 @@ namespace Dot.Utility.EntityFramework
         /// <param name="predicate">查询条件</param>
         /// <param name="pageIndex">当前页面</param>
         /// <param name="pageSize">分页大小</param>
-        /// <param name="total">总数</param>
-        /// <param name="pageCount">分页个数</param>
         /// <param name="orderby">正序条件</param>
         /// <param name="orderbyDescending">降序条件</param>
         /// <returns></returns>
@@ -59,7 +57,7 @@ namespace Dot.Utility.EntityFramework
         /// pageSize
         /// </exception>
         /// <returns></returns>
-        IEnumerable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending);
+        //IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, string> orderby, Func<T, string> orderbyDescending);
 
         /// <summary>
         /// 获取多条数据
