@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AutoMapper</id>
+    <version>4.0.4</version>
+    <authors>Jimmy Bogard</authors>
+    <owners>Jimmy Bogard</owners>
+    <licenseUrl>https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://automapper.org/</projectUrl>
+    <iconUrl>https://s3.amazonaws.com/automapper/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A convention-based object-object mapper. AutoMapper uses a fluent configuration API to define an object-object mapping strategy. AutoMapper uses a convention-based matching algorithm to match up source to destination values. Currently, AutoMapper is geared towards model projection scenarios to flatten complex object models to DTOs and other simple objects, whose design is better suited for serialization, communication, messaging, or simply an anti-corruption layer between the domain and application layer.</description>
+    <summary>A convention-based object-object mapper</summary>
+    <dependencies>
+      <group targetFramework=".NETPortable0.0-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10" />
+      <group targetFramework=".NETFramework4.5" />
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="Microsoft.Bcl" version="1.1.9" />
+      </group>
+      <group targetFramework="Silverlight5.0" />
+      <group targetFramework="WindowsPhone8.0" />
+      <group targetFramework="Unsupported0.0">
+        <dependency id="System.Collections" version="4.0.10" />
+        <dependency id="System.Collections.Concurrent" version="4.0.10" />
+        <dependency id="System.Diagnostics.Debug" version="4.0.10" />
+        <dependency id="System.Linq" version="4.0.0" />
+        <dependency id="System.Linq.Expressions" version="4.0.10" />
+        <dependency id="System.Linq.Queryable" version="4.0.0" />
+        <dependency id="System.ObjectModel" version="4.0.10" />
+        <dependency id="System.Reflection" version="4.0.10" />
+        <dependency id="System.Reflection.Extensions" version="4.0.0" />
+        <dependency id="System.Reflection.TypeExtensions" version="4.0.0" />
+        <dependency id="System.Runtime" version="4.0.20" />
+        <dependency id="System.Runtime.Extensions" version="4.0.10" />
+        <dependency id="System.Text.RegularExpressions" version="4.0.10" />
+        <dependency id="System.Threading" version="4.0.10" />
+        <dependency id="System.Threading.Tasks" version="4.0.10" />
+      </group>
+      <group targetFramework="Windows0.0" />
+      <group targetFramework="MonoAndroid0.0" />
+      <group targetFramework="MonoTouch0.0" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Collections" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Runtime" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Linq" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Linq.Expressions" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Linq.Queryable" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Text.RegularExpressions" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Reflection" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Reflection.Extensions" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Diagnostics.Debug" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.ObjectModel" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Runtime.Extensions" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="System.Threading" targetFramework=".NETPortable4.5-Profile259" />
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System" targetFramework="Silverlight5.0" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="Silverlight5.0" />
+      <frameworkAssembly assemblyName="mscorlib" targetFramework="Silverlight5.0" />
+      <frameworkAssembly assemblyName="mscorlib" targetFramework="WindowsPhone8.0" />
+      <frameworkAssembly assemblyName="System" targetFramework="WindowsPhone8.0" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="WindowsPhone8.0" />
+      <frameworkAssembly assemblyName="System.Collections" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Runtime" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Linq" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Linq.Expressions" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Linq.Queryable" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Text.RegularExpressions" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Reflection" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Reflection.Extensions" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Diagnostics.Debug" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.ObjectModel" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Runtime.Extensions" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Threading" targetFramework="Unsupported0.0" />
+      <frameworkAssembly assemblyName="System.Collections" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Runtime" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Linq" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Linq.Expressions" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Linq.Queryable" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Text.RegularExpressions" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Reflection" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Reflection.Extensions" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Diagnostics.Debug" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.ObjectModel" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Runtime.Extensions" targetFramework=".NETCore4.5" />
+      <frameworkAssembly assemblyName="System.Threading" targetFramework=".NETCore4.5" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

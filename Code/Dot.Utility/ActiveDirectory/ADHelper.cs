@@ -31,6 +31,19 @@ namespace Dot.Utility.ActiveDirectory
         /// 
         /// </summary>
         /// <param name="domain"></param>
+        public ADHelper(string domain)
+        {
+            Domain = domain;
+            if (RootEntry == null)
+            {
+                RootEntry = new DirectoryEntry(LDAPPath + Domain);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="domain"></param>
         /// <param name="admin"></param>
         /// <param name="password"></param>
         public ADHelper(string domain, string admin, string password)
