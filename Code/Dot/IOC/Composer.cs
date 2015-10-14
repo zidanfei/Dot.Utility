@@ -114,8 +114,8 @@ namespace Dot.IOC
         /// app.ComposeOperations += app_ComposeOperations;
         /// void app_ComposeOperations(object sender, EventArgs e)
         /// {
-        ///     //直接通过 ContainerItemAttribute 注册整个程序集。
-        ///     //Composer.AutoRegisterByContainerItemAttribute(this);
+        ///     //直接通过 ExportAttribute 注册整个程序集。
+        ///     //Composer.AutoRegisterByExportAttribute(this);
         /// 
         ///     //使用 ObjectContainer 来注册。
         ///     //var container = Composer.ObjectContainer;
@@ -138,7 +138,7 @@ namespace Dot.IOC
 
         private static void RegisterByAttribute(IEnumerable<Assembly> assemblies)
         {
-            //处理 ContainerItemAttribute
+            //处理 ExportAttribute
             var iocContainer = ObjectContainer;
             foreach (var assembly in assemblies)
             {

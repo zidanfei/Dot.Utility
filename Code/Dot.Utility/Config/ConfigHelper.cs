@@ -60,5 +60,17 @@ namespace Dot.Utility.Config
             return ConfigurationManager.ConnectionStrings[key].ConnectionString ?? defaultValue;
         }
 
+        /// <summary>
+        /// 是否存在key配置项
+        /// </summary>
+        /// <param name="key">不区分大小写</param>
+        /// <returns></returns>
+        public static bool ExistsAppSetting(string key)
+        {
+            return ConfigurationManager.AppSettings.AllKeys.Any(k => k.Equals(key, StringComparison.OrdinalIgnoreCase));
+        }
+
+       
+
     }
 }

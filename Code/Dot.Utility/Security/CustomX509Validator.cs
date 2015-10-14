@@ -11,9 +11,15 @@ using System.Threading.Tasks;
 
 namespace Dot.Utility.Security
 {
-    //3.如何创建证书：
-    //makecert.exe -sr LocalMachine -ss My -a sha1 -n CN=iWSProdCert -sky exchange -pe     (服务端证书）
-    //http://blog.csdn.net/jayzai/article/details/7654246
+    ///3.如何创建证书：
+    ///makecert.exe -sr LocalMachine -ss My -a sha1 -n CN=iWSProdCert -sky exchange -pe     (服务端证书）
+    ///-n 证书主题名称
+    /// -pe 将生成的私钥标记为可以导出
+    /// -sr location 数字证书存储位置 CurrentUser，LocalMachine
+    /// -ss store：数字证书的存储区
+    /// -sky ：指定秘钥类型1signature交换秘钥 2exchange 签名秘钥；
+    /// 
+    ///http://blog.csdn.net/jayzai/article/details/7654246
     /// <summary>
     /// 用户名密码验证
     /// </summary>

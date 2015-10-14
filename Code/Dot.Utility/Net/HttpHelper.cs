@@ -6,7 +6,8 @@ using System.IO;
 using System.Web;
 using System.Threading;
 using Dot.Utility.Log;
-
+using System.Net.Http;
+using System.Linq;
 
 namespace Dot.Utility.Net
 {
@@ -206,6 +207,59 @@ namespace Dot.Utility.Net
             }
         }
 
+        #region Form认证
+
+        /// <summary>
+        /// 获取凭据
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="url"></param>
+        /// <param name="cookieName"></param>
+        /// <returns></returns>
+        public string GetSecurityToken(string userName, string password, string url, string cookieName)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Dictionary<string, string> credential = new Dictionary<string, string>();
+                credential.Add("UserName", userName);
+                credential.Add("Password", password);
+                HttpResponseMessage response = httpClient.PostAsync(url, new FormUrlEncodedContent(credential)).Result;
+                IEnumerable<string> cookies;
+                if (response.Headers.TryGetValues("Set-Cookie", out cookies))
+                {
+                    string token = cookies.FirstOrDefault(value => value.StartsWith(cookieName));
+                    if (null != token)
+                    {
+                        return token.Split(';')[0].Substring(cookieName.Length + 1);
+                    }
+                }
+                return null;
+            }
+        }
+
+        public string Get(string userName, string password,string loginUrl, string url, string cookieName=".ASPXAUTH")
+        {
+            string token = GetSecurityToken(userName, password, loginUrl, cookieName);
+            string address = url;
+            if (!string.IsNullOrEmpty(token))
+            {
+                HttpClientHandler handler = new HttpClientHandler { CookieContainer = new CookieContainer() };
+                handler.CookieContainer.Add(new Uri(url), new Cookie(cookieName, token));
+                using (HttpClient httpClient = new HttpClient(handler))
+                {
+                    HttpResponseMessage response = httpClient.GetAsync(address).Result;
+                    IEnumerable<string> userNames = response.Content.ReadAsAsync<IEnumerable<string>>().Result;
+                    foreach (string un in userNames)
+                    {
+                        return un;
+                    }
+                }
+            }
+            return null;
+
+        }
+        #endregion
 
 
         #region Member Fields

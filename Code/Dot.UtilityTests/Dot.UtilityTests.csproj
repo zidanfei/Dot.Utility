@@ -66,12 +66,15 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="ActiveDirectory\ChineseToPinYinTests.cs" />
+    <Compile Include="Config\ConfigHelperTest.cs" />
     <Compile Include="DataFormat\DataConvertTests.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBaseTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
@@ -85,6 +88,7 @@
       <DependentUpon>201509100958432_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Net\HttpHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PSWrapper\CmdletProcessorTests.cs" />
   </ItemGroup>

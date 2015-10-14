@@ -35,4 +35,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
+//http://my.oschina.net/knife2013/blog/127849
+[assembly: InternalsVisibleTo("Dot, PublicKey=0024000004800000940000000602000000240000525341310004000001000100eb40f254fbef0f556dae1ecf119a87aa71fa4b2389ddfe5d86a15acfaa95ee67efae1d4d0622a05c3afebf8dc3831caae7ce8482846bd4fc86d53b8a19ae4ce3a665f75b225d6b5e16202b991263cee23bb484bba55f5397a522ec793d214e05f946b3d8f29d1d353ee8b794240ee43853566a425fdec9549d9c5fa59a6d32a4")]
+
+
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "./Config/log4net.xml", ConfigFileExtension = "xml", Watch = true)]
+
+

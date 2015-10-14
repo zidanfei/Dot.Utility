@@ -51,18 +51,21 @@ namespace Dot.Utility.Xml
         }
 
 
-        private static XmlSerializer GetSerializer<T>()
+        internal static XmlSerializer GetSerializer<T>()
         {
             var type = typeof(T);
             return _cache.GetOrAdd(type, XmlSerializer.FromTypes(new[] { type }).FirstOrDefault());
         }
 
-        private static XmlSerializer GetSerializer(Type type)
+        internal static XmlSerializer GetSerializer(Type type)
         {
             return _cache.GetOrAdd(type, XmlSerializer.FromTypes(new[] { type }).FirstOrDefault());
         }
 
         #region 存取配置文件
+
+      
+
 
         /// <summary>
         /// 加载配置
