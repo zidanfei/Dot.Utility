@@ -72,13 +72,13 @@ namespace Dot.AOP.Interceptors
                     logMessage += "Arguments:" + sb;
                 }
 
-                LogFactory.BusinessLog.Info(logMessage);
+                LogFactory.PlatformLog.Info(logMessage);
             }
             catch (Exception ex)
             {
                 string exMessage = "记录业务日志出错";
 
-                LogFactory.ExceptionLog.Fatal(exMessage, ex);
+                LogFactory.PlatformExceptionLog.Fatal(exMessage, ex);
             }
             return methodReturn;
         }

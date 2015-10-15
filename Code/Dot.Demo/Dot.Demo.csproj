@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}</ProjectGuid>
+    <ProjectGuid>{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dot.Cache</RootNamespace>
-    <AssemblyName>Dot.Cache</AssemblyName>
+    <RootNamespace>Dot.Demo</RootNamespace>
+    <AssemblyName>Dot.Demo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +39,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -45,21 +50,33 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CachePlugin.cs" />
-    <Compile Include="MemCacheProvider.cs" />
+    <Compile Include="DotDemoPlugin.cs" />
+    <Compile Include="Definition\AppSettings.cs" />
+    <Compile Include="Definition\Constant.cs" />
+    <Compile Include="Definition\Enum.cs" />
+    <Compile Include="IService\IProjectService.cs" />
+    <Compile Include="Model\DBContext.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="DBMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ProjectService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dot.Utility\Dot.Utility.csproj">
+      <Project>{a5c1e66c-761c-42d5-9cfe-a52acaabe6e2}</Project>
+      <Name>Dot.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dot\Dot.csproj">
       <Project>{10049683-ac64-4bc9-b1ed-15d32120b082}</Project>
       <Name>Dot</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

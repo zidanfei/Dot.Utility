@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForm", "WebForm\WebForm.csproj", "{9CBD91A7-007E-44E9-A10F-1726B1A3FF1D}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jquery-easyui-1.4.3", "jquery-easyui-1.4.3\jquery-easyui-1.4.3.csproj", "{76F36C75-2F52-4BD1-AFBB-9EEC675C93B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ueditor", "ueditor\ueditor.csproj", "{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Web", "Dot.Web\Dot.Web.csproj", "{0A1D7971-9036-4BF7-91F2-363876827119}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.UtilityTests", "Dot.UtilityTests\Dot.UtilityTests.csproj", "{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}"
 EndProject
@@ -26,6 +24,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{E70A0AC7-3D4B-48BB-BE48-0101A3777AF7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Cache", "Dot.Cache\Dot.Cache.csproj", "{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Demo", "Dot.Demo\Dot.Demo.csproj", "{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,6 @@ Global
 		{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE3F2FC-EA82-4DC4-9B69-5856C2109D2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A1D7971-9036-4BF7-91F2-363876827119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A1D7971-9036-4BF7-91F2-363876827119}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A1D7971-9036-4BF7-91F2-363876827119}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A1D7971-9036-4BF7-91F2-363876827119}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,13 +69,20 @@ Global
 		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9CBD91A7-007E-44E9-A10F-1726B1A3FF1D} = {473D7614-54C5-4731-91A9-BE97A5059375}
+		{5914E856-7931-47A9-9C10-EC0000C92DD4} = {473D7614-54C5-4731-91A9-BE97A5059375}
 		{88E1DBD5-93A1-4988-8C6C-9A80AA0D78DE} = {473D7614-54C5-4731-91A9-BE97A5059375}
 		{E4B406B4-E89C-431B-8674-F247A8B49282} = {473D7614-54C5-4731-91A9-BE97A5059375}
 		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067} = {E70A0AC7-3D4B-48BB-BE48-0101A3777AF7}
+		{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B} = {473D7614-54C5-4731-91A9-BE97A5059375}
 	EndGlobalSection
 EndGlobal

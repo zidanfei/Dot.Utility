@@ -82,7 +82,7 @@ namespace Dot.ComponentModel
         protected virtual void InitEnvironment()
         {
 
-            PluginTable.Plugins.AddPlugin<DotPlugin>();
+          
           
         }
 

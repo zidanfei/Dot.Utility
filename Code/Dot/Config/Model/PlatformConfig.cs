@@ -47,7 +47,7 @@ namespace Dot.Config.Model
                         {
                             clientInstance = new ClientSettings();
                             XmlHelper.Instance.SaveConfig(clientInstance);
-                        }
+                        } 
                     }
                     return clientInstance;
                 }
@@ -72,11 +72,11 @@ namespace Dot.Config.Model
                             serverInstance = new ServerSettings();
                             XmlHelper.Instance.SaveConfig(serverInstance);
                         }
+                        else
+                        {
+                            serverInstance.ConfigFilePath = XmlHelperExtend.GetConfigPath();
+                        }
                     }
-
-                    if (serverInstance != null)
-                        serverInstance.ConfigFilePath = XmlHelperExtend.GetConfigPath();
-
                     return serverInstance;
                 }
             }

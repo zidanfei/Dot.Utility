@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dot.Web
+namespace Dot.Demo
 {
-    public class Class1
+    public interface IProjectService : Dot.Utility.EntityFramework.IRepositoryBase<Project, DBContext>
     {
     }
 }

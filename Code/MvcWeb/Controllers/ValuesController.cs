@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 
 namespace MvcWeb.Controllers
 {
@@ -37,4 +38,17 @@ namespace MvcWeb.Controllers
         {
         }
     }
+
+
+
+    ///
+    /// Controller的基类，用于实现适合业务场景的基础功能
+    ///
+    ///
+    [BasicAuthentication]
+    public abstract class ApiControllerBase : ApiController
+    {
+    }
+
+
 }
