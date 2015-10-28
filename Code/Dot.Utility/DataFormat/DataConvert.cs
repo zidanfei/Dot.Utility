@@ -141,7 +141,7 @@ namespace Dot.Utility
                 return GetDefaultValue(ConversionType);
             }
             try
-            {
+            { 
                 if (ConversionType == typeof(System.DateTime))
                 {
                     return System.DateTime.Parse(Source.ToString());
@@ -256,7 +256,7 @@ namespace Dot.Utility
                         object value = dr[tempName];
                         //如果非空，则赋给对象的属性  
                         if (value != DBNull.Value)
-                            pi.SetValue(t, value, null);
+                            pi.SetValue(t, System.Convert.ChangeType(value, pi.PropertyType) , null);
                     }
                 }
                 //对象添加到泛型集合中  

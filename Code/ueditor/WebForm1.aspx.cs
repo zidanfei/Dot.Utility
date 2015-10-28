@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace ueditor
 {
-    public partial class demo1 : System.Web.UI.Page
+    public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,8 +17,8 @@ namespace ueditor
             }
             var aa = a.Value;
             var d = Request["editorValue"];
+            a.Value = d;
         }
-
 
     }
 }

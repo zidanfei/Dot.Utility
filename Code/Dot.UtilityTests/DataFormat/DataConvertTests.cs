@@ -47,12 +47,21 @@ namespace Dot.Utility.Tests
         public void ToDataTableTest()
         {
             IList<MyClass> list = new List<MyClass>();
-            list.Add(new MyClass { a = 1, b = 2 });
-            list.Add(new MyClass { a = 3, b = 4 });
+            list.Add(new MyClass { a = 1, b = 2, c = true });
+            list.Add(new MyClass { a = 3, b = 4, c = false });
             list.Add(new MyClass { a = 5, b = 6 });
 
-            DataTable dt= DataConvert.ToDataTable<MyClass>(list);
+            DataTable dt = DataConvert.ToDataTable<MyClass>(list);
+            try
+            {
+                list = DataConvert.ToList<MyClass>(dt);
 
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         [TestMethod()]
@@ -79,5 +88,6 @@ namespace Dot.Utility.Tests
         public int a { get; set; }
 
         public int b { get; set; }
+        public bool c { get; set; }
     }
 }

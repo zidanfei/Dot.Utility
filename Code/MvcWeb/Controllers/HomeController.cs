@@ -20,6 +20,9 @@ namespace MvcWeb.Controllers
         {
             ViewBag.Title = "Home Page";
 
+           var dlist= new Dot.Demo.DBContext().Context.Database.SqlQuery<Project>("select * from project").ToList();
+
+
             IProjectService service = ObjectContainer.CreateInstance<IProjectService>();
             var list = service.GetList();
             var one = service.Get(m => m.Id == 1);

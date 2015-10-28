@@ -357,8 +357,8 @@
     <Compile Include="System\WindowsHelper.cs" />
     <Compile Include="System\ZipHelper.cs" />
     <Compile Include="Validator\Check.cs" />
-    <Compile Include="Web\MVC\AreaWebApiConfig.cs" />
-    <Compile Include="Web\MVC\DateTypeFormatter.cs" />
+    <Compile Include="Web\WebApi\AreaWebApiConfig.cs" />
+    <Compile Include="Web\WebApi\DateTypeFormatter.cs" />
     <Compile Include="Web\DirectoryHelper.cs" />
     <Compile Include="Web\MVC\Entity.cs" />
     <Compile Include="Web\MVC\EntityAwareBodyModelValidator.cs" />
@@ -374,7 +374,7 @@
     <Compile Include="Web\MVC\ODataQueryCriteriaBinder.cs" />
     <Compile Include="Web\MVC\OptionalGuidRouteConstraint.cs" />
     <Compile Include="Web\MVC\PagingInfo.cs" />
-    <Compile Include="Web\MVC\WebApiHttpStarter.cs" />
+    <Compile Include="Web\WebApi\WebApiHttpStarter.cs" />
     <Compile Include="Web\WebImageHelper.cs" />
     <Compile Include="Web\WebServiceHelper.cs" />
     <Compile Include="Date\WeekHelper.cs" />
@@ -399,9 +399,7 @@
   <ItemGroup>
     <EmbeddedResource Include="MemCached\StringMessages.resx" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Web\WebApi\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
