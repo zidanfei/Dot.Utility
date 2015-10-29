@@ -141,7 +141,7 @@ namespace Dot.Utility
                 return GetDefaultValue(ConversionType);
             }
             try
-            { 
+            {
                 if (ConversionType == typeof(System.DateTime))
                 {
                     return System.DateTime.Parse(Source.ToString());
@@ -255,8 +255,27 @@ namespace Dot.Utility
                         //取值  
                         object value = dr[tempName];
                         //如果非空，则赋给对象的属性  
-                        if (value != DBNull.Value)
-                            pi.SetValue(t, System.Convert.ChangeType(value, pi.PropertyType) , null);
+                        if (!pi.PropertyType.IsGenericType)
+                        {
+                            if (value != DBNull.Value)
+                            //非泛型
+                            pi.SetValue(t,  System.Convert.ChangeType(value, pi.PropertyType), null);
+                        }
+                        else
+                        {
+                            //泛型Nullable<>
+                            Type genericTypeDefinition = pi.PropertyType.GetGenericTypeDefinition();
+                            if (genericTypeDefinition == typeof(Nullable<>))
+                            {
+                                if (value != DBNull.Value) 
+                                    pi.SetValue(t,   System.Convert.ChangeType(value, Nullable.GetUnderlyingType(pi.PropertyType)), null);
+                            }
+                        }
+                        //if (value != null && value != DBNull.Value)
+                        //{
+                            
+                        //    pi.SetValue(t, System.Convert.ChangeType(value, pi.PropertyType), null);
+                        //}
                     }
                 }
                 //对象添加到泛型集合中  
