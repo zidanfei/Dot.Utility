@@ -52,6 +52,26 @@ namespace Dot.Utility
         }
 
         /// <summary>
+        /// 获取指定枚举值的描述信息
+        /// </summary>
+        /// <param name="t">枚举类型</param>
+        /// <param name="v">枚举值</param>
+        /// <returns></returns>
+        public static string GetDisplayName<T>(T v) where T :class,new()
+        {
+            try
+            {
+                FieldInfo oFieldInfo = typeof(T).GetField(GetName(typeof(T), v));
+                DisplayNameAttribute[] attributes = (DisplayNameAttribute[])oFieldInfo.GetCustomAttributes(typeof(DisplayNameAttribute), false);
+                return (attributes.Length > 0) ? attributes[0].DisplayName : GetName(typeof(T), v);
+            }
+            catch
+            {
+                return "未知";
+            }
+        }
+
+        /// <summary>
         /// 获取枚举类型中的所有枚举项
         /// </summary>
         /// <param name="t"></param>

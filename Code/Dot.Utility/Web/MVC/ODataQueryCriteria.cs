@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Dot.Domain
+namespace Dot.Utility.Web
 {
     /// <summary>
     /// <para>一个简单的支持 OData 协议的查询器。</para>

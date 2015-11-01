@@ -18,9 +18,13 @@ namespace Dot.Utility.Web
             //config.EnableCors(new EnableCorsAttribute("*", "*", "*")); 
 
             //日期格式化
-            //if (config.Formatters.Count(m => m.GetType() == typeof(DateTypeFormatter)) == 0)
-                //config.Formatters.Insert(0, new DateTypeFormatter());
+            if (config.Formatters.Count(m => m.GetType() == typeof(DateTypeFormatter)) == 0)
+            {
+                config.Formatters.Insert(0, new DateTypeFormatter());
+                //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            }
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
 
             config.Services.Replace(typeof(IBodyModelValidator), new EntityAwareBodyModelValidator());
             config.BindParameter(typeof(ODataQueryCriteria), new ODataQueryCriteriaBinder());

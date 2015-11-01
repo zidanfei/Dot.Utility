@@ -148,8 +148,14 @@
     <Compile Include="DTO\BusinessLogicFault.cs" />
     <Compile Include="DTO\GenericFault.cs" />
     <Compile Include="DTO\WSResponse.cs" />
+    <Compile Include="EntityFramework\EntityBaseWithId.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBase.cs" />
+    <Compile Include="EntityFramework\IEntityBaseWithIdRepositoryBase.cs" />
+    <Compile Include="EntityFramework\IEntityFrameworkRepositoryBase.cs" />
     <Compile Include="EntityFramework\IRepositoryBase.cs" />
+    <Compile Include="EntityFramework\EntityBase.cs" />
+    <Compile Include="EntityFramework\EntityBaseWithIdRepositoryBase.cs" />
+    <Compile Include="EntityFramework\RepositoryBase.cs" />
     <Compile Include="EntityFramework\UniqueAttribute.cs" />
     <Compile Include="Enum\DataState.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
@@ -373,7 +379,7 @@
     <Compile Include="Web\MVC\ODataQueryCriteria.cs" />
     <Compile Include="Web\MVC\ODataQueryCriteriaBinder.cs" />
     <Compile Include="Web\MVC\OptionalGuidRouteConstraint.cs" />
-    <Compile Include="Web\MVC\PagingInfo.cs" />
+    <Compile Include="Web\PagingInfo.cs" />
     <Compile Include="Web\WebApi\WebApiHttpStarter.cs" />
     <Compile Include="Web\WebImageHelper.cs" />
     <Compile Include="Web\WebServiceHelper.cs" />

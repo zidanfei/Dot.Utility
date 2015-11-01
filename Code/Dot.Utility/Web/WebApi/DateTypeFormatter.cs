@@ -58,8 +58,16 @@ namespace Dot.Utility.Web
 
         private void Serialize(Type type, object value, Stream writeStream, HttpContent content)
         {
+            try
+            {
+                SerializeByJsonSerializer(value, writeStream, content);
 
-            SerializeByJsonSerializer(value, writeStream, content);
+            }
+            catch (Exception ex)
+            {
+                Log.LogFactory.ExceptionLog.Info(ex.Message, ex);
+                throw ex;
+            }
         }
 
         private async Task<object> Deserialize(Type type, Stream readStream, HttpContent content, IFormatterLogger formatterLogger)
@@ -133,6 +141,7 @@ namespace Dot.Utility.Web
                 jsonTextWriter.CloseOutput = false;
                 JsonSerializer jsonSerializer = JsonSerializer.Create();
                 jsonSerializer.DateFormatString = "MM/dd/yyyy";
+
                 //首字母小写
                 //if (this.SerializeAsCamelProperty)
                 //{

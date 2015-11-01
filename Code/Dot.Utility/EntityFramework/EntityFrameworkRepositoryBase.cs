@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Dot.Utility.EntityFramework
 {
-    public abstract class EntityFrameworkRepositoryBase<T, TContext> :IRepositoryBase<T, TContext>, IDisposable
-        where T : class,new()
+    public abstract class EntityFrameworkRepositoryBase<T, TContext> : IEntityFrameworkRepositoryBase<T, TContext>, IDisposable
+        where T : class, new()
         where TContext : DbContext, new()
     {
         public EntityFrameworkRepositoryBase(TContext context)
@@ -98,7 +98,8 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception> 
-        internal virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, string> orderby, Func<T, string> orderbyDescending)
+        public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, 
+            Func<T, string> orderby, Func<T, string> orderbyDescending, string include = null)
         {
 
             if (pageIndex <= 0)
@@ -110,7 +111,10 @@ namespace Dot.Utility.EntityFramework
             {
                 expr = expr.Where(predicate);
             }
-         
+            if (!string.IsNullOrEmpty(include))
+            {
+                expr = expr.Where(predicate).Include(include);
+            }
             int startn = (pageIndex - 1) * pageSize;
             if (orderby != null)
             {
@@ -143,8 +147,8 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception>
-        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,out int total, 
-            out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending)
+        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total,
+            out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending, string include=null)
         {
 
             if (pageIndex <= 0)
@@ -157,6 +161,10 @@ namespace Dot.Utility.EntityFramework
                 expr = expr.Where(predicate);
             }
             total = expr.Count();
+            if (!string.IsNullOrEmpty(include))
+            {
+                expr = expr.Include(include);
+            }
             pageCount = int.Parse((total / pageSize).ToString());
             pageCount = (total % pageSize != 0) ? pageCount + 1 : pageCount;
 

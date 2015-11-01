@@ -32,7 +32,8 @@ namespace Dot.AOP
         internal IOCSettingsLoader(UnityContainer container)
         {
             _container = container;
-            _settings = PlatformConfig.ServerConfig.IOCSetting;
+            if (PlatformConfig.ServerConfig != null)
+                _settings = PlatformConfig.ServerConfig.IOCSetting;
         }
 
         internal void Load()
@@ -99,7 +100,7 @@ namespace Dot.AOP
         private void RegisterType(Type toType)
         {
             //通过 InterceptorItems 来创建需要的拦截器对象。
-            var  injectionMembers = new List<InjectionMember>();
+            var injectionMembers = new List<InjectionMember>();
             if (_settings.InterceptorItems != null)
             {
                 string assemblyName = toType.Assembly.GetName().Name;

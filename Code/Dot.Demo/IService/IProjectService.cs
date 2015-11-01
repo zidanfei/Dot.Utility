@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dot.Demo
 {
-    public interface IProjectService : Dot.Utility.EntityFramework.IRepositoryBase<Project, DBContext>
+    public interface IProjectService : Dot.Utility.EntityFramework.IEntityFrameworkRepositoryBase<Project, DBContext>
     {
     }
 }
