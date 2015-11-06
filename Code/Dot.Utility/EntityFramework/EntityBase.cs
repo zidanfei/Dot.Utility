@@ -37,14 +37,14 @@ namespace Dot.Utility.EntityFramework
     /// EF 中所有实体的基类。
     /// </summary>
     [Serializable]
-    public class EntityBase<T>
+    public class EntityBase<T>:EntityBaseWithId<T>
     {
         public EntityBase()
         {
             IsEnabled = true;
         }
 
-        public T Id { get; set; }
+        //public T Id { get; set; }
         /// <summary>
         /// 排序码
         /// </summary>

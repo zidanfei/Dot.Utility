@@ -134,6 +134,7 @@
     <Compile Include="Compile\ReflectHelper.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
     <Compile Include="Cryptography\Base64Encode.cs" />
+    <Compile Include="Cryptography\MD5Encryption.cs" />
     <Compile Include="Cryptography\TripleDESEncryption.cs" />
     <Compile Include="Cryptography\DESEncryption .cs" />
     <Compile Include="Cryptography\CRC2Helper.cs" />

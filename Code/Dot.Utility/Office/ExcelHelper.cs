@@ -37,7 +37,7 @@ namespace Dot.Utility.Office
         static MemoryStream ExportDT(DataTable dtSource, string strHeaderText)
         {
             HSSFWorkbook workbook = new HSSFWorkbook();
-            HSSFSheet sheet = workbook.CreateSheet() as HSSFSheet;
+            HSSFSheet sheet = workbook.CreateSheet(strHeaderText) as HSSFSheet;
 
             #region 右击文件 属性信息
 
@@ -136,7 +136,15 @@ namespace Dot.Utility.Office
                             headerRow.GetCell(column.Ordinal).CellStyle = headStyle;
 
                             //设置列宽
-                            sheet.SetColumnWidth(column.Ordinal, (arrColWidth[column.Ordinal] + 1) * 256);
+                            if (arrColWidth[column.Ordinal] > 255)
+                            {
+                                sheet.SetColumnWidth(column.Ordinal, (255) * 256);
+
+                            }
+                            else
+                            {
+                                sheet.SetColumnWidth(column.Ordinal, (arrColWidth[column.Ordinal] + 1) * 256);
+                            }
 
                         }
                         //headerRow.Dispose();
