@@ -1,0 +1,163 @@
+
+<script src="jquery-1.10.2.min.js"></script>
+<div style="margin:20px 0;">
+    <div>web api test</div>
+
+    <div id="list"></div>
+    <br />
+    <div>
+        <input type="text" id="url" style="width:800px; max-width:1000px"
+               value="/api/v2.0/OneDoc/Role" />
+        <textarea id="par" style="width:800px; max-width:1000px">
+            {"RoleName":"hello role","SystemCode":"10215"}
+        </textarea>
+
+        <select id="httpMethod">
+            <optgroup>
+                <option value="GET" selected="selected">GET</option>
+                <option value="PUT">PUT</option>
+                <option value="POST">POST</option>
+                <option value="DELETE">DELETE</option>
+            </optgroup>
+        </select>
+        <input id="ok" type="button" onclick="ok()" value="ok" />
+
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function executeApi(url, httpMethod, data) {
+            $.ajax({
+                type: httpMethod,
+                url: url,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: data,
+                success: function (res) {
+                    $("#list").html(JSON.stringify(res));
+                },
+                error: function (res) {
+                    alert("accur error");
+                },
+                complete: function () {
+                }
+            });
+        }
+
+        function ok() {
+            executeApi($("#url").val(), $("#httpMethod").val(), $("#par").val());
+        };
+
+        function getOrders(callback) {
+            $.ajax({
+                type: "GET",
+                url: "/api/Order",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    if (callback) {
+                        callback(res)
+                    }
+                    else {
+                        document.getElementById("list").innerHTML = '订单个数：' + res.length + ',' + JSON.stringify(res);
+                    }
+                },
+                complete: function () {
+                }
+            });
+        }
+        function postOrders() {
+            $.ajax({
+                type: "POST",
+                url: "/api/Order",//or POST "/api/Order/Add",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    title: 'order 1',
+                    totalMoney: 100
+                }),
+                success: function (res) {
+                    alert('success');
+                    getOrders();
+                }
+            });
+        }
+        function putOrders() {
+            getOrders(function (items) {
+                if (items.length > 0) {
+                    var id = items[0].id;
+                    $.ajax({
+                        type: "PUT",
+                        url: "/api/Order/" + id,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            title: 'order 1 modified!'
+                        }),
+                        success: function (res) {
+                            alert('success');
+                            getOrders();
+                        }
+                    });
+                }
+            });
+        }
+        function deleteOrders() {
+            getOrders(function (items) {
+                if (items.length > 0) {
+                    var id = items[0].id;
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/api/Order/" + id,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (res) {
+                            alert('success');
+                            getOrders();
+                        }
+                    });
+                }
+            });
+        }
+        function deleteAll() {
+            getOrders(function (items) {
+                if (items.length > 0) {
+                    var ids = [];
+                    for (var i = 0; i < items.length; i++) {
+                        ids.push(items[i].id);
+                    }
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/api/Order/",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            idList: ids
+                        }),
+                        success: function (res) {
+                            alert('success');
+                            getOrders();
+                        }
+                    });
+                }
+            });
+        }
+        function queryOrdersWithOData() {
+            var qs = $('#queryString').val();
+            $.ajax({
+                type: "GET",
+                url: "/api/Order?" + qs,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    document.getElementById("list").innerHTML = '订单个数：' + res.length + ',' + JSON.stringify(res);
+                }
+            });
+        }
+        function popupGetOrdersWithOData() {
+            var qs = $('#queryString').val();
+            window.open("/api/Order?" + qs);
+        }
+    </script>
+    <script src="~/Scripts/Main.js"></script>
+}

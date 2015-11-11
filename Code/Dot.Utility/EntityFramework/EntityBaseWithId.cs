@@ -11,7 +11,7 @@ namespace Dot.Utility.EntityFramework
     public class EntityBaseWithId<T>
     {
 
-        public T Id { get; set; }
+        public virtual T Id { get; set; }
     }
 
     [Serializable]

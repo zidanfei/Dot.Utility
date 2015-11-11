@@ -119,6 +119,17 @@ namespace Dot.Utility.EntityFramework
         IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, string> orderby, Func<T, string> orderbyDescending);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlstr"></param>
+        /// <param name="orderby">排序列</param>
+        /// <param name="pageIndex">从1开始</param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        IEnumerable<TOut> GetPaging<TOut>(string sqlstr, string orderby, int pageIndex, int pageSize, params object[] parameters);
+
+        /// <summary>
         /// 获取实体个数
         /// </summary>
         /// <param name="predicate">查询条件</param>

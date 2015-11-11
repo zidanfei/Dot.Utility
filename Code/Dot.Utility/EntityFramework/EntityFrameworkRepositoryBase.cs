@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Dot.Utility.EntityFramework
@@ -213,6 +214,42 @@ namespace Dot.Utility.EntityFramework
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlstr"></param>
+        /// <param name="orderby">排序列</param>
+        /// <param name="pageIndex">从1开始</param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public IEnumerable<TOut> GetPaging<TOut>(string sqlstr, string orderby, int pageIndex, int pageSize, params object[] parameters)
+        {
+            int start = 1;
+            int end = 10;
+            if (pageIndex > 0 && pageSize > 0)
+            {
+                start = pageSize * (pageIndex - 1) + 1;
+                end = pageSize * ((pageIndex - 1) + 1);
+            }
+            Regex order = new Regex("-(asc|desc)$", RegexOptions.IgnoreCase);
+            if (order.IsMatch(orderby))
+            {
+                orderby = order.Replace(orderby, " $1");
+            }
+            string sql = string.Format(@"
+                     SELECT  *  FROM 
+                     ( SELECT  ROW_NUMBER()  OVER  ( ORDER BY {1} )  AS RowNumber,  *  
+                     FROM 
+                     ({0} ) A_
+                     )
+                     AS A1_
+                     WHERE RowNumber BETWEEN  {2} AND {3} ORDER BY {1}  ;"
+                     , sqlstr, orderby, start, end
+                );
+            return _dbContext.Database.SqlQuery<TOut>(sql, parameters);
+        }
+
+        /// <summary>
         /// 获取实体个数
         /// </summary>
         /// <param name="predicate">查询条件</param>
@@ -272,6 +309,7 @@ namespace Dot.Utility.EntityFramework
         {
             _objectSet.Remove(entity);
         }
+         
 
         /// <summary>
         /// 保存所有变更。

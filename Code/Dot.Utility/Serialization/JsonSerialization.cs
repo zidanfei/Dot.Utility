@@ -9,7 +9,10 @@ using System.Data.Common;
 
 namespace Dot.Utility
 {
-    //JSON转换类
+    /// <summary>
+    /// JSON转换类
+    /// 没有使用其他类库
+    /// </summary>
     public class JsonSerialization
     {
         #region 私有方法
