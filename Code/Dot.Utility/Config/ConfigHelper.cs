@@ -70,7 +70,12 @@ namespace Dot.Utility.Config
             return ConfigurationManager.AppSettings.AllKeys.Any(k => k.Equals(key, StringComparison.OrdinalIgnoreCase));
         }
 
-       
 
+        //public static void Set(string key,string value)
+        //{
+        //    Properties.Settings connset = Properties.Settings.Default;
+        //    constr = connset.ConnectionString;
+        //    ConfigurationManager.AppSettings.Set(key, value);
+        //}
     }
 }

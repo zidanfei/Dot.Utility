@@ -106,6 +106,18 @@ namespace Dot.Utility.ActiveDirectory
             return RootEntry;
         }
 
+        /// <summary>
+        /// 返回DirectoryEntry
+        /// </summary>
+        /// <param name="path">域地址</param>
+        /// <returns></returns>
+        public static DirectoryEntry GetDirectoryEntry(string path)
+        {
+            DirectoryEntry de = new DirectoryEntry();
+            de.Path = "LDAP://" + path;
+            return de;
+        }
+
         #region 操作OU
 
         /// <summary>
@@ -359,6 +371,16 @@ namespace Dot.Utility.ActiveDirectory
         #region 操作group
 
         /// <summary>
+        /// 获取所有组
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static SearchResultCollection GetAllSubGroups(DirectoryEntry parent)
+        {
+            return GetAllSubDirectoryEntrys(parent, Type_Group);             
+        }
+
+        /// <summary>
         /// 获取AD组
         /// </summary>
         /// <param name="groupName"></param>
@@ -369,7 +391,6 @@ namespace Dot.Utility.ActiveDirectory
             if (!string.IsNullOrEmpty(groupName))
             {
                 DirectoryEntry de = new DirectoryEntry(GetOrganizeNamePath(organizeUnit), DomainUser, DomainPass, AuthenticationTypes.Secure);
-                ;
                 DirectorySearcher deSearch = new DirectorySearcher(de);
                 deSearch.Filter = "(&(objectClass=group)(cn=" + groupName.Replace("\\", "") + "))";
                 deSearch.SearchScope = SearchScope.Subtree;
@@ -399,6 +420,255 @@ namespace Dot.Utility.ActiveDirectory
         }
 
 
+
+        ///// <summary>
+        ///// 创建用户组
+        ///// </summary>
+        ///// <param name="entry"></param>
+        ///// <param name="groupname"></param>
+        ///// <param name="name2000"></param>
+        ///// <returns></returns>
+        //public static DirectoryEntry CreateGroup(DirectoryEntry entry, string groupname, string name2000)
+        //{
+        //    DirectoryEntry group = entry.Children.Add("CN=" + ProcLDAPStr(groupname), "group");
+        //    group.Properties["name"].Value = groupname;
+        //    group.Properties["sAMAccountName"].Value = name2000;
+        //    group.Properties["groupType"].Value = ActiveDs.ADS_GROUP_TYPE_ENUM.ADS_GROUP_TYPE_UNIVERSAL_GROUP | ActiveDs.ADS_GROUP_TYPE_ENUM.ADS_GROUP_TYPE_SECURITY_ENABLED;
+        //    group.CommitChanges();
+        //    return group;
+        //}
+
+        public static string ProcLDAPStr(string LDAPStr)
+        {
+            if (!string.IsNullOrEmpty(LDAPStr))
+            {
+                LDAPStr = LDAPStr.Replace("#", "\\#");
+                LDAPStr = LDAPStr.Replace("\"", "\\\"");
+                return LDAPStr;
+            }
+            else
+                return LDAPStr;
+        }
+        /// <summary>
+        /// 根据组名返回用户组
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <param name="groupname"></param>
+        /// <returns></returns>
+        public static DirectoryEntry GetGroup(DirectoryEntry entry, string groupname)
+        {
+            if (string.IsNullOrEmpty(groupname))
+            {
+                return null;
+            }
+            DirectorySearcher searcher = new DirectorySearcher(entry);
+            searcher.Filter = "(&(objectClass=group)(name=" + groupname + "))";
+            searcher.CacheResults = false;
+            searcher.PropertyNamesOnly = true;
+            searcher.PropertiesToLoad.Add("cn");
+            searcher.PropertiesToLoad.Add("distinguishedName");
+            searcher.PropertiesToLoad.Add("Description");
+            searcher.PropertiesToLoad.Add("memberOf");
+
+            SearchResult result = searcher.FindOne();
+            DirectoryEntry group = null;
+            if (result != null)
+            {
+                group = result.GetDirectoryEntry();
+            }
+            entry.Dispose();
+            searcher.Dispose();
+            return group;
+        }
+        /// <summary>
+        /// 当前用户是否在用户组内
+        /// </summary>
+        /// <param name="userEntry"></param>
+        /// <param name="groupDistinguishedName"></param>
+        /// <returns></returns>
+        public static bool IsUserInGroup(DirectoryEntry userEntry, string groupDistinguishedName)
+        {
+            PropertyValueCollection pvc = userEntry.Properties["memberOf"];
+            int count = pvc.Count;
+            if (count < 1)
+            {
+                return false;
+            }
+            groupDistinguishedName = groupDistinguishedName.ToLower();
+            for (int i = 0; i < count; i++)
+            {
+                string member = pvc[i].ToString();
+                if (member.ToLower() == groupDistinguishedName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// 添加对象到组
+        /// </summary>
+        /// <param name="groupEntry">组</param>
+        /// <param name="objectEntry">对象</param>
+        public static void AddObjectToGroup(DirectoryEntry groupEntry, DirectoryEntry objectEntry)
+        {
+            try
+            {
+
+                string groupDistinguishedName = GetProperty(groupEntry, "distinguishedName");
+                string objectDistinguishedName = GetProperty(objectEntry, "distinguishedName");
+                if (string.IsNullOrEmpty(groupDistinguishedName) || string.IsNullOrEmpty(objectDistinguishedName))
+                {
+                    return;
+                }
+                if (IsUserInGroup(objectEntry, groupDistinguishedName))
+                {
+                    return;
+                }
+                SetPropertyGroup(groupEntry, "member", objectDistinguishedName);
+                groupEntry.CommitChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 将用户添加至用户组
+        /// </summary>
+        /// <param name="OUEntry"></param>
+        /// <param name="userEntry"></param>
+        /// <param name="groupName"></param>
+        public static void AddUserToGroup(DirectoryEntry OUEntry, DirectoryEntry userEntry, string groupName)
+        {
+            if (string.IsNullOrEmpty(groupName))
+            {
+                return;
+            }
+            DirectoryEntry groupEntry = GetGroup(OUEntry, groupName);
+            //if (groupEntry == null)
+            //{
+            //    groupEntry = CreateGroup(OUEntry, groupName);
+            //}
+            string groupDistinguishedName = GetProperty(groupEntry, "distinguishedName");
+            string userDistinguishedName = GetProperty(userEntry, "distinguishedName");
+            if (string.IsNullOrEmpty(groupDistinguishedName) || string.IsNullOrEmpty(userDistinguishedName))
+            {
+                return;
+            }
+            if (IsUserInGroup(userEntry, groupDistinguishedName))
+            {
+                return;
+            }
+            SetPropertyGroup(groupEntry, "member", userDistinguishedName);
+            groupEntry.CommitChanges();
+        }
+
+        public static void AddUserToGroup(DirectoryEntry entry, string username, string groupName)
+        {
+            DirectorySearcher searcher = new DirectorySearcher(entry);
+            searcher.Filter = "(&(objectClass=group) (cn=" + groupName + "))";
+            SearchResultCollection results = searcher.FindAll();
+            if (results.Count != 0)
+            {
+                DirectorySearcher searcherUser = new DirectorySearcher(entry);
+                searcherUser.Filter = "(&(objectClass=user)(cn=" + username + "))";
+                SearchResultCollection resultsUser = searcherUser.FindAll();
+                if (resultsUser.Count != 0)
+                {
+                    DirectoryEntry group = results[0].GetDirectoryEntry();
+                    group.Invoke("Add", new object[] { resultsUser[0].Path });
+                    group.CommitChanges();
+                    group.Close();
+                }
+            }
+            return;
+        }
+
+        public static void DeleteUserToGroup(DirectoryEntry entry, string username, string groupName)
+        {
+            DirectorySearcher searcher = new DirectorySearcher(entry);
+            searcher.Filter = "(&(objectClass=group) (cn=" + groupName + "))";
+            SearchResultCollection results = searcher.FindAll();
+            if (results.Count != 0)
+            {
+                DirectorySearcher searcherUser = new DirectorySearcher(entry);
+                searcherUser.Filter = "(&(objectClass=user)(cn=" + username + "))";
+                SearchResultCollection resultsUser = searcherUser.FindAll();
+                if (resultsUser.Count != 0)
+                {
+                    DirectoryEntry group = results[0].GetDirectoryEntry();
+                    try
+                    {
+                        group.Invoke("Remove", new object[] { resultsUser[0].Path });
+                    }
+                    catch
+                    { }
+                    group.CommitChanges();
+                    group.Close();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 修改组
+        /// </summary>
+        /// <param name="entry"></param>
+        public static void UpdateGroup(DirectoryEntry entry, string desc)
+        {
+            if (!string.IsNullOrEmpty(desc))
+            {
+                entry.Properties["Description"].Value = desc;
+                entry.CommitChanges();
+            }
+            else
+            {
+                entry.Properties["Description"].Value = null;
+                entry.CommitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 判断当前给定组名是否在所属与给定OUPath对象下
+        ///     例如：给定组名：0011_lyy_23_33
+        ///           给定OUPath：OU=L3DT,DC=addom,DC=xinaogroup,DC=com
+        ///     当前方法判断组名：0011_lyy_23_33 是否所属与L3DT的OU为下
+        /// </summary>
+        /// <param name="ouPath"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        public static bool IsGroupInOUPath(string ouPath, string groupName)
+        {
+            using (DirectoryEntry parent = GetDirectoryEntry(ouPath))
+            {
+                using (DirectorySearcher searcher = new DirectorySearcher())
+                {
+                    searcher.SearchRoot = parent;
+                    searcher.CacheResults = false;
+                    searcher.SearchScope = SearchScope.Subtree;
+                    searcher.Filter = "(&(objectClass=group)(name=" + groupName + "))";
+                    SearchResult result = searcher.FindOne();
+                    if (result != null)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取组类型的int值
+        /// </summary>
+        /// <returns></returns>
+        public static int GetGroupTypeValue()
+        {
+            int val = (int)(ActiveDs.ADS_GROUP_TYPE_ENUM.ADS_GROUP_TYPE_GLOBAL_GROUP
+            | ActiveDs.ADS_GROUP_TYPE_ENUM.ADS_GROUP_TYPE_SECURITY_ENABLED);
+            return val;
+
+        }
 
         #endregion
 
@@ -576,7 +846,7 @@ namespace Dot.Utility.ActiveDirectory
         {
             DirectorySearcher deSearch = new DirectorySearcher(parent);
             deSearch.Filter = "(&(objectCategory=person)(objectClass=user))";
-            deSearch.SearchScope = SearchScope.Subtree;            
+            deSearch.SearchScope = SearchScope.Subtree;
             SearchResultCollection srList = deSearch.FindAll();
             return srList;
         }
@@ -617,7 +887,44 @@ namespace Dot.Utility.ActiveDirectory
 
         #endregion
 
+        /// <summary>
+        /// 当前用户已加入的组
+        /// </summary>
+        /// <param name="userEntry"></param>
+        /// <returns></returns>
+        public static HashSet<string> UserInGroup(DirectoryEntry userEntry)
+        {
+            //PropertyValueCollection pvc = userEntry.Properties["memberOf"].Value;
+            Object[] stringArray = (Object[])userEntry.Properties["memberOf"].Value;
+            int count = stringArray.Count();
+            if (count < 1)
+            {
+                return new HashSet<string>();
+            }
+            HashSet<string> groups = new HashSet<string>();
+            for (int i = 0; i < count; i++)
+            {
+                string member = GetDirectoryEntry(EscapeFilterLiteral( stringArray[i].ToString(),false)).Guid.ToString();
+                if (!groups.Contains(member))
+                    groups.Add(member);
 
+            }
+            return groups;
+        }
+
+        public static string EscapeFilterLiteral(string literal, bool escapeWildcards)
+        {
+            if (literal == null) return string.Empty;
+
+            //literal = literal.Replace("\",@"\5c");
+            literal = literal.Replace("(", @"\28");
+            literal = literal.Replace(")", @"\29");
+            literal = literal.Replace("\0", @"\00");
+            literal = literal.Replace("/", @"\2f");
+            if (escapeWildcards) literal = literal.Replace("*", @"\2a");
+            return literal;
+        }
+      
 
         /// <summary>
         /// 根据员工ID获取对应AD域账号
@@ -806,17 +1113,6 @@ namespace Dot.Utility.ActiveDirectory
             //}
         }
 
-        public static string ProcLDAPStr(string LDAPStr)
-        {
-            if (!string.IsNullOrEmpty(LDAPStr))
-            {
-                LDAPStr = LDAPStr.Replace("#", "\\#");
-                LDAPStr = LDAPStr.Replace("\"", "\\\"");
-                return LDAPStr;
-            }
-            else
-                return LDAPStr;
-        }
 
         #endregion
 
@@ -876,6 +1172,31 @@ namespace Dot.Utility.ActiveDirectory
             }
             return string.Empty;
         }
+
+        public static void SetPropertyGroup(DirectoryEntry entry, string propertyName, string propertyValue)
+        {
+            if (entry.Properties.Contains(propertyName))
+            {
+                if (string.IsNullOrEmpty(propertyValue))
+                {
+                    object o = entry.Properties[propertyName].Value;
+                    entry.Properties[propertyName].Remove(o);
+                }
+                else
+                {
+                    entry.Properties[propertyName].Add(propertyValue);
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(propertyValue))
+                {
+                    return;
+                }
+                entry.Properties[propertyName].Add(propertyValue);
+            }
+        }
+
 
         #endregion
 

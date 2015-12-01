@@ -41,6 +41,10 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.ActiveDs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ad023f0a304eb227, processorArchitecture=MSIL">
+      <HintPath>..\packages\Interop.ActiveDs.1.0.0\lib\Interop.ActiveDs.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
@@ -177,6 +181,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\ServerSettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EntityFramework\" />
+    <Folder Include="ORM\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

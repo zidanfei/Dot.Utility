@@ -93,7 +93,7 @@ namespace Dot.Utility.ConfigTest
         /// Method Signature:  string GetAppSettingOrDefault(string key, string defaultValue =)
         /// </summary>
         [TestMethod()]
-        
+
         public void GetAppSettingOrDefaultTest()
         {
             DateTime methodStartTime = DateTime.Now;
@@ -116,7 +116,7 @@ namespace Dot.Utility.ConfigTest
         /// Method Signature:  string GetConnectionStringOrDefault(string key, string defaultValue =)
         /// </summary>
         [TestMethod()]
-        
+
         public void GetConnectionStringOrDefaultTest()
         {
             DateTime methodStartTime = DateTime.Now;
@@ -139,7 +139,7 @@ namespace Dot.Utility.ConfigTest
         /// Method Signature:  bool ExistsAppSetting(string key)
         /// </summary>
         [TestMethod()]
-        
+
         public void ExistsAppSettingTest()
         {
             DateTime methodStartTime = DateTime.Now;
@@ -161,7 +161,7 @@ namespace Dot.Utility.ConfigTest
         /// Method Signature:  bool ExistsAppSetting(string key)
         /// </summary>
         [TestMethod()]
-        
+
         public void ExistsAppSetting1Test()
         {
             DateTime methodStartTime = DateTime.Now;
@@ -188,6 +188,14 @@ namespace Dot.Utility.ConfigTest
 
         #endregion // End of GeneratedMethods
 
+
+        [TestMethod()]
+
+        public void SetTest()
+        {
+            //ConfigHelper.Set("PublishEnvironment","Dev1");
+            //ConfigHelper.Set("nou", "nou");
+        }
         #endregion
 
     }

@@ -53,6 +53,10 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.ActiveDs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ad023f0a304eb227, processorArchitecture=MSIL">
+      <HintPath>..\packages\Interop.ActiveDs.1.0.0\lib\Interop.ActiveDs.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -154,13 +158,16 @@
     <Compile Include="DTO\BusinessLogicFault.cs" />
     <Compile Include="DTO\GenericFault.cs" />
     <Compile Include="DTO\WSResponse.cs" />
+    <Compile Include="EntityFramework\EFDbContext.cs" />
     <Compile Include="EntityFramework\EntityBaseWithId.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBase.cs" />
     <Compile Include="EntityFramework\IEntityBaseWithIdRepositoryBase.cs" />
     <Compile Include="EntityFramework\IEntityFrameworkRepositoryBase.cs" />
+    <Compile Include="EntityFramework\IOrderable.cs" />
     <Compile Include="EntityFramework\IRepositoryBase.cs" />
     <Compile Include="EntityFramework\EntityBase.cs" />
     <Compile Include="EntityFramework\EntityBaseWithIdRepositoryBase.cs" />
+    <Compile Include="EntityFramework\Orderable.cs" />
     <Compile Include="EntityFramework\RepositoryBase.cs" />
     <Compile Include="EntityFramework\UniqueAttribute.cs" />
     <Compile Include="Enum\DataState.cs" />

@@ -37,6 +37,7 @@ namespace Dot.Utility.Service
                 res.StatusCode = (int)HttpStatusCode.InternalServerError;
                 if (Dot.Utility.Log.LogFactory.ExceptionLog.IsErrorEnabled)
                     Dot.Utility.Log.LogFactory.ExceptionLog.Error(ex);
+                res.Exception = ex;
             }
             catch (Exception ex)
             {
@@ -45,6 +46,7 @@ namespace Dot.Utility.Service
                 res.StatusCode = (int)HttpStatusCode.InternalServerError;
                 if (Dot.Utility.Log.LogFactory.ExceptionLog.IsErrorEnabled)
                     Dot.Utility.Log.LogFactory.ExceptionLog.Error(ex);
+                res.Exception = ex;
             }
             return res;
         }

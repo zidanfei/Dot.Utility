@@ -48,11 +48,13 @@ namespace Dot.Utility.EntityFramework
         /// <summary>
         /// 排序码
         /// </summary>
+        [Display(Name = "序列号")]
         public int OrderNo { get; set; }
 
         /// <summary>
         /// 启用（1）、禁用（0）
         /// </summary>
+        [Display(Name = "是否启用")]
         public bool IsEnabled { get; set; }
 
         /// <summary>
@@ -77,6 +79,7 @@ namespace Dot.Utility.EntityFramework
         /// <summary>
         /// 创建者
         /// </summary>
+        [Display(Name = "创建者")]
         public string CreatedUserId { get; set; }
 
         /// <summary>
@@ -88,6 +91,7 @@ namespace Dot.Utility.EntityFramework
         /// <summary>
         /// 更新者
         /// </summary>
+        [Display(Name = "更新者")]
         public string UpdatedUserId { get; set; }
 
 

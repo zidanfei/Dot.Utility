@@ -246,6 +246,8 @@ namespace Dot.Utility.EntityFramework
                      WHERE RowNumber BETWEEN  {2} AND {3} ORDER BY {1}  ;"
                      , sqlstr, orderby, start, end
                 );
+            if (parameters.Count() == 0)
+                return _dbContext.Database.SqlQuery<TOut>(sql);
             return _dbContext.Database.SqlQuery<TOut>(sql, parameters);
         }
 

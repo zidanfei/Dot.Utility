@@ -13,4 +13,10 @@ namespace Dot.Utility.EntityFramework
     {
        
     }
+
+    public interface IRepositoryBase<T,Tkey, TContext> : IEntityFrameworkRepositoryBase<T, TContext> where T : EntityBase<Tkey>, new()
+       where TContext : DbContext, new()
+    {
+
+    }
 }

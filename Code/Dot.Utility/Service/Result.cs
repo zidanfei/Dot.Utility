@@ -50,6 +50,7 @@ namespace Dot.Utility.Service
             _statusCode = 0;
             _message = success ? SuccessMessage : FailedMessage;
             _data = null;
+            Exception = null;
         }
 
         /// <summary>
@@ -62,6 +63,7 @@ namespace Dot.Utility.Service
             _statusCode = 0;
             _message = message;
             _data = null;
+            Exception = null;
         }
 
         /// <summary>
@@ -74,6 +76,7 @@ namespace Dot.Utility.Service
             _statusCode = statusCode;
             _message = FailedMessage;
             _data = null;
+            Exception = null;
         }
 
         /// <summary>
@@ -86,6 +89,7 @@ namespace Dot.Utility.Service
             _statusCode = 0;
             _message = SuccessMessage;
             _data = data;
+            Exception = null;
         }
 
         /// <summary>
@@ -99,6 +103,7 @@ namespace Dot.Utility.Service
             _statusCode = 0;
             _message = message;
             _data = null;
+            Exception = null;
         }
 
         /// <summary>
@@ -112,6 +117,7 @@ namespace Dot.Utility.Service
             _statusCode = statusCode;
             _message = success ? SuccessMessage : FailedMessage;
             _data = null;
+            Exception = null;
         }
 
         /// <summary>
@@ -125,6 +131,7 @@ namespace Dot.Utility.Service
             _statusCode = statusCode;
             _message = message;
             _data = null;
+            Exception = null;
         }
 
         /// <summary>
@@ -139,6 +146,7 @@ namespace Dot.Utility.Service
             _statusCode = statusCode;
             _message = message;
             _data = null;
+            Exception = null;
         }
 
         #endregion
@@ -153,7 +161,9 @@ namespace Dot.Utility.Service
             get { return _success; }
             set { _success = value; }
         }
-
+        /// <summary>
+        /// 是否有错误
+        /// </summary>
         [DataMember]
         public bool isError
         {
@@ -170,6 +180,15 @@ namespace Dot.Utility.Service
         {
             get { return _statusCode; }
             set { _statusCode = value; }
+        }
+
+        /// <summary>
+        /// status code indecates the result type of this invoking.
+        /// other:  other customized types.
+        /// </summary> 
+        public Exception Exception
+        {
+            get; set;
         }
 
         /// <summary>
