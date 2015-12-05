@@ -1156,7 +1156,11 @@ namespace Dot.Utility.ActiveDirectory
         {
             try
             {
-                if (entry.Properties.Contains(propertyName))
+                if (propertyName.Equals("objectGUID", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new Guid((entry.Properties[propertyName] as PropertyValueCollection).Value as byte[]).ToString();
+                }
+                else if (entry.Properties.Contains(propertyName))
                     return entry.Properties[propertyName][0].ToString();
                 else
                     return string.Empty;

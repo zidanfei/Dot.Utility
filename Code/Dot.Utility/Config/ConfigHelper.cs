@@ -69,13 +69,55 @@ namespace Dot.Utility.Config
         {
             return ConfigurationManager.AppSettings.AllKeys.Any(k => k.Equals(key, StringComparison.OrdinalIgnoreCase));
         }
+        public static void SetAppSetting(string key, string value)
+        {
+            SetAppSetting(null, key, value);
+        }
 
+        public static void SetAppSetting(string exePath, string key, string value)
+        {
+            Configuration config;
+            if (string.IsNullOrEmpty(exePath))
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+            else
+            {
+                config = ConfigurationManager.OpenExeConfiguration(exePath);
+            }
 
-        //public static void Set(string key,string value)
-        //{
-        //    Properties.Settings connset = Properties.Settings.Default;
-        //    constr = connset.ConnectionString;
-        //    ConfigurationManager.AppSettings.Set(key, value);
-        //}
+            if (config.AppSettings.Settings[key] != null)
+                config.AppSettings.Settings[key].Value = value;
+            else
+                config.AppSettings.Settings.Add(key, value);
+
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        public static void SetConnectionString(string key, string value)
+        {
+            SetConnectionString(null, key, value);
+        }
+        public static void SetConnectionString(string exePath, string key, string value)
+        {
+            Configuration config;
+            if (string.IsNullOrEmpty(exePath))
+            {
+                config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            }
+            else
+            {
+                config = ConfigurationManager.OpenExeConfiguration(exePath);
+            }
+
+            if (config.ConnectionStrings.ConnectionStrings[key] != null)
+                config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
+            else
+                config.ConnectionStrings.ConnectionStrings.Add(new ConnectionStringSettings(key, value));
+
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+        }
     }
 }
