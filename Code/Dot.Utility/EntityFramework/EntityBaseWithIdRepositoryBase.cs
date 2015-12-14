@@ -11,5 +11,14 @@ namespace Dot.Utility.EntityFramework
         EntityFrameworkRepositoryBase<EntityBaseWithId<T>, TContext> , IEntityBaseWithIdRepositoryBase<T, TContext>
          where TContext : DbContext, new()
     {
+        public EntityBaseWithIdRepositoryBase():base()
+        {
+
+        }
+
+        public EntityBaseWithIdRepositoryBase(TContext context) : base(context)
+        {
+
+        }
     }
 }

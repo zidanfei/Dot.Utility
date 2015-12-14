@@ -61,6 +61,25 @@ namespace Dot.Utility.Config
         }
 
         /// <summary>
+        /// 获取配置文件路径
+        /// 可以为每个公司配置不同的配置文件
+        /// </summary>
+        /// <param name="dirPath">配置文件所在文件夹</param>
+        /// <param name="configName">配置文件名</param>
+        /// <param name="company">配置文件所属公司</param>
+        /// <returns></returns>
+        public static string GetConfigPath(string dirPath, string configName, string company)
+        {
+            var files = System.IO.Directory.GetFiles(dirPath, configName + "*");
+            var companyConfig = files.FirstOrDefault(m => m.Contains(company));
+            if (string.IsNullOrEmpty(companyConfig))
+                return files.FirstOrDefault();
+            else
+                return companyConfig;
+            return string.Empty;
+        }
+
+        /// <summary>
         /// 是否存在key配置项
         /// </summary>
         /// <param name="key">不区分大小写</param>
@@ -119,5 +138,7 @@ namespace Dot.Utility.Config
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
         }
+
+
     }
 }

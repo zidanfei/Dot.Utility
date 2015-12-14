@@ -182,8 +182,12 @@
     <Compile Include="Date\DateTimeExtensions.cs" />
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
+    <Compile Include="Log\IWebLog.cs" />
     <Compile Include="Log\LogFactory.cs" />
     <Compile Include="Log\Loghelper.cs" />
+    <Compile Include="Log\LogMessage.cs" />
+    <Compile Include="Log\WebLogImpl.cs" />
+    <Compile Include="Log\WebLogManager.cs" />
     <Compile Include="Mail\EmailHelper.cs" />
     <Compile Include="Media\Diagram\Application\ChangedEventArgs.cs" />
     <Compile Include="Media\Diagram\Application\ChangedEventHandler.cs" />

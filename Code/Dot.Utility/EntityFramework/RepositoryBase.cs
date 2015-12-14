@@ -11,6 +11,14 @@ namespace Dot.Utility.EntityFramework
          where T : EntityBase,new()
          where TContext : DbContext, new()
     {
+        public RepositoryBase() : base()
+        {
+
+        }
+        public RepositoryBase(TContext context) :base(context)
+        {
+
+        }
         public override void Add(T entity)
         {
             entity.CreatedOn = DateTime.Now;
@@ -28,6 +36,16 @@ namespace Dot.Utility.EntityFramework
         where T : EntityBase< Tkey>, new()
         where TContext : DbContext, new()
     {
+        public RepositoryBase() : base()
+        {
+
+        }
+
+        public RepositoryBase(TContext context) : base(context)
+        {
+
+        }
+
         public override void Add(T entity)
         {
             entity.CreatedOn = DateTime.Now;

@@ -226,7 +226,7 @@ namespace Dot.Utility
         /// </summary>  
         /// <param name="dt"></param>  
         /// <returns></returns>  
-        public static IList<T> ToList<T>(DataTable dt) where T : class,new()
+        public static IList<T> ToList<T>(DataTable dt) where T : class, new()
         {
 
             // 定义集合  
@@ -258,8 +258,8 @@ namespace Dot.Utility
                         if (!pi.PropertyType.IsGenericType)
                         {
                             if (value != DBNull.Value)
-                            //非泛型
-                            pi.SetValue(t,  System.Convert.ChangeType(value, pi.PropertyType), null);
+                                //非泛型
+                                pi.SetValue(t, System.Convert.ChangeType(value, pi.PropertyType), null);
                         }
                         else
                         {
@@ -267,13 +267,13 @@ namespace Dot.Utility
                             Type genericTypeDefinition = pi.PropertyType.GetGenericTypeDefinition();
                             if (genericTypeDefinition == typeof(Nullable<>))
                             {
-                                if (value != DBNull.Value) 
-                                    pi.SetValue(t,   System.Convert.ChangeType(value, Nullable.GetUnderlyingType(pi.PropertyType)), null);
+                                if (value != DBNull.Value)
+                                    pi.SetValue(t, System.Convert.ChangeType(value, Nullable.GetUnderlyingType(pi.PropertyType)), null);
                             }
                         }
                         //if (value != null && value != DBNull.Value)
                         //{
-                            
+
                         //    pi.SetValue(t, System.Convert.ChangeType(value, pi.PropertyType), null);
                         //}
                     }
@@ -285,13 +285,58 @@ namespace Dot.Utility
             return ts;
         }
 
+        public static DataRow ToDataRow(object obj)
+        {
+            DataTable dt = new DataTable();
+            // 获得此模型的公共属性  
+            PropertyInfo[] propertys = obj.GetType().GetProperties();
+            //定义一个临时变量  
+            string tempName = string.Empty;
+            //遍历该对象的所有属性  
+            foreach (PropertyInfo pi in propertys)
+            {
+                tempName = pi.Name;//将属性名称赋值给临时变量  
+                                   //检查DataTable是否包含此列（列名==对象的属性名）    
+                if (!dt.Columns.Contains(tempName))
+                {
+                    // 判断此属性是否有Setter  
+                    if (!pi.CanWrite)
+                        continue;//该属性不可写，直接跳出 
+                    dt.Columns.Add(tempName);
+                }
+            }
+            var row = dt.NewRow();
+            //遍历该对象的所有属性  
+            foreach (PropertyInfo pi in propertys)
+            {
+                tempName = pi.Name;//将属性名称赋值给临时变量  
+                                   //检查DataTable是否包含此列（列名==对象的属性名）    
+                if (dt.Columns.Contains(tempName))
+                {
+                    // 判断此属性是否有Setter  
+                    if (!pi.CanWrite)
+                        continue;//该属性不可写，直接跳出 
+                                 //取值  
+
+                    //如果非空，则赋给对象的属性  
+                    if (!pi.PropertyType.IsGenericType)
+                    {
+                        //非泛型
+                        row[tempName] = pi.GetValue(obj);
+                    }
+                }
+            }
+            return row;
+        }
+
+
 
         /// <summary>  
         /// 利用反射和泛型  
         /// </summary>  
         /// <param name="dt"></param>  
         /// <returns></returns>  
-        public static DataTable ToDataTable<T>(IList<T> list) where T : class,new()
+        public static DataTable ToDataTable<T>(IList<T> list) where T : class, new()
         {
 
             // 定义集合  

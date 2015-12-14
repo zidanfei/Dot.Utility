@@ -13,6 +13,10 @@ namespace Dot.Utility.Log.Tests
         [TestMethod()]
         public void WriteLogTest()
         {
+            //Log.LogFactory.DataLog.Info(new LogMessage() { UserId = "UserId4", Message = DateTime.Now.ToString(),AreaName="area1",ControllerName="con2",ActionName="action3" });
+            Log.LogFactory.WebBusinessLog.Info(new LogMessage() { UserId = "UserId4", Message = DateTime.Now.ToString(),AreaName="area1",ControllerName="con2",ActionName="action3" });
+            Log.LogFactory.WebDataLog.Info(new LogMessage() { UserId = "UserId4", Message = DateTime.Now.ToString(),AreaName="area1",ControllerName="con2",ActionName="action3" });
+            //Log.LogFactory.RunningLog.Info(new LogMessage() { UserId = "UserId4", Message = DateTime.Now.ToString(),AreaName="area1",ControllerName="con2",ActionName="action3" });
             Loghelper.WriteLog("today");
 
         }
@@ -20,7 +24,7 @@ namespace Dot.Utility.Log.Tests
         [TestMethod()]
         public void ReadLogTest()
         {
-           var log=  Loghelper.ReadLog(DateTime.Today);
+            var log = Loghelper.ReadLog(DateTime.Today);
 
         }
     }
