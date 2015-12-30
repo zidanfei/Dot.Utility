@@ -13,10 +13,10 @@ namespace Dot.Utility.ActiveDirectory
 {
     public class ADHelper
     {
-        public string LDAPPath = "LDAP://";
-        public string Domain;
-        public string DomainUser;
-        public string DomainPass;
+        public static String LDAPPath = "LDAP://";
+        public String Domain;
+        public String DomainUser;
+        public String DomainPass;
         public DirectoryEntry RootEntry
         {
             get;
@@ -106,6 +106,29 @@ namespace Dot.Utility.ActiveDirectory
             return RootEntry;
         }
 
+        /// <summary>
+        /// 获取AD
+        /// </summary>
+        /// <param name="path">域名称</param>
+        /// <param name="loginName">用户名</param>
+        /// <param name="password">密码</param>
+        /// <returns>返回登陆状态</returns>
+        public static DirectoryEntry GetDirectoryEntry(string Domain, string loginName, string password, string path)
+        {
+            var de = new DirectoryEntry(LDAPPath + Domain, loginName, password);
+            de.Path = de.Path + "/" + path;
+            return de;
+        }
+        /// <summary>
+        /// 返回DirectoryEntry
+        /// </summary>
+        /// <param name="path">域地址</param>
+        /// <returns></returns>
+        public static DirectoryEntry GetDirectoryEntry(DirectoryEntry de, string path)
+        {
+            de.Path = "LDAP://" + path;
+            return de;
+        }
         /// <summary>
         /// 返回DirectoryEntry
         /// </summary>
@@ -789,6 +812,8 @@ namespace Dot.Utility.ActiveDirectory
             //try
             //{
             var sr = deSearch.FindOne();
+            if (sr == null)
+                return null;
             var de = sr.GetDirectoryEntry();
             return de;
             //}
@@ -797,7 +822,7 @@ namespace Dot.Utility.ActiveDirectory
             //    LogFactory.ExceptionLog.Error(ex);
 
             //}
-            return null;
+            //return null;
         }
 
         /// <summary>
@@ -844,11 +869,7 @@ namespace Dot.Utility.ActiveDirectory
         /// <returns></returns>
         public static SearchResultCollection GetAllSubUsers(DirectoryEntry parent)
         {
-            DirectorySearcher deSearch = new DirectorySearcher(parent);
-            deSearch.Filter = "(&(objectCategory=person)(objectClass=user))";
-            deSearch.SearchScope = SearchScope.Subtree;
-            SearchResultCollection srList = deSearch.FindAll();
-            return srList;
+            return GetAllSubDirectoryEntrys(parent, Type_User);
         }
 
         /// <summary>
@@ -892,10 +913,12 @@ namespace Dot.Utility.ActiveDirectory
         /// </summary>
         /// <param name="userEntry"></param>
         /// <returns></returns>
-        public static HashSet<string> UserInGroup(DirectoryEntry userEntry)
+        public static HashSet<string> UserInGroup(DirectoryEntry userEntry, string domain, string loginName, string password)
         {
             //PropertyValueCollection pvc = userEntry.Properties["memberOf"].Value;
             Object[] stringArray = (Object[])userEntry.Properties["memberOf"].Value;
+            if (stringArray == null)
+                return new HashSet<string>();
             int count = stringArray.Count();
             if (count < 1)
             {
@@ -904,7 +927,7 @@ namespace Dot.Utility.ActiveDirectory
             HashSet<string> groups = new HashSet<string>();
             for (int i = 0; i < count; i++)
             {
-                string member = GetDirectoryEntry(EscapeFilterLiteral( stringArray[i].ToString(),false)).Guid.ToString();
+                string member = GetDirectoryEntry(domain, loginName, password, EscapeFilterLiteral(stringArray[i].ToString(), false)).Guid.ToString();
                 if (!groups.Contains(member))
                     groups.Add(member);
 
@@ -942,6 +965,8 @@ namespace Dot.Utility.ActiveDirectory
             search.Filter = "EmployeeID=" + EmployeeID;// "(SAMAccountName=qiu.fangbing)";
             search.PropertiesToLoad.Add("cn");
             SearchResult result = search.FindOne();
+            if (result == null)
+                return null;
             DirectoryEntry user = result.GetDirectoryEntry();
 
             Account = Convert.ToString(user.Invoke("Get", new object[] { "SAMAccountName" }));
@@ -1112,7 +1137,7 @@ namespace Dot.Utility.ActiveDirectory
             //    return false;
             //}
         }
-
+ 
 
         #endregion
 
@@ -1205,6 +1230,23 @@ namespace Dot.Utility.ActiveDirectory
         #endregion
 
         #region 获取DE
+
+        public DirectoryEntry GetDirectoryEntryByObjectGuid(string objectGuid)
+        {
+            DirectoryEntry entry = null;
+
+            if (string.IsNullOrWhiteSpace(objectGuid))
+            {
+                entry = GetRootEntry();
+            }
+            entry = new DirectoryEntry("LDAP://" + Domain + "/<GUID=" + objectGuid + ">");
+            //为了判断entry是不是存在
+            Guid ls = entry.Guid;
+            //entry.RefreshCache();
+
+            return entry;
+        }
+
 
         /// <summary>
         /// 获取所有子DirectoryEntry

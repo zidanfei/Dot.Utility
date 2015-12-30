@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="ActiveDirectory\ChineseToPinYinTests.cs" />
     <Compile Include="Config\ConfigHelperTest.cs" />
+    <Compile Include="Cryptography\ShaEncryptionTests.cs" />
     <Compile Include="DataFormat\DataConvertTests.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBaseTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Office\ExcelHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PSWrapper\CmdletProcessorTests.cs" />
+    <Compile Include="String\ChineseToPinYinTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dot.Utility\Dot.Utility.csproj">

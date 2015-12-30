@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -148,5 +149,36 @@ namespace Dot.Utility
             return Convert(chs).Length > 0 ? Convert(chs).Substring(0, 1).ToUpper() : "";
         }
 
+        /// <summary>
+        /// 是否汉字
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsChineseRegex(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (!Regex.IsMatch(text[i].ToString(), @"[\u4e00-\u9fbb]"))                    
+                    return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 是否汉字
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static bool IsChinese(string text)
+        {         
+            char[] c = text.ToCharArray();
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i] >= 0x4e00 && c[i] <= 0x9fbb)
+                { }
+                else
+                    return false;
+            }
+            return true;
+        }
     }
 }
