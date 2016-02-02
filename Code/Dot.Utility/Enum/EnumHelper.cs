@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -54,10 +55,80 @@ namespace Dot.Utility
         /// <summary>
         /// 获取指定枚举值的描述信息
         /// </summary>
+        /// <param name="v">枚举值</param>
+        /// <returns></returns>
+        public static string GetDescription<T>(T v) where T : class, new()
+        {
+            return GetDescription(typeof(T), v);
+        }
+
+        /// <summary>
+        /// 获取指定枚举值的描述信息
+        /// </summary>
         /// <param name="t">枚举类型</param>
         /// <param name="v">枚举值</param>
         /// <returns></returns>
-        public static string GetDisplayName<T>(T v) where T :class,new()
+        public static string GetDisplayName(System.Type t, object v)
+        {
+            try
+            {
+                FieldInfo oFieldInfo = t.GetField(GetName(t, v));
+                DisplayNameAttribute[] attributes = (DisplayNameAttribute[])oFieldInfo.GetCustomAttributes(typeof(DisplayNameAttribute), false);
+                return (attributes.Length > 0) ? attributes[0].DisplayName : GetName(t, v);
+            }
+            catch
+            {
+                return "未知";
+            }
+        }
+
+        ///// <summary>
+        ///// 获取指定枚举值的描述信息
+        ///// </summary>
+        ///// <param name="v">枚举值</param>
+        ///// <returns></returns>
+        //public static string GetDisplayName<T>(T v) where T : class, new()
+        //{
+        //    return GetDisplayName(typeof(T), v);
+        //}
+
+        /// <summary>
+        /// 获取指定枚举值的描述信息
+        /// </summary>
+        /// <param name="t">枚举类型</param>
+        /// <param name="v">枚举值</param>
+        /// <returns></returns>
+        public static string GetDisplay(System.Type t, object v)
+        {
+            try
+            {
+                FieldInfo oFieldInfo = t.GetField(GetName(t, v));
+                DisplayAttribute[] attributes = (DisplayAttribute[])oFieldInfo.GetCustomAttributes(typeof(DisplayAttribute), false);
+                return (attributes.Length > 0) ? attributes[0].Name : GetName(t, v);
+            }
+            catch
+            {
+                return "未知";
+            }
+        }
+
+        /// <summary>
+        /// 获取指定枚举值的描述信息
+        /// </summary>
+        /// <param name="v">枚举值</param>
+        /// <returns></returns>
+        public static string GetDisplay<T>(T v) where T : class, new()
+        {
+            return GetDisplay(typeof(T), v);
+        }
+
+        /// <summary>
+        /// 获取指定枚举值的描述信息
+        /// </summary>
+        /// <param name="t">枚举类型</param>
+        /// <param name="v">枚举值</param>
+        /// <returns></returns>
+        public static string GetDisplayName<T>(T v) where T : class, new()
         {
             try
             {
@@ -130,6 +201,20 @@ namespace Dot.Utility
                 }
             }
             return ReturnValue;
+        }
+
+        /// <summary>
+        /// 方法具有某个属性
+        /// </summary>
+        /// <param name="t">类型</param>
+        /// <param name="method">方法名称</param>
+        /// <param name="attr">属性特征</param>
+        /// <returns></returns>
+        public static bool MethodHasAttribute(System.Type t, string method, System.Type attr,bool inherit=false)
+        {
+            MethodInfo oFieldInfo = t.GetMethod(method);
+            var attributes = oFieldInfo.GetCustomAttributes(attr, inherit);
+            return (attributes.Length > 0);
         }
 
         /// <summary>

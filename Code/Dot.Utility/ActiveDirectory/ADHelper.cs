@@ -915,10 +915,21 @@ namespace Dot.Utility.ActiveDirectory
         /// <returns></returns>
         public static HashSet<string> UserInGroup(DirectoryEntry userEntry, string domain, string loginName, string password)
         {
-            //PropertyValueCollection pvc = userEntry.Properties["memberOf"].Value;
-            Object[] stringArray = (Object[])userEntry.Properties["memberOf"].Value;
-            if (stringArray == null)
+            Object[] stringArray;
+            var memberOf = userEntry.Properties["memberOf"].Value;
+            if (memberOf is Object[])
+            {
+                stringArray = (Object[])userEntry.Properties["memberOf"].Value;
+            }
+            else if (memberOf is string)
+            {
+                stringArray = new Object[1];
+                stringArray[0] = userEntry.Properties["memberOf"].Value.ToString();
+            }
+            else
+            {
                 return new HashSet<string>();
+            }
             int count = stringArray.Count();
             if (count < 1)
             {

@@ -62,8 +62,8 @@
     </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NPOI">
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
@@ -110,11 +110,20 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Channels" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.SelfHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
@@ -384,24 +393,14 @@
     <Compile Include="System\WindowsHelper.cs" />
     <Compile Include="System\ZipHelper.cs" />
     <Compile Include="Validator\Check.cs" />
-    <Compile Include="Web\WebApi\AreaWebApiConfig.cs" />
-    <Compile Include="Web\WebApi\DateTypeFormatter.cs" />
     <Compile Include="Web\DirectoryHelper.cs" />
-    <Compile Include="Web\MVC\Entity.cs" />
-    <Compile Include="Web\MVC\EntityAwareBodyModelValidator.cs" />
-    <Compile Include="Web\MVC\IdFromRouteFormatterParameterBinding.cs" />
-    <Compile Include="Web\MVC\IdFromRouteHttpContent.cs" />
     <Compile Include="Web\IIS\IISHelper.cs" />
     <Compile Include="Web\IIS\VirtualDirectory.cs" />
     <Compile Include="Web\IIS\WebSiteAdmin.cs" />
     <Compile Include="Web\IIS\WebSiteInfo.cs" />
     <Compile Include="Web\ImageUpload.cs" />
     <Compile Include="Web\JsHelper.cs" />
-    <Compile Include="Web\MVC\ODataQueryCriteria.cs" />
-    <Compile Include="Web\MVC\ODataQueryCriteriaBinder.cs" />
-    <Compile Include="Web\MVC\OptionalGuidRouteConstraint.cs" />
     <Compile Include="Web\PagingInfo.cs" />
-    <Compile Include="Web\WebApi\WebApiHttpStarter.cs" />
     <Compile Include="Web\WebImageHelper.cs" />
     <Compile Include="Web\WebServiceHelper.cs" />
     <Compile Include="Date\WeekHelper.cs" />

@@ -99,7 +99,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception> 
-        public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, 
+        public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,
             Func<T, string> orderby, Func<T, string> orderbyDescending, string include = null)
         {
 
@@ -149,7 +149,7 @@ namespace Dot.Utility.EntityFramework
         /// pageSize
         /// </exception>
         public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total,
-            out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending, string include=null)
+            out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending, string include = null)
         {
 
             if (pageIndex <= 0)
@@ -262,6 +262,26 @@ namespace Dot.Utility.EntityFramework
         }
 
         /// <summary>
+        /// 获取最大值
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public virtual object GetMax(Expression<Func<T, bool>> predicate, Expression<Func<T, object>> selector)
+        {
+            return _objectSet.Where(predicate).Max(selector);
+        }
+
+        /// <summary>
+        /// 获取最小值
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public virtual object GetMin(Expression<Func<T, bool>> predicate, Expression<Func<T, object>> selector)
+        {
+            return _objectSet.Where(predicate).Min(selector);
+        }
+
+        /// <summary>
         /// 获取实体个数
         /// </summary>
         /// <returns></returns>
@@ -311,7 +331,7 @@ namespace Dot.Utility.EntityFramework
         {
             _objectSet.Remove(entity);
         }
-         
+
 
         /// <summary>
         /// 保存所有变更。
