@@ -23,6 +23,11 @@ namespace Dot.Utility.Log
         #region Implementation of IWebLog
 
 
+        public void Debug(string log)
+        {
+            Debug(new LogMessage(log), null);
+        }
+
         public void Debug(LogMessage log)
         {
             Debug(log, null);
@@ -38,7 +43,10 @@ namespace Dot.Utility.Log
             }
         }
 
-
+        public void Info(string log)
+        {
+            Info(new LogMessage(log), null);
+        }
         public void Info(LogMessage log)
         {
             Info(log, null);
@@ -49,9 +57,14 @@ namespace Dot.Utility.Log
             if (this.IsInfoEnabled)
             {
                 LoggingEvent loggingEvent = new LoggingEvent(ThisDeclaringType, Logger.Repository, Logger.Name, Level.Info, log.Message, ex);
-                SetLogMessage(loggingEvent, log);              
+                SetLogMessage(loggingEvent, log);
                 Logger.Log(loggingEvent);
             }
+        }
+
+        public void Warn(string log)
+        {
+            Warn(new LogMessage(log), null);
         }
 
         public void Warn(LogMessage log)
@@ -69,6 +82,11 @@ namespace Dot.Utility.Log
             }
         }
 
+        public void Error(string log)
+        {
+            Error(new LogMessage(log), null);
+        }
+
         public void Error(LogMessage log)
         {
             Error(log, null);
@@ -82,6 +100,11 @@ namespace Dot.Utility.Log
                 SetLogMessage(loggingEvent, log);
                 Logger.Log(loggingEvent);
             }
+        }
+
+        public void Fatal(string log)
+        {
+            Fatal(new LogMessage(log), null);
         }
 
         public void Fatal(LogMessage log)
@@ -103,63 +126,137 @@ namespace Dot.Utility.Log
 
         private void SetLogMessage(LoggingEvent loggingEvent, LogMessage log)
         {
-            if (!string.IsNullOrEmpty(log.ClientIP))
+            try
             {
-                loggingEvent.Properties["ClientIP"] = log.ClientIP;
-            }
-            else
-            {
-                loggingEvent.Properties["ClientIP"] = Net.IPHelper.GetClientIp();
-            }
-            if (!string.IsNullOrEmpty(log.RequestUrl))
-            {
-                loggingEvent.Properties["RequestUrl"] = log.RequestUrl;
-            }
-            else if (null != System.Web.HttpContext.Current)
-            {
-                loggingEvent.Properties["RequestUrl"] = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
-            }
-            if (!string.IsNullOrEmpty(log.ServerIP))
-            {
-                loggingEvent.Properties["ServerIP"] = log.ServerIP;
-            }
-            else if (null != System.Web.HttpContext.Current)
-            {
-                loggingEvent.Properties["ServerIP"] = Net.IPHelper.GetLocalIP();
-            }
-            if (!string.IsNullOrEmpty(log.UserId))
-            {
-                loggingEvent.Properties["UserId"] = log.UserId;
-            }
 
-            if (!string.IsNullOrEmpty(log.UserName))
-            {
-                loggingEvent.Properties["UserName"] = log.UserName;
-            }
-            else if (System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated)
-            {
-                loggingEvent.Properties["UserName"] = System.Threading.Thread.CurrentPrincipal.Identity.Name;
-            }
-            else if (!string.IsNullOrEmpty(loggingEvent.UserName))
-            {
-                loggingEvent.Properties["UserName"] = loggingEvent.UserName;
-            }
-            if (!string.IsNullOrEmpty(log.DisplayName))
-                loggingEvent.Properties["DisplayName"] = log.DisplayName;
-            if (!string.IsNullOrEmpty(log.AreaName))
-                loggingEvent.Properties["AreaName"] = log.AreaName;
-            if (!string.IsNullOrEmpty(log.ControllerName))
-                loggingEvent.Properties["ControllerName"] = log.ControllerName;
-            if (!string.IsNullOrEmpty(log.ActionName))
-                loggingEvent.Properties["ActionName"] = log.ActionName;
-
-            foreach (var item in log.ExtendPropety)
-            {
-                if (!string.IsNullOrEmpty(item.Value))
+                if (!string.IsNullOrEmpty(log.ClientIP))
                 {
-                    loggingEvent.Properties[item.Key] = item.Value;
-
+                    loggingEvent.Properties["ClientIP"] = log.ClientIP;
                 }
+                else
+                {
+                    loggingEvent.Properties["ClientIP"] = Net.IPHelper.GetClientIp();
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.RequestUrl))
+                {
+                    loggingEvent.Properties["RequestUrl"] = log.RequestUrl;
+                }
+                else if (null != System.Web.HttpContext.Current)
+                {
+                    loggingEvent.Properties["RequestUrl"] = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.ServerIP))
+                {
+                    loggingEvent.Properties["ServerIP"] = log.ServerIP;
+                }
+                else if (null != System.Web.HttpContext.Current)
+                {
+                    loggingEvent.Properties["ServerIP"] = Net.IPHelper.GetLocalIP();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.UserId))
+                {
+                    loggingEvent.Properties["UserId"] = log.UserId;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.UserName))
+                {
+                    loggingEvent.Properties["UserName"] = log.UserName;
+                }
+                else if (System.Threading.Thread.CurrentPrincipal.Identity.IsAuthenticated)
+                {
+                    loggingEvent.Properties["UserName"] = System.Threading.Thread.CurrentPrincipal.Identity.Name;
+                }
+                else if (!string.IsNullOrEmpty(loggingEvent.UserName))
+                {
+                    loggingEvent.Properties["UserName"] = loggingEvent.UserName;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.DisplayName))
+                    loggingEvent.Properties["DisplayName"] = log.DisplayName;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.AreaName))
+                    loggingEvent.Properties["AreaName"] = log.AreaName;
+            }
+            catch (Exception ex)
+            {
+            }
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.ControllerName))
+                    loggingEvent.Properties["ControllerName"] = log.ControllerName;
+            }
+            catch (Exception ex)
+            {
+            }
+            try
+            {
+
+                if (!string.IsNullOrEmpty(log.ActionName))
+                    loggingEvent.Properties["ActionName"] = log.ActionName;
+            }
+            catch (Exception ex)
+            {
+            }
+
+            try
+            {
+
+                foreach (var item in log.ExtendPropety)
+                {
+                    if (!string.IsNullOrEmpty(item.Value))
+                    {
+                        loggingEvent.Properties[item.Key] = item.Value;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
 

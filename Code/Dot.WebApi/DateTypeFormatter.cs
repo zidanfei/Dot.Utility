@@ -140,7 +140,7 @@ namespace Dot.WebApi
             {
                 jsonTextWriter.CloseOutput = false;
                 JsonSerializer jsonSerializer = JsonSerializer.Create();
-                jsonSerializer.DateFormatString = "MM/dd/yyyy";
+                jsonSerializer.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
                 //首字母小写
                 //if (this.SerializeAsCamelProperty)

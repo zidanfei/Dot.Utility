@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dot.Utility.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -21,6 +22,11 @@ namespace Dot.Utility.Exceptions
         public ValidationException(string message, Exception ex)
             : base(message, ex)
         {
+        }
+        public ValidationException(LogMessage message)
+        : base(message )
+        {
+
         }
 
         public ValidationException()

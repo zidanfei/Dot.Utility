@@ -64,8 +64,8 @@ namespace Dot.Utility.Xml
 
         #region 存取配置文件
 
-      
 
+        static object lockObj = new object();
 
         /// <summary>
         /// 加载配置
@@ -80,10 +80,13 @@ namespace Dot.Utility.Xml
                 throw new System.IO.IOException("配置文件不存在");
             }
             T obj = null;
-            using (System.IO.StreamReader sr = new System.IO.StreamReader(path, System.Text.Encoding.Unicode))
+            lock(lockObj)
             {
-                obj = GetSerializer<T>().Deserialize(sr) as T;
-                sr.Close();
+                using (System.IO.StreamReader sr = new System.IO.StreamReader(path, System.Text.Encoding.Unicode))
+                {
+                    obj = GetSerializer<T>().Deserialize(sr) as T;
+                    sr.Close();
+                }
             }
             return obj;
         }
@@ -117,8 +120,9 @@ namespace Dot.Utility.Xml
                     sr.Close();
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                LogFactory.ExceptionLog.Error(ex.Message, ex);
             }
         }
 

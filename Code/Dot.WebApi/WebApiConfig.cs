@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using System.Web.Http.Cors;
 using System.Web.Http.Validation;
 
 namespace Dot.WebApi
@@ -13,8 +12,10 @@ namespace Dot.WebApi
     {
         public static void Register(HttpConfiguration config, string area = null)
         {
-            //支持跨域访问
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            if (Dot.Utility.Config.ConfigHelper.GetAppSettingOrDefault("EnableCors", false))
+            {
+                WebApiCors.EnableCors(config);
+            }
 
             //日期格式化
             if (config.Formatters.Count(m => m.GetType() == typeof(DateTypeFormatter)) == 0)

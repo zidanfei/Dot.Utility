@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +26,7 @@ namespace Dot.Utility.EntityFramework
     /// EF 中所有实体的基类。
     /// </summary>
     [Serializable]
-    public class EntityBase<T>:EntityBaseWithId<T>
+    public class EntityBase<T> : EntityBaseWithId<T>
     {
         public EntityBase()
         {

@@ -70,6 +70,7 @@ namespace Dot
                     if (_libraries == null)
                     {
                         var assemblies = EnumerateAllDomainAssemblies().Union(PluginTable.Plugins).ToArray();
+                       
                         _libraries = LoadSortedPlugins(assemblies);
 
                         PluginTable.Plugins.Lock();
@@ -82,6 +83,10 @@ namespace Dot
 
         private static List<PluginAssembly> LoadSortedPlugins(IEnumerable<Assembly> assemblies)
         {
+            if (null == assemblies)
+            {
+                throw new Exception("assemblies 不能为null！");
+            }
             var list = assemblies.Select(assembly =>
             {
                 var pluginType = assembly.GetTypes().FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);

@@ -169,6 +169,7 @@
     <Compile Include="DTO\GenericFault.cs" />
     <Compile Include="DTO\WSResponse.cs" />
     <Compile Include="EntityFramework\EFDbContext.cs" />
+    <Compile Include="EntityFramework\Entity.cs" />
     <Compile Include="EntityFramework\EntityBaseWithId.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBase.cs" />
     <Compile Include="EntityFramework\IEntityBaseWithIdRepositoryBase.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
     <Compile Include="Log\IWebLog.cs" />
+    <Compile Include="Log\LogConfig.cs" />
     <Compile Include="Log\LogFactory.cs" />
     <Compile Include="Log\Loghelper.cs" />
     <Compile Include="Log\LogMessage.cs" />
@@ -381,6 +383,7 @@
     <Compile Include="Service\ResponseResult.cs" />
     <Compile Include="Service\Result.cs" />
     <Compile Include="Service\WebServiceInvoker.cs" />
+    <Compile Include="String\AuthCodeHelper.cs" />
     <Compile Include="String\ChineseToPinYin.cs" />
     <Compile Include="String\PasswordHelper.cs" />
     <Compile Include="String\PinyinHelper.cs" />

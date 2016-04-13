@@ -66,16 +66,42 @@ namespace Dot.Utility.ActiveDirectory
         public bool TryAuthenticate(string Account, string Password)
         {
             bool isLogin = false;
-            //try
-            //{
-            DirectoryEntry entry = new DirectoryEntry(LDAPPath + Domain, Account, Password);
-            entry.RefreshCache();
-            isLogin = true;
-            //}
-            //catch
-            //{
-            //    isLogin = false;
-            //}
+            try
+            {
+                DirectoryEntry entry = new DirectoryEntry(LDAPPath + Domain, Account, Password);
+                entry.RefreshCache();
+                isLogin = true;
+            }
+            catch
+            {
+                isLogin = false;
+            }
+            return isLogin;
+        }
+
+
+        /// <summary>
+        /// 验证AD用户是否登陆成功
+        /// </summary>
+        /// <param name="domain">域名称</param>
+        /// <param name="account">用户名</param>
+        /// <param name="password">密码</param>
+        /// <returns>返回登陆状态</returns>
+        public static bool TryAuthenticate(string domain, string account, string password, out string message)
+        {
+            bool isLogin = false;
+            try
+            {
+                message = string.Empty;
+                DirectoryEntry entry = new DirectoryEntry(LDAPPath + domain, account, password);
+                entry.RefreshCache();
+                isLogin = true;
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                Log.LogFactory.WebExceptionLog.Debug(ex.Message, ex);
+            }
             return isLogin;
         }
 
@@ -119,6 +145,21 @@ namespace Dot.Utility.ActiveDirectory
             de.Path = de.Path + "/" + path;
             return de;
         }
+
+        /// <summary>
+        /// 获取AD
+        /// </summary>
+        /// <param name="path">域名称</param>
+        /// <param name="loginName">用户名</param>
+        /// <param name="password">密码</param>
+        /// <returns>返回登陆状态</returns>
+        public static DirectoryEntry GetDirectoryEntry(string Domain, string loginName, string password)
+        {
+            var de = new DirectoryEntry(LDAPPath + Domain, loginName, password);
+            var user = GetUserEntryByAccount(de, loginName);
+            return user;
+        }
+
         /// <summary>
         /// 返回DirectoryEntry
         /// </summary>
@@ -400,7 +441,7 @@ namespace Dot.Utility.ActiveDirectory
         /// <returns></returns>
         public static SearchResultCollection GetAllSubGroups(DirectoryEntry parent)
         {
-            return GetAllSubDirectoryEntrys(parent, Type_Group);             
+            return GetAllSubDirectoryEntrys(parent, Type_Group);
         }
 
         /// <summary>
@@ -958,7 +999,7 @@ namespace Dot.Utility.ActiveDirectory
             if (escapeWildcards) literal = literal.Replace("*", @"\2a");
             return literal;
         }
-      
+
 
         /// <summary>
         /// 根据员工ID获取对应AD域账号
@@ -1148,7 +1189,7 @@ namespace Dot.Utility.ActiveDirectory
             //    return false;
             //}
         }
- 
+
 
         #endregion
 
@@ -1326,9 +1367,9 @@ namespace Dot.Utility.ActiveDirectory
             //{
             //    LogFactory.ExceptionLog.Error(ex);
 
-            //}
-            return null;
+            //} 
         }
+
 
         #endregion
 
