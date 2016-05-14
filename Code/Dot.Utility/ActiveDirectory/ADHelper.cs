@@ -949,6 +949,31 @@ namespace Dot.Utility.ActiveDirectory
 
         #endregion
 
+        #region 组
+
+        /// <summary>
+        /// 获取组
+        /// </summary>
+        /// <param name="ouDE">活动对象</param>
+        /// <param name="propertyName">属性名</param>
+        /// <param name="val">值</param>
+        /// <param name="scope">范围</param>
+        /// <returns></returns>
+        public static DirectoryEntry GetGroup(DirectoryEntry ouDE, string propertyName, string val, SearchScope scope = SearchScope.Subtree)
+        {
+            DirectorySearcher deSearch = new DirectorySearcher(ouDE);
+            deSearch.Filter = "(&(objectClass=" + Type_Group + ")(" + propertyName + "=" + val + "))";
+            deSearch.SearchScope = scope;
+
+            var sr = deSearch.FindOne();
+            if (sr == null)
+                return null;
+            var de = sr.GetDirectoryEntry();
+            return de;
+        }
+
+        #endregion
+
         /// <summary>
         /// 当前用户已加入的组
         /// </summary>

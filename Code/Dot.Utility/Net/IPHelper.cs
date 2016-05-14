@@ -15,7 +15,7 @@ namespace Dot.Utility.Net
 {
     public class IPHelper
     {
-        static readonly string _pattern = "((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))";
+        static readonly string _pattern = "^((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))$";
         [DllImport("Iphlpapi.dll")]
         private static extern int SendARP(Int32 dest, Int32 host, ref Int64 mac, ref Int32 length);
         [DllImport("Ws2_32.dll")]

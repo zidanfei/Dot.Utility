@@ -388,6 +388,7 @@
     <Compile Include="String\PasswordHelper.cs" />
     <Compile Include="String\PinyinHelper.cs" />
     <Compile Include="String\StringHelper.cs" />
+    <Compile Include="String\UnicodeHelper.cs" />
     <Compile Include="System\EventLogManager.cs" />
     <Compile Include="System\INIFile.cs" />
     <Compile Include="System\INIHelper.cs" />

@@ -14,11 +14,13 @@ namespace Dot.Utility.Exceptions
         public DotException(string message)
             : base(message)
         {
+            msg = message;
         }
 
         public DotException(string message, Exception ex)
             : base(message, ex)
         {
+            msg = message;
         }
 
         public DotException(LogMessage message)
