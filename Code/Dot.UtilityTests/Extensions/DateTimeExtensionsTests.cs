@@ -36,5 +36,13 @@ namespace System.Tests
             Assert.IsTrue(DateTime.Now.CompareTo(DateTime.Today) > 0);
 
         }
+
+        
+
+        [TestMethod()]
+        public void ConvertDateTimeIntTest()
+        {
+            var d = DateTime.Now.ConvertDateTimeInt();
+        }
     }
 }

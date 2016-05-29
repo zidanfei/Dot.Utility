@@ -103,7 +103,7 @@ namespace Dot.Utility.EntityFramework.Tests
     public partial class CodeFirstContext : DbContext
     {
         public CodeFirstContext()
-            : base("name=CodeFirst")
+            : base("data source=.;initial catalog=CodeFirstTest;user id=sa;password=pass@word1;MultipleActiveResultSets=True;")
         {
         }
 

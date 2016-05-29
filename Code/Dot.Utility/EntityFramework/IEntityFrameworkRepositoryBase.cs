@@ -88,7 +88,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception> 
-        IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, string> orderby, Func<T, string> orderbyDescending, string include = null);
+        IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null);
 
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception>
-        IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total, out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending, string include = null);
+        IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total, out int pageCount, Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null);
 
         /// <summary>
         /// 获取多条数据
@@ -116,7 +116,7 @@ namespace Dot.Utility.EntityFramework
         /// <param name="orderby">正序条件</param>
         /// <param name="orderbyDescending">降序条件</param>
         /// <returns></returns>
-        IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, string> orderby, Func<T, string> orderbyDescending);
+        IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, object> orderby, Func<T, object> orderbyDescending);
 
         /// <summary>
         /// 
@@ -128,6 +128,14 @@ namespace Dot.Utility.EntityFramework
         /// <param name="pageSize"></param>
         /// <returns></returns>
         IEnumerable<TOut> GetPaging<TOut>(string sqlstr, string orderby, int pageIndex, int pageSize, params object[] parameters);
+
+        /// <summary>
+        /// 获取实体个数
+        /// </summary>
+        /// <param name="sqlstr"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        int GetCount(string sqlstr, params object[] parameters);
 
         /// <summary>
         /// 获取实体个数

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using System.Web.Http.Cors;
 using System.Web.Http.Validation;
 
 namespace Dot.Utility.Web
@@ -15,13 +16,13 @@ namespace Dot.Utility.Web
         public static void Register(HttpConfiguration config, string area = null)
         {
             //支持跨域访问
-            //config.EnableCors(new EnableCorsAttribute("*", "*", "*")); 
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
 
             //日期格式化
             if (config.Formatters.Count(m => m.GetType() == typeof(DateTypeFormatter)) == 0)
             {
                 config.Formatters.Insert(0, new DateTypeFormatter());
-                //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             }
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 

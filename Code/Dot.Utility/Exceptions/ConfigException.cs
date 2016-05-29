@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dot.Utility.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -18,8 +19,14 @@ namespace Dot.Utility.Exceptions
         }
 
         public ConfigException(string message, Exception ex)
-            : base(message, ex)
+
         {
+        }
+
+        public ConfigException(LogMessage message)
+        : base(message)
+        {
+
         }
 
         public ConfigException()

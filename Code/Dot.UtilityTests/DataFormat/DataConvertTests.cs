@@ -77,9 +77,12 @@ namespace Dot.Utility.Tests
         }
 
         [TestMethod()]
-        public void ToBase32StringTest1()
+        public void IsDateTimeTest()
         {
-            Assert.Fail();
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}$");
+            var d = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            var res= reg.IsMatch(d);
+            Assert.IsTrue(res);
         }
     }
 

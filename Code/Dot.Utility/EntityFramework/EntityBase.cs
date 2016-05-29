@@ -1,15 +1,4 @@
-﻿/*******************************************************
- * 
- * 作者：胡庆访
- * 创建日期：20141201
- * 运行环境：.NET 4.0
- * 版本号：1.0.0
- * 
- * 历史记录：
- * 创建文件 胡庆访 20141201 12:14
- * 
-*******************************************************/
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -37,7 +26,7 @@ namespace Dot.Utility.EntityFramework
     /// EF 中所有实体的基类。
     /// </summary>
     [Serializable]
-    public class EntityBase<T>:EntityBaseWithId<T>
+    public class EntityBase<T> : EntityBaseWithId<T>
     {
         public EntityBase()
         {

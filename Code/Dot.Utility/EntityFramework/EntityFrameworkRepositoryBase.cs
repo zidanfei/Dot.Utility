@@ -99,8 +99,8 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception> 
-        public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, 
-            Func<T, string> orderby, Func<T, string> orderbyDescending, string include = null)
+        public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,
+            Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null)
         {
 
             if (pageIndex <= 0)
@@ -149,7 +149,7 @@ namespace Dot.Utility.EntityFramework
         /// pageSize
         /// </exception>
         public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total,
-            out int pageCount, Func<T, string> orderby, Func<T, string> orderbyDescending, string include=null)
+            out int pageCount, Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null)
         {
 
             if (pageIndex <= 0)
@@ -191,7 +191,7 @@ namespace Dot.Utility.EntityFramework
         /// <param name="orderby">正序条件</param>
         /// <param name="orderbyDescending">降序条件</param>
         /// <returns></returns>
-        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, string> orderby, Func<T, string> orderbyDescending)
+        public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, Func<T, object> orderby, Func<T, object> orderbyDescending)
         {
 
             IQueryable<T> expr = _objectSet;
@@ -251,6 +251,15 @@ namespace Dot.Utility.EntityFramework
             return _dbContext.Database.SqlQuery<TOut>(sql, parameters);
         }
 
+        public int GetCount(string sqlstr, params object[] parameters)
+        {
+            string sqlcount = @"select count(*) from ({0}) main";
+            if (parameters.Count() == 0)
+                return _dbContext.Database.SqlQuery<int>(string.Format(sqlcount, sqlstr)).First();
+            return _dbContext.Database.SqlQuery<int>(string.Format(sqlcount, sqlstr), parameters).First();
+
+        }
+
         /// <summary>
         /// 获取实体个数
         /// </summary>
@@ -259,6 +268,26 @@ namespace Dot.Utility.EntityFramework
         public virtual int GetCount(Expression<Func<T, bool>> predicate)
         {
             return _objectSet.Where(predicate).Count();
+        }
+
+        /// <summary>
+        /// 获取最大值
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public virtual object GetMax(Expression<Func<T, bool>> predicate, Expression<Func<T, object>> selector)
+        {
+            return _objectSet.Where(predicate).Max(selector);
+        }
+
+        /// <summary>
+        /// 获取最小值
+        /// </summary>
+        /// <param name="predicate">查询条件</param>
+        /// <returns></returns>
+        public virtual object GetMin(Expression<Func<T, bool>> predicate, Expression<Func<T, object>> selector)
+        {
+            return _objectSet.Where(predicate).Min(selector);
         }
 
         /// <summary>
@@ -311,7 +340,7 @@ namespace Dot.Utility.EntityFramework
         {
             _objectSet.Remove(entity);
         }
-         
+
 
         /// <summary>
         /// 保存所有变更。

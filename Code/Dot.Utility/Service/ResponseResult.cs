@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dot.Utility.Exceptions;
+using Dot.Utility.Log;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -35,17 +37,46 @@ namespace Dot.Utility.Service
                 res.Success = false;
                 res.Message = sb.ToString();
                 res.StatusCode = (int)HttpStatusCode.InternalServerError;
-                if (Dot.Utility.Log.LogFactory.ExceptionLog.IsErrorEnabled)
-                    Dot.Utility.Log.LogFactory.ExceptionLog.Error(ex);
+                if (Dot.Utility.Log.LogFactory.WebExceptionLog.IsErrorEnabled)
+                    Dot.Utility.Log.LogFactory.WebExceptionLog.Error(ex);
                 res.Exception = ex;
+            }
+            catch (DotException ex)
+            {
+                res.Success = false;
+                if (ex.LogMessage != null)
+                {
+                    if (ex.LogMessage.Message != null)
+                        res.Message = ex.LogMessage.Message.ToString();
+                    else
+                        res.Message = ex.Message.ToString();
+                }
+                else
+                {
+                    res.Message = ex.Message;
+                }
+                res.StatusCode = (int)HttpStatusCode.InternalServerError;
+                if (Dot.Utility.Log.LogFactory.WebExceptionLog.IsErrorEnabled)
+                {
+                    if (ex.LogMessage != null)
+                    {
+                        Dot.Utility.Log.LogFactory.WebExceptionLog.Error(ex.LogMessage, ex.InnerException);
+                    }
+                    else
+                    {
+                        Dot.Utility.Log.LogFactory.WebExceptionLog.Error(ex.Message, ex);
+                    }
+                }
+                res.Exception = ex;
+                res.Data = ex.Data;
             }
             catch (Exception ex)
             {
                 res.Success = false;
                 res.Message = ex.Message;
                 res.StatusCode = (int)HttpStatusCode.InternalServerError;
-                if (Dot.Utility.Log.LogFactory.ExceptionLog.IsErrorEnabled)
-                    Dot.Utility.Log.LogFactory.ExceptionLog.Error(ex);
+                if (Dot.Utility.Log.LogFactory.WebExceptionLog.IsErrorEnabled)
+                    Dot.Utility.Log.LogFactory.WebExceptionLog.Error(ex);
                 res.Exception = ex;
             }
             return res;

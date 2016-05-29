@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dot.Utility.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -24,6 +25,12 @@ namespace Dot.Utility.Exceptions
         public ReferencedException()
             : base()
         {
+        }
+
+        public ReferencedException(LogMessage message )
+        : base(message )
+        {
+
         }
 
         public ReferencedException(SerializationInfo serializationInfo,StreamingContext context)

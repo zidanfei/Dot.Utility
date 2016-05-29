@@ -100,7 +100,7 @@ Exam.Log       - Hello
       <layout type="log4net.Layout.PatternLayout">
         <param name="Header" value="---------------------------------------------"/>
         <param name="Footer" value=""/>
-        <param name="ConversionPattern" value=" %n [Header]  %n datetime:[%d{yyy-MM-dd HH:mm:ss}]%n ClassName: [%C]%n MethodName: [%M]%n LineNumber: [%L]%n log run time: [%r] %n file:%F%n thread: [%t] %n logger:[%c] %n ServerIP: [%property{ServerIP}] %n ClientIP: [%property{ClientIP}] %n RequestUrl: [%property{RequestUrl}] %n UserId : [%property{UserId}]  %n UserName : [%property{UserName}]  %n DisplayName : [%property{DisplayName}] %n priority: [%-5p] %n message: [%m]%n log run time: [%r] %n [Footer] %n" />
+        <param name="ConversionPattern" value=" %n [Header]  %n datetime:[%d{yyy-MM-dd HH:mm:ss}]%n ClassName: [%C]%n MethodName: [%M]%n LineNumber: [%L]%n log run time: [%r] %n file:%F%n thread: [%t] %n logger:[%c] %n ServerIP: [%property{ServerIP}] %n ClientIP: [%property{ClientIP}] %n RequestUrl: [%property{RequestUrl}] %n UserId : [%property{UserId}]  %n UserName : [%property{UserName}]  %n DisplayName : [%property{DisplayName}] %n priority: [%-5p] %n message: [%m]%n ou: [%property{ou}]%n log run time: [%r] %n [Footer] %n" />
       </layout>
     </appender>
     <!--记录到记录日志到文件，可以设置文件的名字，或者多个文件-->

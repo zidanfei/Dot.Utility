@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using System.Runtime.Serialization;
+using Dot.Utility.Log;
 
 namespace Dot.Utility.Exceptions
 {
@@ -30,6 +31,11 @@ namespace Dot.Utility.Exceptions
 
         }
 
+        public ObjectExistException(LogMessage message )
+        : base(message   )
+        {
+
+        }
         /// <summary>
         /// Contstructor.
         /// </summary>

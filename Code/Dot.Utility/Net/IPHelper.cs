@@ -15,7 +15,7 @@ namespace Dot.Utility.Net
 {
     public class IPHelper
     {
-        static readonly string _pattern = "((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))";
+        static readonly string _pattern = "^((?:(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d)))\\.){3}(?:25[0-5]|2[0-4]\\d|((1\\d{2})|([1-9]?\\d))))$";
         [DllImport("Iphlpapi.dll")]
         private static extern int SendARP(Int32 dest, Int32 host, ref Int64 mac, ref Int32 length);
         [DllImport("Ws2_32.dll")]
@@ -28,14 +28,21 @@ namespace Dot.Utility.Net
         /// <returns></returns>
         public static string GetClientIp()
         {
-            if (null != System.Web.HttpContext.Current && null != System.Web.HttpContext.Current.Request)
+            try
             {
-                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)
-                    return System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].Split(new char[] { ',' })[0];
-                else
-                    return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                if (null != System.Web.HttpContext.Current && null != System.Web.HttpContext.Current.Request)
+                {
+                    if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)
+                        return System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].Split(new char[] { ',' })[0];
+                    else
+                        return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                }
             }
-            return string.Empty;          
+            catch (Exception ex)
+            {
+
+            }
+            return string.Empty;
         }
 
 
@@ -56,7 +63,7 @@ namespace Dot.Utility.Net
             }
             return string.Empty;
         }
-         
+
         /// <summary>
         /// 获取本机的MAC       
         /// </summary>
@@ -73,7 +80,7 @@ namespace Dot.Utility.Net
             }
             return (mac);
         }
-          
+
         /// <summary>
         /// 获取远程主机IP      
         /// </summary>

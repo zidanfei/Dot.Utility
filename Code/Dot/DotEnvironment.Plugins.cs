@@ -1,16 +1,4 @@
-﻿/*******************************************************
- * 
- * 作者：胡庆访
- * 创建时间：20110331
- * 说明：此文件只包含一个类，具体内容见类型注释。
- * 运行环境：.NET 4.0
- * 版本号：1.0.0
- * 
- * 历史记录：
- * 创建文件 胡庆访 20100331
- * 
-*******************************************************/
-
+﻿
 using Dot.ComponentModel;
 using Dot.IOC;
 using System;
@@ -82,6 +70,7 @@ namespace Dot
                     if (_libraries == null)
                     {
                         var assemblies = EnumerateAllDomainAssemblies().Union(PluginTable.Plugins).ToArray();
+                       
                         _libraries = LoadSortedPlugins(assemblies);
 
                         PluginTable.Plugins.Lock();
@@ -94,6 +83,10 @@ namespace Dot
 
         private static List<PluginAssembly> LoadSortedPlugins(IEnumerable<Assembly> assemblies)
         {
+            if (null == assemblies)
+            {
+                throw new Exception("assemblies 不能为null！");
+            }
             var list = assemblies.Select(assembly =>
             {
                 var pluginType = assembly.GetTypes().FirstOrDefault(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract);
