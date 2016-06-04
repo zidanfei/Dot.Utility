@@ -72,7 +72,7 @@ namespace Dot.Utility.Config
         {
             var files = System.IO.Directory.GetFiles(dirPath, configName + "*");
             var companyConfig = files.FirstOrDefault(m => m.Contains(company));
-            if (string.IsNullOrEmpty(companyConfig))
+            if (string.IsNullOrWhiteSpace(companyConfig))
                 return files.FirstOrDefault();
             else
                 return companyConfig;
@@ -96,7 +96,7 @@ namespace Dot.Utility.Config
         public static void SetAppSetting(string exePath, string key, string value)
         {
             Configuration config;
-            if (string.IsNullOrEmpty(exePath))
+            if (string.IsNullOrWhiteSpace(exePath))
             {
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             }
@@ -121,7 +121,7 @@ namespace Dot.Utility.Config
         public static void SetConnectionString(string exePath, string key, string value)
         {
             Configuration config;
-            if (string.IsNullOrEmpty(exePath))
+            if (string.IsNullOrWhiteSpace(exePath))
             {
                 config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             }
