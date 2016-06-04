@@ -17,6 +17,7 @@ namespace Dot.Utility.ActiveDirectory
 {
     /// <summary>
     /// 姓名操作类
+    /// 姓名数据库web项目中在bin\config下
     /// </summary>
     public class NameHelper
     {
@@ -28,21 +29,48 @@ namespace Dot.Utility.ActiveDirectory
             RootName = rootOU;
         }
 
+        protected Regex intRegex = new Regex("\\d*$");
+        protected Regex stringRegex = new Regex("^[A-Za-z]+");
+        protected Regex specialcharacterRegex = new Regex("[ .,']+");
+        protected Regex chineseRegex = new Regex("[\\u4E00-\\u9FA5]");
+
         /// <summary>
         /// 通过姓名生成登录名
         /// </summary>
         /// <param name="CNName"></param>
         /// <param name="ENName"></param>
         /// <returns></returns>
-        public string GetLoginName(string CNName, string ENName)
+        public virtual string GetLoginName(string CNName, string ENName)
         {
             string tempLoginName = string.Empty;
             string familyName = string.Empty;
-            if (string.IsNullOrWhiteSpace(CNName))
+            if (string.IsNullOrWhiteSpace(CNName) && string.IsNullOrWhiteSpace(ENName))
             {
                 return CNName;
             }
-            if (IsCompoundSurname(CNName, out familyName))//复姓
+            else
+            {
+                CNName = specialcharacterRegex.Replace(CNName, "");
+            }
+            if (CNName == null)
+                CNName = string.Empty;
+            if (ENName == null)
+                ENName = string.Empty;
+
+            //中文名不是中文
+            if (!ChineseToPinYin.IsChineseRegex(CNName))
+            {
+                if (!IsLoginNameExists(tempLoginName = ENName))
+                    return tempLoginName;
+                else if (!IsLoginNameExists(tempLoginName = CNName))
+                    return tempLoginName;
+                else if (!IsLoginNameExists(tempLoginName = CNName + "." + ENName))
+                    return tempLoginName;
+                else if (!IsLoginNameExists(tempLoginName = ENName + "." + CNName))
+                    return tempLoginName;
+                return string.Empty;
+            }
+            else if (IsCompoundSurname(CNName, out familyName))//复姓
             {
                 #region 复姓
                 /*
@@ -243,12 +271,22 @@ namespace Dot.Utility.ActiveDirectory
         /// <returns>转换后的拼音字符串</returns>
         public static string ChineseCharacterToQuanPinYin(string Chstr)
         {
+            string baseDir;
+            var context = System.Web.HttpContext.Current;
+            if (System.Web.HttpContext.Current != null)
+            {
+                baseDir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin");
+            }
+            else
+            {
+                baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            }
             string name = string.Empty;
             for (int i = 0; i < Chstr.Length; i++)
             {
-                var chinese = SQLiteHelper.ExecuteDataset("Data Source=" + System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config\\NameDB.DB"), CommandType.Text,
-                    @"select * from ChinesePinyin
-                where Chinese='" + Chstr.Substring(i, 1) + "'");
+                var chinese = SQLiteHelper.ExecuteDataset("Data Source=" + System.IO.Path.Combine(baseDir, "Config\\NameDB.DB"), CommandType.Text,
+                    @"select * from ChinesePinyin where Chinese='" + Chstr.Substring(i, 1) + "'");
                 if (chinese.Tables[0].Rows.Count > 0)
                     name += chinese.Tables[0].Rows[0]["PinYin1"].ToString();
             }
@@ -350,7 +388,7 @@ namespace Dot.Utility.ActiveDirectory
                 List<string> NameList = new List<string>();
                 if (IsCompoundSurname(cnName, out familyName))
                 {
-                    return new string[] { cnName.Substring(0, 2), cnName.Substring(2) };
+                    return new string[] { cnName.Substring(0, familyName.Length), cnName.Substring(familyName.Length) };
                 }
                 else
                 {
@@ -359,18 +397,47 @@ namespace Dot.Utility.ActiveDirectory
             }
         }
 
-        string Domain { get; set; }
-        string DomainUser { get; set; }
-        string DomainPass { get; set; }
-        string RootName { get; set; }
+        protected string Domain { get; set; }
+        protected string DomainUser { get; set; }
+        protected string DomainPass { get; set; }
+        protected string RootName { get; set; }
 
+        static HashSet<string> NameList = new HashSet<string>();
+        /// <summary>
+        /// 添加到临时姓名列表
+        /// 同时插入多条人名时，防止冲突
+        /// </summary>
+        /// <param name="loginName"></param>
+        public void Add(string loginName)
+        {
+            if (!NameList.Contains(loginName))
+            {
+                NameList.Add(loginName);
+            }
+        }
+        /// <summary>
+        /// 清空姓名列表
+        /// </summary>
+        public void ClearNameList()
+        {
+            NameList = new HashSet<string>();
+        }
+
+        /// <summary>
+        /// 登录名是否存在
+        /// 空格，null视为存在
+        /// </summary>
+        /// <param name="loginName"></param>
+        /// <returns></returns>
         public bool IsLoginNameExists(string loginName)
         {
+            if (string.IsNullOrWhiteSpace(loginName))
+                return true;
             ADHelper adHelper = new ADHelper(Domain, DomainUser, DomainPass);
             var root = adHelper.GetRootEntry();
             //var rootOrg = ADHelper.GetOrganizeEntry(root, RootName);
             var u = ADHelper.GetUserEntryByAccount(root, loginName);
-            if (u != null)
+            if (u != null || NameList.Contains(loginName))
                 return true;
             return false;
         }
@@ -404,6 +471,62 @@ namespace Dot.Utility.ActiveDirectory
         欧阳, 太史, 端木, 上官, 司马, 东方, 独孤, 南宫, 万俟, 闻人, 夏侯, 诸葛, 尉迟, 公羊, 赫连, 澹台, 皇甫, 宗政, 濮阳, 公冶, 太叔, 申屠, 公孙, 慕容, 仲孙, 钟离, 长孙, 宇文, 司徒, 鲜于, 司空, 闾丘, 子车, 亓官, 司寇, 巫马, 公西, 颛孙, 壤驷, 公良, 漆雕, 乐正, 宰父, 谷梁, 拓跋, 夹谷, 轩辕, 令狐, 段干, 百里, 呼延, 东郭, 南门, 羊舌, 微生, 公户, 公玉, 公仪, 梁丘, 公仲, 公上, 公门, 公山, 公坚, 左丘, 公伯, 西门, 公祖, 第五, 公乘, 贯丘, 公皙, 南荣, 东里, 东宫, 仲长, 子书, 子桑, 即墨, 达奚, 褚师, 吴铭
     }
 
-  
-    
+    /// <summary>
+    /// 全拼加数字
+    /// </summary>
+    public class QuanPinNameHelper : NameHelper
+    {
+        public QuanPinNameHelper(string domain, string user, string pwd, string rootOU)
+            : base(domain, user, pwd, rootOU)
+        {
+
+        }
+
+
+        public override string GetLoginName(string CNName, string ENName)
+        {
+            string tempLoginName = string.Empty;
+            if (string.IsNullOrWhiteSpace(CNName))
+            {
+                return CNName;
+            }
+
+            if (!string.IsNullOrEmpty(CNName))
+            {
+                CNName = specialcharacterRegex.Replace(CNName, "");
+            }
+            if (chineseRegex.IsMatch(CNName))
+            {
+                tempLoginName = ChineseCharacterToQuanPinYin(CNName).ToLower();
+            }
+            else
+            {
+                tempLoginName = CNName;
+            }
+
+
+            //姓的全拼+名全拼
+            while (IsLoginNameExists(tempLoginName))
+            {
+                int intValue;
+                int.TryParse(intRegex.Match(tempLoginName).Value, out intValue);
+                intValue++;
+                //var length = intValue.ToString().Length;
+                //string format = "";
+                //for (int i = 0; i < length; i++)
+                //{
+                //    format += "0";
+                //}
+                var stringValue = stringRegex.Match(tempLoginName).Value;
+                tempLoginName = stringValue + intValue;
+            }
+            return tempLoginName;
+
+        }
+
+        public static string[] GetSplitName(string CNName)
+        {
+            return NameHelper.SplitName(CNName);
+        }
+    }
 }
