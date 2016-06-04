@@ -1,2 +1,6 @@
 *.suo
 Code/WebForm/WebForm.csproj.user
+Code/MvcWeb/logs2016-03/ExceptionLog-2016-03-25.txt
+Code/MvcWeb/logs2016-03/BusinessExceptionLog-2016-03-25.txt
+Code/MvcWeb/logs2016-03/BusinessLog-2016-03-25.txt
+Code/MvcWeb/logs2016-03/PlatformExceptionLog-2016-03-25.txt
