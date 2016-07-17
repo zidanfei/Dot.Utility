@@ -100,7 +100,7 @@ namespace Dot.Utility.EntityFramework
         /// pageSize
         /// </exception> 
         public virtual IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize,
-            Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null)
+            Func<T, object> orderby, Func<T, object> orderbyDescending, params string[] include)
         {
 
             if (pageIndex <= 0)
@@ -112,9 +112,12 @@ namespace Dot.Utility.EntityFramework
             {
                 expr = expr.Where(predicate);
             }
-            if (!string.IsNullOrEmpty(include))
+            if (include.Length > 0)
             {
-                expr = expr.Where(predicate).Include(include);
+                foreach (var item in include)
+                {
+                    expr = expr.Where(predicate).Include(item);
+                }
             }
             int startn = (pageIndex - 1) * pageSize;
             if (orderby != null)
@@ -149,7 +152,7 @@ namespace Dot.Utility.EntityFramework
         /// pageSize
         /// </exception>
         public virtual IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total,
-            out int pageCount, Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null)
+            out int pageCount, Func<T, object> orderby, Func<T, object> orderbyDescending, params string[] include)
         {
 
             if (pageIndex <= 0)
@@ -162,9 +165,12 @@ namespace Dot.Utility.EntityFramework
                 expr = expr.Where(predicate);
             }
             total = expr.Count();
-            if (!string.IsNullOrEmpty(include))
+            if (include.Length > 0)
             {
-                expr = expr.Include(include);
+                foreach (var item in include)
+                {
+                    expr = expr.Include(item);
+                }
             }
             pageCount = int.Parse((total / pageSize).ToString());
             pageCount = (total % pageSize != 0) ? pageCount + 1 : pageCount;

@@ -88,7 +88,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception> 
-        IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null);
+        IQueryable<T> GetQueryList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, Func<T, object> orderby, Func<T, object> orderbyDescending, params string[] include);
 
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Dot.Utility.EntityFramework
         /// or
         /// pageSize
         /// </exception>
-        IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total, out int pageCount, Func<T, object> orderby, Func<T, object> orderbyDescending, string include = null);
+        IList<T> GetList(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int total, out int pageCount, Func<T, object> orderby, Func<T, object> orderbyDescending, params string[] include);
 
         /// <summary>
         /// 获取多条数据
