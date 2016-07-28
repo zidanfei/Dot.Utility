@@ -1307,16 +1307,19 @@ namespace Dot.Utility.ActiveDirectory
         #endregion
 
         #region 获取DE
+        public static DirectoryEntry GetDirectoryEntryByObjectGuid(string objectGuid, string domain, string user, string pws)
+        {
+            DirectoryEntry entry = new DirectoryEntry("LDAP://" + domain + "/<GUID=" + objectGuid + ">", user, pws);
+            //为了判断entry是不是存在
+            Guid ls = entry.Guid;
+            //entry.RefreshCache();
+
+            return entry;
+        }
 
         public DirectoryEntry GetDirectoryEntryByObjectGuid(string objectGuid)
         {
-            DirectoryEntry entry = null;
-
-            if (string.IsNullOrWhiteSpace(objectGuid))
-            {
-                entry = GetRootEntry();
-            }
-            entry = new DirectoryEntry("LDAP://" + Domain + "/<GUID=" + objectGuid + ">");
+            DirectoryEntry entry = new DirectoryEntry("LDAP://" + Domain + "/<GUID=" + objectGuid + ">", DomainUser, DomainPass);
             //为了判断entry是不是存在
             Guid ls = entry.Guid;
             //entry.RefreshCache();
@@ -1375,7 +1378,11 @@ namespace Dot.Utility.ActiveDirectory
         /// <param name="endTime"></param>
         /// <param name="scope"></param>
         /// <returns></returns>
-        public static SearchResultCollection GetSubDirectoryEntrys(DirectoryEntry parent, string type, DateTime startTime, DateTime? endTime = null, SearchScope scope = SearchScope.Subtree, string datetimePropterty = "whenChanged")
+        public static SearchResultCollection GetSubDirectoryEntrys(DirectoryEntry parent,
+            string type, DateTime startTime,
+            DateTime? endTime = null,
+            SearchScope scope = SearchScope.Subtree,
+            string datetimePropterty = "whenChanged")
         {
 
             DirectorySearcher deSearch = new DirectorySearcher(parent);
@@ -1497,6 +1504,48 @@ namespace Dot.Utility.ActiveDirectory
             return sb.ToString();
         }
 
+
+        /// <summary>
+        /// 格式化distinguishedName
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>iws.com/集团/部门</returns>
+        public static string FormatPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+                return path;
+            var list = path.Split(',');
+            string[] dc;
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in list)
+            {
+                dc = item.Split('=');
+                if (dc.Length > 1)
+                {
+                    if (dc[0].Equals("dc", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (sb.Length > 0)
+                        {
+                            sb.Append(".");
+                        }
+                        sb.Append(dc[1]);
+                    }
+
+                }
+            }
+            foreach (var item in list.Reverse())
+            {
+                dc = item.Split('=');
+                if (dc.Length > 1)
+                {
+                    if (!dc[0].Equals("dc", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sb.AppendFormat("/{0}", dc[1]);
+                    }
+                }
+            }
+            return sb.ToString();
+        }
     }
 
 }
