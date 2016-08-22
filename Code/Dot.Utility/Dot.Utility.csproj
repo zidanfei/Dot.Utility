@@ -396,6 +396,7 @@
     <Compile Include="System\StopWatch.cs" />
     <Compile Include="System\WindowsHelper.cs" />
     <Compile Include="System\ZipHelper.cs" />
+    <Compile Include="ValidateHelper.cs" />
     <Compile Include="Validator\Check.cs" />
     <Compile Include="Web\DirectoryHelper.cs" />
     <Compile Include="Web\IIS\IISHelper.cs" />
