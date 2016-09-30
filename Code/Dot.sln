@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForm", "WebForm\WebForm.csproj", "{9CBD91A7-007E-44E9-A10F-1726B1A3FF1D}"
 EndProject
@@ -30,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.Console", "Dot.Console\Dot.Console.csproj", "{F3EC4E5D-D956-4E59-BE4E-F4FE5E4EA0F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.WebApi", "Dot.WebApi\Dot.WebApi.csproj", "{667C52BA-02BA-4C52-ADFD-F48CF1635B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dot.DBTest", "Dot.DBTest\Dot.DBTest.csproj", "{42744067-466D-4EF4-97AA-25D8E4AF74EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{667C52BA-02BA-4C52-ADFD-F48CF1635B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{667C52BA-02BA-4C52-ADFD-F48CF1635B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{667C52BA-02BA-4C52-ADFD-F48CF1635B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42744067-466D-4EF4-97AA-25D8E4AF74EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42744067-466D-4EF4-97AA-25D8E4AF74EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42744067-466D-4EF4-97AA-25D8E4AF74EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42744067-466D-4EF4-97AA-25D8E4AF74EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,6 @@ Global
 		{1FB8A996-7C80-4CDE-89E5-39DE53A6F067} = {E70A0AC7-3D4B-48BB-BE48-0101A3777AF7}
 		{52C7AA85-ABEF-4AAE-9F4C-981FCE8D568B} = {473D7614-54C5-4731-91A9-BE97A5059375}
 		{F3EC4E5D-D956-4E59-BE4E-F4FE5E4EA0F7} = {473D7614-54C5-4731-91A9-BE97A5059375}
-		{667C52BA-02BA-4C52-ADFD-F48CF1635B3D} = {E70A0AC7-3D4B-48BB-BE48-0101A3777AF7}
+		{42744067-466D-4EF4-97AA-25D8E4AF74EB} = {473D7614-54C5-4731-91A9-BE97A5059375}
 	EndGlobalSection
 EndGlobal

@@ -53,6 +53,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -100,6 +104,7 @@
     <Compile Include="ActiveDirectory\ChineseToPinYinTests.cs" />
     <Compile Include="Config\ConfigHelperTest.cs" />
     <Compile Include="Cryptography\ShaEncryptionTests.cs" />
+    <Compile Include="Database\MySqlHelperTests.cs" />
     <Compile Include="DataFormat\DataConvertTests.cs" />
     <Compile Include="EntityFramework\EntityFrameworkRepositoryBaseTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />

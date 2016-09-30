@@ -1,0 +1,23 @@
+﻿<Window x:Class="Dot.DBTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dot.DBTest"
+        mc:Ignorable="d"
+        Title="测试数据库连接" Height="350" Width="525">
+    <Grid>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="169,35,0,0" VerticalAlignment="Top" Width="220"/>
+        <Label x:Name="label" Content="服务器IP" HorizontalAlignment="Left" Margin="86,81,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtServerIP" HorizontalAlignment="Left" Height="23" Margin="169,81,0,0" TextWrapping="Wrap" Text="10.18.2.46" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="txtUser" HorizontalAlignment="Left" Height="23" Margin="169,151,0,0" TextWrapping="Wrap" Text="mail_interface" VerticalAlignment="Top" Width="220"/>
+        <Label x:Name="label1" Content="用户名" HorizontalAlignment="Left" Margin="86,151,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="密码" HorizontalAlignment="Left" Margin="86,186,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtPwd" HorizontalAlignment="Left" Height="23" Margin="169,190,0,0" TextWrapping="Wrap" Text="Ucf9941750" VerticalAlignment="Top" Width="220"/>
+        <Button x:Name="button" Click="A_Click" Content="尝试连接" HorizontalAlignment="Left" Margin="169,266,0,0" VerticalAlignment="Top" Width="220"/>
+        <Label x:Name="labMsg" Content="" HorizontalAlignment="Left" Margin="93,229,0,0" VerticalAlignment="Top" Foreground="#FFF50B0B"/>
+        <Label x:Name="label3" Content="数据库" HorizontalAlignment="Left" Margin="86,111,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtDB" HorizontalAlignment="Left" Height="23" Margin="169,115,0,0" TextWrapping="Wrap" Text="HRM83_UCF" VerticalAlignment="Top" Width="220"/>
+
+    </Grid>
+</Window>
