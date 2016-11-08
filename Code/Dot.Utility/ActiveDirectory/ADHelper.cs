@@ -1328,21 +1328,21 @@ namespace Dot.Utility.ActiveDirectory
         }
 
 
-        public DirectoryEntry GetDirectoryEntryByObjectGuid(string objectGuid)
-        {
-            DirectoryEntry entry = null;
+        //public DirectoryEntry GetDirectoryEntryByObjectGuid(string objectGuid)
+        //{
+        //    DirectoryEntry entry = null;
 
-            if (string.IsNullOrWhiteSpace(objectGuid))
-            {
-                entry = GetRootEntry();
-            }
-            entry = new DirectoryEntry("LDAP://" + Domain + "/<GUID=" + objectGuid + ">");
-            //为了判断entry是不是存在
-            Guid ls = entry.Guid;
-            //entry.RefreshCache();
+        //    if (string.IsNullOrWhiteSpace(objectGuid))
+        //    {
+        //        entry = GetRootEntry();
+        //    }
+        //    entry = new DirectoryEntry("LDAP://" + Domain + "/<GUID=" + objectGuid + ">");
+        //    //为了判断entry是不是存在
+        //    Guid ls = entry.Guid;
+        //    //entry.RefreshCache();
 
-            return entry;
-        }
+        //    return entry;
+        //}
 
 
         /// <summary>

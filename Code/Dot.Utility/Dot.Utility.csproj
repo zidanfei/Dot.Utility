@@ -156,6 +156,7 @@
     <Compile Include="Compile\ReflectHelper.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
     <Compile Include="Cryptography\Base64Encode.cs" />
+    <Compile Include="Cryptography\Cyh_RSA.cs" />
     <Compile Include="Cryptography\MD5Encryption.cs" />
     <Compile Include="Cryptography\ShaEncryption.cs" />
     <Compile Include="Cryptography\TripleDESEncryption.cs" />
