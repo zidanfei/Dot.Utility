@@ -156,7 +156,6 @@
     <Compile Include="Compile\ReflectHelper.cs" />
     <Compile Include="Config\ConfigHelper.cs" />
     <Compile Include="Cryptography\Base64Encode.cs" />
-    <Compile Include="Cryptography\Cyh_RSA.cs" />
     <Compile Include="Cryptography\MD5Encryption.cs" />
     <Compile Include="Cryptography\ShaEncryption.cs" />
     <Compile Include="Cryptography\TripleDESEncryption.cs" />
@@ -189,6 +188,8 @@
     <Compile Include="EntityFramework\UniqueAttribute.cs" />
     <Compile Include="Enum\DataState.cs" />
     <Compile Include="Enum\EnumHelper.cs" />
+    <Compile Include="Environment\DotEnvironment.cs" />
+    <Compile Include="Environment\EnvironmentProvider.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Exceptions\DotException.cs" />
     <Compile Include="Exceptions\ExceptionHelper.cs" />
@@ -199,6 +200,9 @@
     <Compile Include="Date\DateTimeExtensions.cs" />
     <Compile Include="File\FileOperate.cs" />
     <Compile Include="File\StreamHelper.cs" />
+    <Compile Include="Licenses\LicenseHelper.cs" />
+    <Compile Include="Licenses\LicenseInfo.cs" />
+    <Compile Include="Licenses\MachineCode.cs" />
     <Compile Include="Log\IWebLog.cs" />
     <Compile Include="Log\LogConfig.cs" />
     <Compile Include="Log\LogFactory.cs" />

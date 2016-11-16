@@ -103,7 +103,6 @@
     <Compile Include="ActiveDirectory\ADHelperTests.cs" />
     <Compile Include="ActiveDirectory\ChineseToPinYinTests.cs" />
     <Compile Include="Config\ConfigHelperTest.cs" />
-    <Compile Include="Cryptography\Cyh_RSATests.cs" />
     <Compile Include="Cryptography\RSAEncryptionTests.cs" />
     <Compile Include="Cryptography\ShaEncryptionTests.cs" />
     <Compile Include="Database\MySqlHelperTests.cs" />

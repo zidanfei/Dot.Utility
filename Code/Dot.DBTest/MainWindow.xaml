@@ -9,15 +9,15 @@
     <Grid>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="169,35,0,0" VerticalAlignment="Top" Width="220"/>
         <Label x:Name="label" Content="服务器IP" HorizontalAlignment="Left" Margin="86,81,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtServerIP" HorizontalAlignment="Left" Height="23" Margin="169,81,0,0" TextWrapping="Wrap" Text="10.18.2.46" VerticalAlignment="Top" Width="220"/>
-        <TextBox x:Name="txtUser" HorizontalAlignment="Left" Height="23" Margin="169,151,0,0" TextWrapping="Wrap" Text="mail_interface" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="txtServerIP" HorizontalAlignment="Left" Height="23" Margin="169,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="txtUser" HorizontalAlignment="Left" Height="23" Margin="169,151,0,0" TextWrapping="Wrap" Text="sa" VerticalAlignment="Top" Width="220"/>
         <Label x:Name="label1" Content="用户名" HorizontalAlignment="Left" Margin="86,151,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label2" Content="密码" HorizontalAlignment="Left" Margin="86,186,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtPwd" HorizontalAlignment="Left" Height="23" Margin="169,190,0,0" TextWrapping="Wrap" Text="Ucf9941750" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="txtPwd" HorizontalAlignment="Left" Height="23" Margin="169,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
         <Button x:Name="button" Click="A_Click" Content="尝试连接" HorizontalAlignment="Left" Margin="169,266,0,0" VerticalAlignment="Top" Width="220"/>
         <Label x:Name="labMsg" Content="" HorizontalAlignment="Left" Margin="93,229,0,0" VerticalAlignment="Top" Foreground="#FFF50B0B"/>
         <Label x:Name="label3" Content="数据库" HorizontalAlignment="Left" Margin="86,111,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtDB" HorizontalAlignment="Left" Height="23" Margin="169,115,0,0" TextWrapping="Wrap" Text="HRM83_UCF" VerticalAlignment="Top" Width="220"/>
+        <TextBox x:Name="txtDB" HorizontalAlignment="Left" Height="23" Margin="169,115,0,0" TextWrapping="Wrap" Text="master" VerticalAlignment="Top" Width="220"/>
 
     </Grid>
 </Window>
