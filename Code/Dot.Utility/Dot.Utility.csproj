@@ -375,6 +375,7 @@
     <Compile Include="PSWrapper\ICmdletProcessor.cs" />
     <Compile Include="PSWrapper\PALCmdletInvocationException.cs" />
     <Compile Include="PSWrapper\ParameterValueTypeEnum.cs" />
+    <Compile Include="RegularExpressions\CommonRegex.cs" />
     <Compile Include="RetryHandler.cs" />
     <Compile Include="Security\CustomX509Validator.cs" />
     <Compile Include="Security\DisposableObject.cs" />

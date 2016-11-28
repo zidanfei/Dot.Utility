@@ -19,7 +19,7 @@ namespace MvcWeb.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            Dot.Utility.DotEnvironment.MapDllPath("config/license.lic");
            var dlist= new Dot.Demo.DBContext().Context.Database.SqlQuery<Project>("select * from project").ToList();
 
 

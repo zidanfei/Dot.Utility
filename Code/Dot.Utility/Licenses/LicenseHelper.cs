@@ -31,7 +31,7 @@ namespace Dot.Utility.Licenses
         /// <returns></returns>
         public static bool IsValidityLicense(out string message)
         {
-            string path = DotEnvironment.MapDllPath("config/License.lic");
+            string path = DotEnvironment.MapDllPath("config\\License.lic");
             return IsValidityLicense(path, _pubKey, out message);
         }
         /// <summary>
@@ -98,7 +98,7 @@ namespace Dot.Utility.Licenses
         /// <returns></returns>
         public static bool IsValidityLicenseByCert( string certName, out string message)
         {
-            LicenseInfo license = XmlHelper.LoadConfig<LicenseInfo>(DotEnvironment.MapDllPath("config/license.lic"));
+            LicenseInfo license = XmlHelper.LoadConfig<LicenseInfo>(DotEnvironment.MapDllPath("config\\license.lic"));
             return IsValidityLicenseByCert(license, certName, out message);
              
 

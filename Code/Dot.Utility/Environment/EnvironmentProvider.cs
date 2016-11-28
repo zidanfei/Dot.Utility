@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Dot
+namespace Dot.Utility
 {
     /// <summary>
     /// 环境变量值提供器。
@@ -17,7 +17,7 @@ namespace Dot
             var httpContext = System.Web.HttpContext.Current;
             if (httpContext != null)
             {
-                this.DllRootDirectory = httpContext.Server.MapPath("Bin");
+                this.DllRootDirectory = httpContext.Server.MapPath("~/Bin");
                 this.IsDebuggingEnabled = httpContext.IsDebuggingEnabled;
             }
             else

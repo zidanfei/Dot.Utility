@@ -26,6 +26,8 @@ namespace Dot.Utility.ActiveDirectory
         public const string Type_OrganizationalUnit = "organizationalUnit";
         public const string Type_Group = "group";
         public const string Type_User = "user";
+        public const string Type_Computer = "computer";
+        public const string Type_Person = "person";
 
         /// <summary>
         /// 
@@ -294,7 +296,7 @@ namespace Dot.Utility.ActiveDirectory
         {
             DirectorySearcher search = new DirectorySearcher(parent);
             search.Filter = "(&(objectClass=" + Type_OrganizationalUnit + ")(name=" + orgName + "))";// "(SAMAccountName=qiu.fangbing)";
-            //search.SearchScope = scope;
+            search.SearchScope = SearchScope.OneLevel;
             SearchResult result = search.FindOne();
             if (null == result)
                 return null;
@@ -996,6 +998,8 @@ namespace Dot.Utility.ActiveDirectory
             {
                 return new HashSet<string>();
             }
+            if (stringArray == null)
+                return new HashSet<string>();
             int count = stringArray.Count();
             if (count < 1)
             {
@@ -1166,6 +1170,8 @@ namespace Dot.Utility.ActiveDirectory
             //    object ti = userEntry.Properties["userAccountControl"].Value;
             userEntry.Properties["userAccountControl"].Value = int.Parse(userAccountControl);
             SetPassword(userEntry, password);
+            //一定要在SetPassword之后使用
+            userEntry.Properties["pwdLastSet"].Value = 0;
             userEntry.CommitChanges();
             //}
             //userEntry.CommitChanges();
@@ -1328,23 +1334,6 @@ namespace Dot.Utility.ActiveDirectory
         }
 
 
-        //public DirectoryEntry GetDirectoryEntryByObjectGuid(string objectGuid)
-        //{
-        //    DirectoryEntry entry = null;
-
-        //    if (string.IsNullOrWhiteSpace(objectGuid))
-        //    {
-        //        entry = GetRootEntry();
-        //    }
-        //    entry = new DirectoryEntry("LDAP://" + Domain + "/<GUID=" + objectGuid + ">");
-        //    //为了判断entry是不是存在
-        //    Guid ls = entry.Guid;
-        //    //entry.RefreshCache();
-
-        //    return entry;
-        //}
-
-
         /// <summary>
         /// 获取所有子DirectoryEntry
         /// </summary>
@@ -1419,6 +1408,92 @@ namespace Dot.Utility.ActiveDirectory
             //} 
         }
 
+
+        /// <summary>
+        /// 模糊查询AD对象
+        /// 模糊查询的属性有[名字、显示名、描述、登录名、UPN、注释]
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="objType"></param>
+        /// <param name="queryValue">查询关键词</param>
+        /// <returns></returns>
+        public static SearchResultCollection GetSubDirectoryEntrysFuzzy(DirectoryEntry parent,
+            string objType,
+            string queryValue,
+            SearchScope scope,
+            int limitCount,
+            string orderProperty,
+            SortDirection sort)
+        {
+            if (!string.IsNullOrWhiteSpace(queryValue))
+            {
+                return GetSubDirectoryEntrys(parent, objType, scope,
+                    string.Format("(|(name=*{0}*)(displayName=*{0}*)(description=*{0}*)(sAMAccountName=*{0}*)(userPrincipalName=*{0}*)(info=*{0}*))", queryValue)
+                        , limitCount, orderProperty, sort);
+            }
+            else
+            {
+                return GetSubDirectoryEntrys(parent, objType, scope, string.Empty, limitCount, orderProperty, sort);
+            }
+        }
+        /// <summary>
+        /// 查询对象，返回DataTable类型数据，包含name，登录名，Guid，canonicalName三列
+        /// </summary>
+        /// <param name="parent">容器对象</param>
+        /// <param name="objType">对象类型5种</param>
+        /// <param name="filter">过滤条件，可无</param>
+        /// <param name="limitCount">最大查询数，0及以下则不限制</param>
+        /// <param name="orderProperty">排序的属性</param>
+        /// <param name="sort">排序规则 2种，正序，倒序</param>
+        /// <returns></returns>
+        public static SearchResultCollection GetSubDirectoryEntrys(DirectoryEntry parent, string objType, SearchScope scope, string filter, int limitCount, string orderProperty, SortDirection sort)
+        {
+            /*
+             * DirectorySearcher类有canonicalName这个属性
+             * 
+             * 如果DirectoryEntry没有，那么可以尝试执行下面代码：
+             * Entry.RefreshCache(new string[] { "canonicalName" });
+             */
+
+            ////初始化
+            //if (parent == null)
+            //{
+            //    parent = GetRootEntry();
+            //}
+            //搜索
+            DirectorySearcher ds = new DirectorySearcher(parent);
+            //范围
+            ds.SearchScope = scope;
+            //缓存结果
+            ds.CacheResults = false;
+            //加载的属性
+            ds.PropertiesToLoad.Add("name");
+            ds.PropertiesToLoad.Add("objectGUID");
+            ds.PropertiesToLoad.Add("groupType");
+            ds.PropertiesToLoad.Add("userPrincipalName");
+            ds.PropertiesToLoad.Add("canonicalName");
+            //过滤条件
+            ds.Filter = string.Format("(&(objectclass={0}){1})", objType.ToString(), filter);
+            //分页数
+            ds.PageSize = 1000;
+            //最大数
+            if (limitCount > 0)
+            {
+                ds.SizeLimit = limitCount;
+            }
+            if (string.IsNullOrWhiteSpace(orderProperty))
+            {
+                //默认排序
+                ds.Sort = new SortOption("name", SortDirection.Ascending);
+            }
+            else
+            {
+                //返回值
+                ds.Sort = new SortOption(orderProperty, sort);
+            }
+            return ds.FindAll();
+
+        }
 
         #endregion
 
@@ -1521,7 +1596,6 @@ namespace Dot.Utility.ActiveDirectory
             return sb.ToString();
         }
 
-
         /// <summary>
         /// 格式化distinguishedName
         /// </summary>
@@ -1564,5 +1638,6 @@ namespace Dot.Utility.ActiveDirectory
             return sb.ToString();
         }
     }
+
 
 }
