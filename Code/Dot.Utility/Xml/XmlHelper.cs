@@ -105,16 +105,9 @@ namespace Dot.Utility.Xml
             try
             {
                 Type t = cfg.GetType();
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(configPath));
 
-                if (!Directory.Exists(configPath))
-                {
-                    Directory.CreateDirectory(configPath);
-                }
-
-                string path = System.IO.Path.Combine(configPath, t.Name + ".xml");
-                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
-
-                using (System.IO.StreamWriter sr = new System.IO.StreamWriter(path, false, System.Text.Encoding.Unicode))
+                using (System.IO.StreamWriter sr = new System.IO.StreamWriter(configPath, false, System.Text.Encoding.Unicode))
                 {
                     GetSerializer(t).Serialize(sr, cfg);
                     sr.Close();
