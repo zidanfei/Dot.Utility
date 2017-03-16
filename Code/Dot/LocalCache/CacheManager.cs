@@ -9,7 +9,7 @@ namespace Dot.LocalCache
     /// <summary>
     /// Static methods for using caches. All methods are thread safe.
     /// </summary>
-    public class CacheManager
+    public class LocalCacheManager
     {
         #region Private region
         // The context pool, it holds our caches.
@@ -18,7 +18,7 @@ namespace Dot.LocalCache
         private static uint _defaultExpiryTime = 0;
 
         // Initialisation of static cache
-        static CacheManager()
+        static LocalCacheManager()
         {
             // Add a default context
             AddContext("default");

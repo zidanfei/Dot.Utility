@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{DF7B3D3A-83E3-4F7D-A746-63B1FF9BA120}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>ThoughtWorks.QRCode</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>dot.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ThoughtWorks.QRCode.Codec.Data\QRCodeBitmapImage.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Data\QRCodeImage.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Data\QRCodeSymbol.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Ecc\BCH15_5.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Ecc\ReedSolomon.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Reader.Pattern\AlignmentPattern.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Reader.Pattern\FinderPattern.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Reader.Pattern\LogicalSeed.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Reader\QRCodeDataBlockReader.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Reader\QRCodeImageReader.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\Color.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\Color_Fields.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\ConsoleCanvas.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\ContentConverter.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\DebugCanvas.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\DebugCanvasAdapter.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\QRCodeUtility.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec.Util\SystemUtils.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec\QRCodeDecoder.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Codec\QRCodeEncoder.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\AlignmentPatternNotFoundException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\DecodingFailedException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\FinderPatternNotFoundException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\InvalidDataBlockException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\InvalidVersionException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\InvalidVersionInfoException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\SymbolNotFoundException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.ExceptionHandler\VersionInformationException.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Geom\Axis.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Geom\Line.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Geom\Point.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Geom\SamplingGrid.cs" />
+    <Compile Include="ThoughtWorks.QRCode.Properties\Resources.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ThoughtWorks.QRCode.Properties\Resources.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dot.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

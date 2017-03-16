@@ -18,22 +18,22 @@ namespace Dot.LocalCache
 
         public void Add(string key, string valKey, object value)
         {
-            CacheManager.AddOrUpdate(key, valKey, value, DateTime.Now.AddMinutes(2));
+            LocalCacheManager.AddOrUpdate(key, valKey, value, DateTime.Now.AddMinutes(2));
         }
 
         public void Put(string key, string valKey, object value)
         {
-            CacheManager.Update(key, valKey, value);
+            LocalCacheManager.Update(key, valKey, value);
         }
 
         public object Get(string key, string valKey)
         {
-            return CacheManager.Get(key, valKey);
+            return LocalCacheManager.Get(key, valKey);
         }
 
         public void Remove(string key, string valKey)
         {
-            CacheManager.Remove(key, valKey);
+            LocalCacheManager.Remove(key, valKey);
         }
 
         //public bool Exists(string key)
@@ -43,7 +43,7 @@ namespace Dot.LocalCache
 
         public bool Exists(string key, string valKey)
         {
-            return CacheManager.Contains(key, valKey);
+            return LocalCacheManager.Contains(key, valKey);
         }
     }
 }
