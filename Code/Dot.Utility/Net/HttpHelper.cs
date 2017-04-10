@@ -28,11 +28,8 @@ namespace Dot.Utility.Net
 
         public string ChatSet { get; set; }
 
-        // 无 referer 的 POST  // by hook.hu@gmail.com
-        public string Post(string url, string content)
-        {
-            return Post(url, content, "");
-        }
+      
+        public static CookieContainer LoginCookies = new CookieContainer();
 
         /// <summary>
         /// Send post data to server
@@ -88,6 +85,85 @@ namespace Dot.Utility.Net
             return string.Empty;
         }
 
+
+        /// <summary>
+        /// Send post data to server
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="content"></param>
+        /// <returns>Return content</returns>
+        public string Login(string url, string content, out CookieContainer credentials)
+        {
+            string contentType = "application/x-www-form-urlencoded";
+            credentials = new CookieContainer();
+            //contentType = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            int failedTimes = _tryTimes;
+            while (failedTimes-- > 0)
+            {
+                try
+                {
+                    if (_delayTime > 0)
+                    {
+                        Thread.Sleep(_delayTime * 1000);
+                    }
+                    HttpWebRequest req = (HttpWebRequest)WebRequest.Create(new Uri(url));
+                    req.UserAgent = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Maxthon; .NET CLR 1.1.4322)";
+                    byte[] buff = Encoding.GetEncoding(ChatSet).GetBytes(content);
+                    req.KeepAlive = true;
+                    req.Method = "POST";
+                    req.Timeout = _timeout;
+                    req.ContentType = contentType;
+                    req.ContentLength = buff.Length;
+                    req.AllowAutoRedirect = false;
+                    if (null != _proxy && null != _proxy.Credentials)
+                    {
+                        req.UseDefaultCredentials = true;
+                    }
+                    else
+                    {
+                        req.Credentials = CredentialCache.DefaultCredentials;
+                    }
+                    req.Proxy = _proxy;
+                    req.Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
+                    //req.Connection = "Keep-Alive";
+                    Stream reqStream = req.GetRequestStream();
+                    reqStream.Write(buff, 0, buff.Length);
+                    reqStream.Close();
+
+                    //接收返回字串
+                    HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+                    var co = res.GetResponseHeader("Set-Cookie");
+                    if (!string.IsNullOrEmpty(co))
+                    {                       
+                        credentials.SetCookies(new Uri(url), co);
+                    }                
+                   
+                    StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.GetEncoding(ChatSet));
+                    var result = sr.ReadToEnd();
+                    try
+                    {
+                        res.Close();
+                        //string _APSNET_SessionValue = res.Cookies["ASP.NET_SessionId"].Value;
+
+                    }
+                    catch (WebException ex)
+                    {
+                        throw ex;
+                    }
+                  
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    LogFactory.ExceptionLog.Error("HTTP POST Error: " + e.Message);
+                    LogFactory.ExceptionLog.Error("Url: " + url);
+                    LogFactory.ExceptionLog.Error("Data: " + content);
+                }
+            }
+
+            return string.Empty;
+        }
+
         // 无 referer 的 POST  // by hook.hu@gmail.com
         public string Get(string url)
         {
@@ -99,7 +175,7 @@ namespace Dot.Utility.Net
         /// </summary>
         /// <param name="url"></param>
         /// <returns>Return content</returns>
-        public string Get(string url, string referer, string userAgent = null, CookieCollection cookies = null)
+        public string Get(string url, string referer, string userAgent = null, CookieContainer cookies = null)
         {
             int failedTimes = _tryTimes;
 
@@ -121,8 +197,8 @@ namespace Dot.Utility.Net
                 }
                 if (cookies != null)
                 {
-                    req.CookieContainer = new CookieContainer();
-                    req.CookieContainer.Add(cookies);
+                    //req.CookieContainer = new CookieContainer();
+                    req.CookieContainer = (cookies);
                 }
 
                 //接收返回字串
@@ -238,7 +314,7 @@ namespace Dot.Utility.Net
             }
         }
 
-        public string Get(string userName, string password,string loginUrl, string url, string cookieName=".ASPXAUTH")
+        public string Get(string userName, string password, string loginUrl, string url, string cookieName = ".ASPXAUTH")
         {
             string token = GetSecurityToken(userName, password, loginUrl, cookieName);
             string address = url;

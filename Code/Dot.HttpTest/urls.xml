@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<urls>
+  <url id="local" loginUrl="http://172.16.2.41:8500/account/Login" userInfo="LoginName=chliu%26password=" getUrl="http://172.16.2.41:8500/"/>
+  <url id="linuo" loginUrl="http://oanew.linuo.com/names.nsf?Login" userInfo="username=linuolot%26password=password" getUrl="http://oanew.linuo.com/indishare/addresstree.nsf/api/data/collections/name/vwDepByParentCode4AddBook?open%26count=20"/>
+</urls>
