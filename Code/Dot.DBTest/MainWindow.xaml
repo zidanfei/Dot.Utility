@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="测试数据库连接" Height="350" Width="525">
     <Grid>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="169,35,0,0" VerticalAlignment="Top" Width="220"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="169,35,0,0" VerticalAlignment="Top" Width="220" SelectionChanged="comboBox_SelectionChanged"/>
         <Label x:Name="label" Content="服务器IP" HorizontalAlignment="Left" Margin="86,81,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtServerIP" HorizontalAlignment="Left" Height="23" Margin="169,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
         <TextBox x:Name="txtUser" HorizontalAlignment="Left" Height="23" Margin="169,151,0,0" TextWrapping="Wrap" Text="sa" VerticalAlignment="Top" Width="220"/>

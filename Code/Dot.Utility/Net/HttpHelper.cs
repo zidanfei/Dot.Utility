@@ -28,7 +28,7 @@ namespace Dot.Utility.Net
 
         public string ChatSet { get; set; }
 
-      
+
         public static CookieContainer LoginCookies = new CookieContainer();
 
         /// <summary>
@@ -85,12 +85,34 @@ namespace Dot.Utility.Net
             return string.Empty;
         }
 
+        public string Login(string url, IDictionary<string, string> parameters, out CookieContainer credentials)
+        {
+            StringBuilder buffer = new StringBuilder();
+            if (parameters != null && parameters.Count > 0)
+            {
+                int i = 0;
+                foreach (var item in parameters)
+                {
+                    if (i > 0)
+                    {
+                        buffer.AppendFormat("&{0}={1}", item.Key, item.Value);
+                    }
+                    else
+                    {
+                        buffer.AppendFormat("{0}={1}", item.Key, item.Value);
+                    }
+                    i++; 
+                }
+            }
+            return Login(url, buffer.ToString(), out credentials);
+        }
 
         /// <summary>
         /// Send post data to server
         /// </summary>
         /// <param name="url"></param>
         /// <param name="content"></param>
+        /// <param name="credentials">cookie容器</param>
         /// <returns>Return content</returns>
         public string Login(string url, string content, out CookieContainer credentials)
         {
@@ -134,10 +156,10 @@ namespace Dot.Utility.Net
                     HttpWebResponse res = (HttpWebResponse)req.GetResponse();
                     var co = res.GetResponseHeader("Set-Cookie");
                     if (!string.IsNullOrEmpty(co))
-                    {                       
+                    {
                         credentials.SetCookies(new Uri(url), co);
-                    }                
-                   
+                    }
+
                     StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.GetEncoding(ChatSet));
                     var result = sr.ReadToEnd();
                     try
@@ -150,7 +172,7 @@ namespace Dot.Utility.Net
                     {
                         throw ex;
                     }
-                  
+
                     return result;
                 }
                 catch (Exception e)
