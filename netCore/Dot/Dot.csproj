@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>dot.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>F:\WorkspaceOpenSource\Dot.Utility\netCore\publish\netstandard2.0\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <DocumentationFile>bin\Debug\netstandard2.0\Dot.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AOP\**" />
+    <Compile Remove="Cache\**" />
+    <Compile Remove="Consoles\**" />
+    <Compile Remove="Cryptography\**" />
+    <Compile Remove="Database\**" />
+    <Compile Remove="IOC\**" />
+    <Compile Remove="LocalCache\**" />
+    <Compile Remove="Mail\**" />
+    <Compile Remove="Utility\obj\**" />
+    <Compile Remove="Xml\**" />
+    <EmbeddedResource Remove="AOP\**" />
+    <EmbeddedResource Remove="Cache\**" />
+    <EmbeddedResource Remove="Consoles\**" />
+    <EmbeddedResource Remove="Cryptography\**" />
+    <EmbeddedResource Remove="Database\**" />
+    <EmbeddedResource Remove="IOC\**" />
+    <EmbeddedResource Remove="LocalCache\**" />
+    <EmbeddedResource Remove="Mail\**" />
+    <EmbeddedResource Remove="Utility\obj\**" />
+    <EmbeddedResource Remove="Xml\**" />
+    <None Remove="AOP\**" />
+    <None Remove="Cache\**" />
+    <None Remove="Consoles\**" />
+    <None Remove="Cryptography\**" />
+    <None Remove="Database\**" />
+    <None Remove="IOC\**" />
+    <None Remove="LocalCache\**" />
+    <None Remove="Mail\**" />
+    <None Remove="Utility\obj\**" />
+    <None Remove="Xml\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Utility\Cryptography\DESEncryption.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="IOC\Composer.cs" />
+    <Compile Include="IOC\CompositionExtension.cs" />
+    <Compile Include="IOC\ExportAttribute.cs" />
+    <Compile Include="IOC\IObjectContainer.cs" />
+    <Compile Include="IOC\IObjectContainerFactory.cs" />
+    <Compile Include="IOC\IServiceContainer.cs" />
+    <Compile Include="IOC\ObjectContainerFactory.cs" />
+    <Compile Include="IOC\ObjectContainerToServiceConatinerAdapter.cs" />
+    <Compile Include="IOC\SimpleObjectContainer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.0.2" />
+
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.3.1" />
+    <PackageReference Include="MySql.Data" Version="7.0.7-m61" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.105.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.0.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IOC\AspNetCore\" />
+    <Folder Include="IOC\Unity\" />
+  </ItemGroup>
+</Project>
