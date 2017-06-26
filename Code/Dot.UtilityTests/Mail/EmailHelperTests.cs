@@ -19,5 +19,15 @@ namespace Dot.Utility.Mail.Tests
             Assert.IsTrue(res);
         }
 
+        /// <summary>
+        /// 给邮箱用户添加另外发送为权限：Get-Mailbox | Add-ADPermission -User 'NT Authority\Self' -ExtendedRights 'Send-as'
+        /// </summary>
+        [TestMethod()]
+        public void SendEmailTest2()
+        {
+            EmailHelper helper = new EmailHelper("test", "chliu@ronglian.com");
+            var res = helper.SendEmail("test");
+            Assert.IsTrue(res);
+        }
     }
 }

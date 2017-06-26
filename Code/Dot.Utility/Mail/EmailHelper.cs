@@ -28,6 +28,17 @@ namespace Dot.Utility.Mail
         bool SendEmail(string body);
 
         /// <summary>
+        /// 端口号
+        /// </summary>
+        string Port { get; }
+
+        /// <summary>
+        /// ssl协议传输
+        /// </summary>
+        bool EnableSsl { get; }
+
+
+        /// <summary>
         /// Gets from.
         /// </summary>
         /// <value>
@@ -96,8 +107,6 @@ namespace Dot.Utility.Mail
         List<Attachment> AttachFileList { get; }
 
     }
-
-    [DebuggerDisplay("From: {From},To: {To},Cc: {Cc},Bcc: {Bcc},Subject: {Subject},Body: {Body}")]
     public class EmailHelper : IEmailHelper
     {
         public EmailHelper(string subject, string to)
@@ -183,10 +192,10 @@ namespace Dot.Utility.Mail
                 ValidateParameters();
                 using (MailMessage mailMessage = new MailMessage())
                 {
-                    using (SmtpClient client = new SmtpClient())
+                    using (SmtpClient client = new SmtpClient(Host, int.Parse(Port)))
                     {
-                        client.Host = Host;
                         client.UseDefaultCredentials = false;
+                        client.EnableSsl = EnableSsl;
                         if (string.IsNullOrEmpty(CredentialUserName))
                         {
                             client.Credentials = System.Net.CredentialCache.DefaultNetworkCredentials;
@@ -336,7 +345,41 @@ namespace Dot.Utility.Mail
 
         #region Properties
 
+        private string port = ConfigHelper.GetAppSettingOrDefault("EmailPort");
+        /// <summary>
+        /// 端口号
+        /// </summary>
+        public string Port
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(port))
+                    return "25";
+                return port;
+            }
+            private set
+            {
+                port = value;
+            }
+
+        }
+
+        bool enableSsl = ConfigHelper.GetAppSettingOrDefault<bool>("EnableSsl", false);
+        /// <summary>
+        /// ssl协议传输
+        /// </summary>
+        public bool EnableSsl
+        {
+            get
+            {
+                return enableSsl;
+            }
+
+
+        }
+
         private string emailFrom = ConfigHelper.GetAppSettingOrDefault("EmailFrom");
+
         public string From
         {
             get

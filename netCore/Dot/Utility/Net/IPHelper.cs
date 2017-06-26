@@ -23,28 +23,28 @@ namespace Dot.Utility.Net
         private static extern Int32 inet_addr(string ip);
 
 
-        ///// <summary>
-        ///// 获取用户登录IP
-        ///// </summary>
-        ///// <returns></returns>
-        //public static string GetClientIp()
-        //{
-        //    try
-        //    {
-        //        if (null != HttpContext.Current && null != HttpContext.Current.Request)
-        //        {
-        //            if (HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)
-        //                return HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].Split(new char[] { ',' })[0];
-        //            else
-        //                return HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+        /// <summary>
+        /// 获取用户登录IP
+        /// </summary>
+        /// <returns></returns>
+        public static string GetClientIp()
+        {
+            try
+            {
+                //if (null != HttpContext.Current && null != HttpContext.Current.Request)
+                //{
+                //    if (HttpContext.Current.Request.ServerVariables["HTTP_VIA"] != null)
+                //        return HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].Split(new char[] { ',' })[0];
+                //    else
+                //        return HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                //}
+            }
+            catch (Exception ex)
+            {
 
-        //    }
-        //    return string.Empty;
-        //}
+            }
+            return string.Empty;
+        }
 
 
         /// <summary>

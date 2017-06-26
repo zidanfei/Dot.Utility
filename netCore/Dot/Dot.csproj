@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>F:\WorkspaceOpenSource\Dot.Utility\netCore\publish\netstandard2.0\</OutputPath>
+    <OutputPath></OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,32 +17,26 @@
 
   <ItemGroup>
     <Compile Remove="AOP\**" />
-    <Compile Remove="Cache\**" />
     <Compile Remove="Consoles\**" />
     <Compile Remove="Cryptography\**" />
     <Compile Remove="Database\**" />
     <Compile Remove="IOC\**" />
-    <Compile Remove="LocalCache\**" />
     <Compile Remove="Mail\**" />
     <Compile Remove="Utility\obj\**" />
     <Compile Remove="Xml\**" />
     <EmbeddedResource Remove="AOP\**" />
-    <EmbeddedResource Remove="Cache\**" />
     <EmbeddedResource Remove="Consoles\**" />
     <EmbeddedResource Remove="Cryptography\**" />
     <EmbeddedResource Remove="Database\**" />
     <EmbeddedResource Remove="IOC\**" />
-    <EmbeddedResource Remove="LocalCache\**" />
     <EmbeddedResource Remove="Mail\**" />
     <EmbeddedResource Remove="Utility\obj\**" />
     <EmbeddedResource Remove="Xml\**" />
     <None Remove="AOP\**" />
-    <None Remove="Cache\**" />
     <None Remove="Consoles\**" />
     <None Remove="Cryptography\**" />
     <None Remove="Database\**" />
     <None Remove="IOC\**" />
-    <None Remove="LocalCache\**" />
     <None Remove="Mail\**" />
     <None Remove="Utility\obj\**" />
     <None Remove="Xml\**" />
@@ -50,6 +44,11 @@
 
   <ItemGroup>
     <Compile Remove="Utility\Cryptography\DESEncryption.cs" />
+    <Compile Remove="Utility\Database\SqlDataAdapter.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="App_Data\NameDB.DB" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,11 +62,16 @@
     <Compile Include="IOC\ObjectContainerToServiceConatinerAdapter.cs" />
     <Compile Include="IOC\SimpleObjectContainer.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="App_Data\NameDB.DB">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
 
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.3.1" />
     <PackageReference Include="MySql.Data" Version="7.0.7-m61" />

@@ -11,6 +11,7 @@ namespace Dot.Adapter
     {
         /// <summary>
         /// Project a type using a DTO
+        /// 将object对象转换为目标类型对象
         /// </summary>
         /// <typeparam name="TProjection">The dto projection</typeparam>
         /// <param name="item">The item.</param>
@@ -26,6 +27,7 @@ namespace Dot.Adapter
 
         /// <summary>
         /// projected a enumerable collection of items
+        /// 将object对象转换为目标类型对象
         /// </summary>
         /// <typeparam name="TProjection">The dtop projection type</typeparam>
         /// <param name="items">the collection of entity items</param>
@@ -39,6 +41,7 @@ namespace Dot.Adapter
 
         /// <summary>
         /// Adapts to specific target.
+        /// 将源类型转换为目标类型的适配器
         /// </summary>
         /// <typeparam name="TProjection">The type of the projection.</typeparam>
         /// <param name="item">The item.</param>
@@ -50,18 +53,34 @@ namespace Dot.Adapter
             adapter.Adapt<TProjection>(item, target);
         }
 
+        /// <summary>
+        /// 根据映射的源类型，查找映射的目标类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static Type GetMapTargetType(this Type type)
         {
             var adapter = TypeAdapterFactory.CreateAdapter();
             return adapter.GetMapTarget(type);
         }
 
+        /// <summary>
+        /// 根据映射的源类型，查找映射的目标类型
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static Type GetMapTargetType(this object type)
         {
             var adapter = TypeAdapterFactory.CreateAdapter();
             return adapter.GetMapTarget(type.GetType());
         }
 
+        /// <summary>
+        /// 根据源类型映射为目标类型的实例
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="distinationType"></param>
+        /// <returns></returns>
         public static object GetMapTarget(this object instance, Type distinationType)
         {
             if (instance == null)
@@ -75,6 +94,12 @@ namespace Dot.Adapter
             return adapter.GetMapTarget(instance, instance.GetType(), distinationType);
         }
 
+        /// <summary>
+        /// 通过反射深复制
+        /// </summary>
+        /// <typeparam name="TOut"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public static TOut CreateObject<TOut>(this object source)
             where TOut : class ,new()
         {

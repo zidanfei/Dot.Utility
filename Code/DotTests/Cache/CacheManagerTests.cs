@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dot.Cache;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DotTests;
+
 namespace Dot.Cache.Tests
 {
     [TestClass()]

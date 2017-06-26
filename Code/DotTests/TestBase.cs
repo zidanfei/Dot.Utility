@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dot
+namespace DotTests
 {
     public class TestBase
     {
@@ -15,13 +15,24 @@ namespace Dot
         }
     }
 
-    public class AppEngine : AppImplementationBase
+    public class AppEngine : DotAppStart
     {
         protected override void InitEnvironment()
         {
             PluginTable.Plugins.AddPlugin<Dot.Cache.CachePlugin>();
+            PluginTable.Plugins.AddPlugin<DotTestPlugin>();
 
             base.InitEnvironment();
         }
+    }
+    public class DotTestPlugin : Dot.ComponentModel.AppPlugin
+    {
+        public override void Initialize(IApp app)
+        {
+
+        }
+
+      
+
     }
 }

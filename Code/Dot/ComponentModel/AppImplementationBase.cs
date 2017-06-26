@@ -14,7 +14,7 @@ namespace Dot.ComponentModel
     /// <summary>
     /// 这个类为 ClientApp、ServerApp、WebApp 等类提供了一致的基类。
     /// </summary>
-    public class AppImplementationBase : IServerApp
+    public abstract class AppImplementationBase : IServerApp
     {
 
         /// <summary>

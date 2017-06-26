@@ -11,7 +11,7 @@ namespace Dot.Cache
     {
         #region Private Fields
 
-        private static readonly ICacheProvider instance = ObjectContainer.CreateInstance<ICacheProvider>();
+        private static readonly ICacheProvider instance = ObjectContainerFactory.CreateContainer().Resolve<ICacheProvider>();
         private static readonly IDictionary<string, ICacheProvider> instances = new Dictionary<string, ICacheProvider>();
         private static object _cacheLock = new object();
 
@@ -51,7 +51,7 @@ namespace Dot.Cache
                 {
                     if (!instances.ContainsKey(key))
                     {
-                        instances.Add(key, ObjectContainer.CreateInstance<ICacheProvider>(key));
+                        instances.Add(key, ObjectContainerFactory.CreateContainer().Resolve<ICacheProvider>(key));
                     }
                 }
             }

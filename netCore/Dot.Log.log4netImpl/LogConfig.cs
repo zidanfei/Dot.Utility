@@ -22,7 +22,7 @@ namespace Dot.Log
 
         static ILoggerRepository rep = LogManager.CreateRepository(Guid.NewGuid().ToString());
 
-        internal static ILoggerRepository BaseRepository
+        public static ILoggerRepository BaseRepository
         {
             get
             {

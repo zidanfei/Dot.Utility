@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>dot.snk</AssemblyOriginatorKeyFile>
+    <Description>实现excel的导入导出</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Dot.Excel.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Excel2007\" />
+    <Folder Include="Excel2003\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dot\Dot.csproj" />
+  </ItemGroup>
+
+</Project>
