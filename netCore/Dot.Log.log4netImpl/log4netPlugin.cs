@@ -7,7 +7,7 @@ using System.Text;
 namespace Dot.Log.Log4netImpl
 {
 
-
+    //支持明细 https://logging.apache.org/log4net/release/framework-support.html#Appenders
     /// <summary>
     /// log4net日志插件
     /// </summary>
@@ -31,14 +31,14 @@ namespace Dot.Log.Log4netImpl
         public override void Initialize(IApp app)
         {
 
-            InitLogConfig();
+            //InitLogConfig();
 
         }
 
         /// <summary>
         /// 初始化日志配置文件
         /// </summary>
-        void InitLogConfig()
+        public static void InitLogConfig()
         {
             var appPath = PlatformConfig.ServerConfig.ConfigFilePath;
             if (!System.IO.Directory.Exists(appPath))

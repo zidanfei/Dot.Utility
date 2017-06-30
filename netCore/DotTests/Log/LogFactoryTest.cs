@@ -30,6 +30,9 @@ namespace DotTests
             //LogFactory.WebRunningLog.Fatal(new LogMessage("WebRunningLog2"));
             //LogFactory.WebPlatformLog.Fatal(new LogMessage("WebPlatformLog2"){ ActionName = "ActionName", ControllerName = "ControllerName" });
             LogFactory.WebBusinessLog.Fatal(new LogMessage("WebBusinessLog2"){ ClientIP = "ActionName", ServerIP = "ControllerName" });
+            LogFactory.WebBusinessLog.Fatal(new LogMessage(){ Message = "Message", ServerIP = "ControllerName" });
+            LogFactory.WebBusinessLog.Info(new LogMessage(){ Message = "Message", ServerIP = "ControllerName" });
+            LogFactory.WebBusinessLog.Info(new LogMessage("WebBusinessLog2"){ ClientIP = "ActionName", ServerIP = "ControllerName" });
             //LogFactory.WebExceptionLog.Fatal(new LogMessage("WebExceptionLog2") { ActionName = "ActionName", ControllerName = "ControllerName" });
             //LogFactory.WebPlatformExceptionLog.Fatal(new LogMessage("WebPlatformExceptionLog2") { ActionName = "ActionName", ControllerName = "ControllerName" });
             //LogFactory.WebBusinessExceptionLog.Fatal(new LogMessage("WebBusinessExceptionLog2") { ActionName = "ActionName", ControllerName = "ControllerName" });

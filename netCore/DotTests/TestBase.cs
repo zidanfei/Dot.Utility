@@ -23,6 +23,7 @@ namespace DotTests
             //PluginTable.Plugins.AddPlugin<Dot.Cache.CachePlugin>();
             PluginTable.Plugins.AddPlugin<DotTestPlugin>();
             PluginTable.Plugins.AddPlugin<log4netPlugin>();
+            log4netPlugin.InitLogConfig();
 
             base.InitEnvironment();
         }

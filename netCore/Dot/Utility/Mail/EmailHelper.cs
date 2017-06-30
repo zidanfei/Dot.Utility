@@ -334,7 +334,7 @@ namespace Dot.Utility.Mail
 
         #region Properties
 
-        private string emailFrom = ConfigHelper.GetAppSettingOrDefault("EmailFrom");
+        private string emailFrom = ConfigHelper.GetValueOrDefault("EmailFrom");
         public string From
         {
             get
@@ -434,7 +434,7 @@ namespace Dot.Utility.Mail
             private set;
         }
 
-        private string userName = ConfigHelper.GetAppSettingOrDefault("CredentialUserName");
+        private string userName = ConfigHelper.GetValueOrDefault("CredentialUserName");
 
         /// <summary>
         /// 获取或设置发送邮件
@@ -455,7 +455,7 @@ namespace Dot.Utility.Mail
             }
         }
 
-        private string pwd = ConfigHelper.GetAppSettingOrDefault("CredentialPassword");
+        private string pwd = ConfigHelper.GetValueOrDefault("CredentialPassword");
         /// <summary>
         /// 获取或设置发送邮件密码.
         /// 可以使用应用程序配置项 CredentialPassword 进行配置。
@@ -475,7 +475,7 @@ namespace Dot.Utility.Mail
             }
         }
 
-        private string domain = ConfigHelper.GetAppSettingOrDefault("CredentialDomain");
+        private string domain = ConfigHelper.GetValueOrDefault("CredentialDomain");
 
         /// <summary>
         /// Gets or sets the credential domain.
@@ -496,7 +496,7 @@ namespace Dot.Utility.Mail
             }
         }
 
-        private string env = ConfigHelper.GetAppSettingOrDefault("PublishEnvironment");
+        private string env = ConfigHelper.GetValueOrDefault("PublishEnvironment");
 
         /// <summary>
         ///  获取或设置部署环境，用于提醒是否测试邮件
@@ -517,7 +517,7 @@ namespace Dot.Utility.Mail
             }
         }
 
-        private string host = ConfigHelper.GetAppSettingOrDefault("EmailHost");
+        private string host = ConfigHelper.GetValueOrDefault("EmailHost");
         /// <summary>
         /// 获取或设置用于 SMTP 事务的主机的名称或 IP 地址
         /// 可以使用应用程序配置项 PublishEnvironment 进行配置。

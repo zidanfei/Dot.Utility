@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Dot.Config.Model;
 
 namespace Dot.Utility.Config
 {
@@ -19,10 +20,10 @@ namespace Dot.Utility.Config
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static T GetAppSettingOrDefault<T>(string key, T defaultValue = default(T))
+        public static T GetValueOrDefault<T>(string key, T defaultValue = default(T))
             where T : struct
         {
-            var value = GetAppSettingOrDefault(key);
+            var value = GetValueOrDefault(key);
             if (!string.IsNullOrWhiteSpace(value))
             {
                 var converter = TypeDescriptor.GetConverter(typeof(T));
@@ -38,6 +39,23 @@ namespace Dot.Utility.Config
 
             return defaultValue;
         }
+
+        /// <summary>
+        /// 获取配置文件中的AppSettings的指定键的值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static string GetValueOrDefault(string key, string defaultValue = "")
+        {
+            if (null != PlatformConfig.ServerConfig
+               && null != PlatformConfig.ServerConfig.KeyValueSettings
+               && PlatformConfig.ServerConfig.KeyValueSettings[key] != null)
+                return PlatformConfig.ServerConfig.KeyValueSettings[key].Value;
+            var value = ($"{Configuration[key]}");
+            return !string.IsNullOrEmpty(value) ? value : defaultValue;
+        }
+
         static IConfigurationRoot configuration;
         public static IConfigurationRoot Configuration
         {
@@ -58,8 +76,10 @@ namespace Dot.Utility.Config
         /// <returns></returns>
         public static string GetAppSettingOrDefault(string key, string defaultValue = "")
         {
-            return($"{Configuration[key]}") ?? defaultValue;
+            var value = ($"{Configuration[key]}");
+            return !string.IsNullOrEmpty(value) ? value : defaultValue;
         }
+
 
         /// <summary>
         /// 获取配置文件中的ConnectionString的指定键的值
@@ -88,7 +108,6 @@ namespace Dot.Utility.Config
                 return files.FirstOrDefault();
             else
                 return companyConfig;
-            return string.Empty;
         }
 
         ///// <summary>

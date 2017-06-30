@@ -28,6 +28,7 @@ namespace Dot
         internal static void StartupAppPlugins()
         {
             var libraries = GetAppPlugins();
+            Composer.RegisterAllPluginsByAttribute();
 
             foreach (var pluginAssembly in libraries)
             {
@@ -36,7 +37,6 @@ namespace Dot
                 if (library != null) library.Initialize(_appCore);
             }
 
-            Composer.RegisterAllPluginsByAttribute();
         }
 
 #endregion

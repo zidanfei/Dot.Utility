@@ -32,15 +32,15 @@ namespace Dot.Log
 
         public void Debug(string log)
         {
-            DebugDetail(new LogMessage(log), null);
+            Debug(new LogMessage(log), null);
         }
 
-        public void DebugDetail(LogMessage log)
+        public void Debug(LogMessage log)
         {
-            DebugDetail(log, null);
+            Debug(log, null);
         }
 
-        public void DebugDetail(LogMessage log, System.Exception ex)
+        public void Debug(LogMessage log, System.Exception ex)
         {
             if (this.IsInfoEnabled)
             {
@@ -52,14 +52,14 @@ namespace Dot.Log
 
         public void Info(string log)
         {
-            InfoDetail(new LogMessage(log), null);
+            Info(new LogMessage(log), null);
         }
-        public void InfoDetail(LogMessage log)
+        public void Info(LogMessage log)
         {
-            InfoDetail(log, null);
+            Info(log, null);
         }
 
-        public void InfoDetail(LogMessage log, System.Exception ex)
+        public void Info(LogMessage log, System.Exception ex)
         {
             if (this.IsInfoEnabled)
             {
@@ -71,15 +71,15 @@ namespace Dot.Log
 
         public void Warn(string log)
         {
-            WarnDetail(new LogMessage(log), null);
+            Warn(new LogMessage(log), null);
         }
 
-        public void WarnDetail(LogMessage log)
+        public void Warn(LogMessage log)
         {
-            WarnDetail(log, null);
+            Warn(log, null);
         }
 
-        public void WarnDetail(LogMessage log, System.Exception ex)
+        public void Warn(LogMessage log, System.Exception ex)
         {
             if (this.IsWarnEnabled)
             {
@@ -91,15 +91,15 @@ namespace Dot.Log
 
         public void Error(string log)
         {
-            ErrorDetail(new LogMessage(log), null);
+            Error(new LogMessage(log), null);
         }
 
-        public void ErrorDetail(LogMessage log)
+        public void Error(LogMessage log)
         {
-            ErrorDetail(log, null);
+            Error(log, null);
         }
 
-        public void ErrorDetail(LogMessage log, System.Exception ex)
+        public void Error(LogMessage log, System.Exception ex)
         {
             if (this.IsErrorEnabled)
             {
@@ -275,26 +275,26 @@ namespace Dot.Log
 
 
 
-        public void DebugDetail(LogMessage log)
+        public void Debug(LogMessage log)
         {
-            WebLog.DebugDetail(log);
+            WebLog.Debug(log);
         }
 
-        public void DebugDetail(LogMessage log, Exception ex)
+        public void Debug(LogMessage log, Exception ex)
         {
-            WebLog.DebugDetail(log, ex);
-
-        }
-
-        public void ErrorDetail(LogMessage log)
-        {
-            WebLog.ErrorDetail(log);
+            WebLog.Debug(log, ex);
 
         }
 
-        public void ErrorDetail(LogMessage log, Exception ex)
+        public void Error(LogMessage log)
         {
-            WebLog.ErrorDetail(log, ex);
+            WebLog.Error(log);
+
+        }
+
+        public void Error(LogMessage log, Exception ex)
+        {
+            WebLog.Error(log, ex);
 
         }
 
@@ -310,27 +310,27 @@ namespace Dot.Log
 
         }
 
-        public void InfoDetail(LogMessage log)
+        public void Info(LogMessage log)
         {
-            WebLog.InfoDetail(log);
+            WebLog.Info(log);
 
         }
 
-        public void InfoDetail(LogMessage log, Exception ex)
+        public void Info(LogMessage log, Exception ex)
         {
-            WebLog.InfoDetail(log, ex);
+            WebLog.Info(log, ex);
 
         }
 
-        public void WarnDetail(LogMessage log)
+        public void Warn(LogMessage log)
         {
-            WebLog.WarnDetail(log);
+            WebLog.Warn(log);
 
         }
 
-        public void WarnDetail(LogMessage log, Exception ex)
+        public void Warn(LogMessage log, Exception ex)
         {
-            WebLog.WarnDetail(log, ex);
+            WebLog.Warn(log, ex);
 
         }
     }

@@ -16,11 +16,19 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="config\log4net.xml" />
+    <None Remove="config\ServerSettings.xml" />
     <None Remove="log4net.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\log4net.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="config\ServerSettings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="log4net.xml">

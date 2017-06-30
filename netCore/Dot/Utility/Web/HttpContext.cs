@@ -19,8 +19,14 @@ namespace Dot.Utility.Web
             {
                 if (_context == null)
                 {
-                    object factory = ServiceProvider.GetService(typeof(Microsoft.AspNetCore.Http.IHttpContextAccessor));
-                    _context = ((Microsoft.AspNetCore.Http.HttpContextAccessor)factory).HttpContext;
+                    try
+                    {
+                        object factory = ServiceProvider.GetService(typeof(Microsoft.AspNetCore.Http.IHttpContextAccessor));
+                        _context = ((Microsoft.AspNetCore.Http.HttpContextAccessor)factory).HttpContext;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
                 return _context;
             }
