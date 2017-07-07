@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace iWS.IExcel
+namespace Dot.IExcel
 {
     public interface IExcelHandler
     {
@@ -13,7 +13,7 @@ namespace iWS.IExcel
         /// </summary>
         /// <param name="path">路径</param>
         /// <returns></returns>
-        DataTable Import(string path);
+        DataSet Import(string path);
 
         /// <summary>
         /// 读取excel

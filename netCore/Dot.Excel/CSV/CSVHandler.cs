@@ -1,4 +1,4 @@
-﻿using iWS.IExcel;
+﻿using Dot.IExcel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,7 +26,7 @@ namespace Dot.Excel.CSV
             throw new NotImplementedException();
         }
 
-        public DataTable Import(string path)
+        public DataSet Import(string path)
         {
             throw new NotImplementedException();
         }

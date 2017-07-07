@@ -2336,35 +2336,95 @@ namespace Dot.Data.MSSqlService
         //}
         #endregion
 
-        ///// <summary>
-        ///// 批量保存数据
-        ///// </summary>
-        ///// <param name="connectionString">目标连接字符</param>
-        ///// <param name="TableName">目标表</param>
-        ///// <param name="dt">源数据</param>
-        //public static void SqlBulkCopyByDatatable(string connectionString, string TableName, DataTable dt)
-        //{
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    {
-        //        using (SqlBulkCopy sqlbulkcopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.UseInternalTransaction))
-        //        {
-        //            try
-        //            {
-        //                sqlbulkcopy.DestinationTableName = TableName;
-        //                for (int i = 0; i < dt.Columns.Count; i++)
-        //                {
-        //                    sqlbulkcopy.ColumnMappings.Add(dt.Columns[i].ColumnName, dt.Columns[i].ColumnName);
-        //                }
-        //                System.Data.Common.DbDataReader dbreader = new System.Data.SqlClient.SqlDataReader();
-        //                sqlbulkcopy.WriteToServer(dt);
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                throw ex;
-        //            }
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// 批量保存数据
+        /// </summary>
+        /// <param name="connectionString">目标连接字符</param>
+        /// <param name="TableName">目标表</param>
+        /// <param name="dt">源数据</param>
+        public static void SqlBulkCopyByDatatable(string connectionString, string TableName, DataTable dt)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+
+                SqlCommand commandSourceData = new SqlCommand("SELECT * FROM " + TableName, conn);
+                SqlDataReader reader = commandSourceData.ExecuteReader();
+                using (SqlBulkCopy sqlbulkcopy = new SqlBulkCopy(connectionString, SqlBulkCopyOptions.UseInternalTransaction))
+                {
+                    try
+                    {
+                        sqlbulkcopy.DestinationTableName = TableName;
+                        sqlbulkcopy.BulkCopyTimeout = 60;
+
+
+                        for (int i = 0; i < dt.Columns.Count; i++)
+                        {
+                            sqlbulkcopy.ColumnMappings.Add(dt.Columns[i].ColumnName, dt.Columns[i].ColumnName);
+                        }
+                        sqlbulkcopy.WriteToServer(reader);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        // Close the SqlDataReader. The SqlBulkCopy
+                        // object is automatically closed at the end
+                        // of the using block.
+                        reader.Close();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 批量保存数据
+        /// 需要完全列名匹配
+        /// </summary>
+        /// <param name="sourceCon">来源数据连接字符</param>
+        /// <param name="targetCon">目标连接字符</param>
+        /// <param name="TableName">目标表</param>
+        /// <param name="sql">源数据sql</param>
+        public static void SqlBulkCopyByDatatable(string sourceCon, string targetCon, string TableName, string sql)
+        {
+            using (SqlConnection conn = new SqlConnection(targetCon))
+            {
+                conn.Open();
+                using (SqlConnection sourceConn = new SqlConnection(sourceCon))
+                {
+                    SqlCommand commandSourceData = new SqlCommand(sql, sourceConn);
+                    sourceConn.Open();
+                    SqlDataReader reader = commandSourceData.ExecuteReader();
+                    using (SqlBulkCopy sqlbulkcopy = new SqlBulkCopy(targetCon, SqlBulkCopyOptions.UseInternalTransaction))
+                    {
+                        try
+                        {
+                            sqlbulkcopy.DestinationTableName = TableName;
+                            sqlbulkcopy.BulkCopyTimeout = 60;
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+
+                                sqlbulkcopy.ColumnMappings.Add(reader.GetName(i), reader.GetName(i));
+                            }
+                            sqlbulkcopy.WriteToServer(reader);
+                        }
+                        catch (System.Exception ex)
+                        {
+                            throw ex;
+                        }
+                        finally
+                        {
+                            // Close the SqlDataReader. The SqlBulkCopy
+                            // object is automatically closed at the end
+                            // of the using block.
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+        }
+
 
         /// <summary>  
         /// 利用反射和泛型  

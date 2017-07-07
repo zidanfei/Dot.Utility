@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace iWS.Excel.Enum
+namespace Dot.Excel.Enum
 {
     public enum ExportType
     {

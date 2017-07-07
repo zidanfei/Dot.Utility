@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dot.Log;
+using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -18,12 +19,51 @@ namespace Dot.Data.MSSqlService
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this.cmd.Connection.Dispose();
+            this.cmd.Dispose();
         }
 
         internal void Fill(DataSet ds)
         {
-            throw new NotImplementedException();
+            if (this.cmd != null)
+            {
+                try
+                {
+                    string spid = String.Empty;
+                    string program_name = String.Empty;
+                    if (cmd.Connection.State == ConnectionState.Broken || cmd.Connection.State == ConnectionState.Closed)
+                        cmd.Connection.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    var cols = reader.GetColumnSchema();
+                    if (ds == null)
+                        ds = new DataSet();
+                    DataTable dt = new DataTable();
+                    foreach (var item in cols)
+                    {
+                        dt.Columns.Add(item.ColumnName, item.DataType);
+                    }
+                    while (reader.Read())
+                    {
+                        var newrow = dt.NewRow();
+                        foreach (DataColumn item in dt.Columns)
+                        {
+                            newrow[item.ColumnName] = reader[item.ColumnName].ToString();
+
+                        }
+                        dt.Rows.Add(newrow);
+                    }
+                    ds.Tables.Add(dt);
+                }
+                catch (SqlException ex)
+                {
+                    LogFactory.ExceptionLog.Error("填充数据失败：", ex);
+
+                }
+                finally
+                {
+                    cmd.Connection.Close();
+                }
+            }
         }
     }
 }

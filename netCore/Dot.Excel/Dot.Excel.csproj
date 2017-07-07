@@ -12,12 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Excel2007\" />
     <Folder Include="Excel2003\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Dot\Dot.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="yule.Npoi.Core" Version="1.0.1" />
+  </ItemGroup>
 </Project>

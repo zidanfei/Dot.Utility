@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iWS.Excel.Enum
+namespace Dot.Excel.Enum
 {
     public enum CellType
     {

@@ -224,6 +224,7 @@ namespace Dot.IOC
 
         private object ResolveInstance(Type type, string key)
         {
+            //根据实例实例化
             object instanceResult = null;
             try
             {
@@ -249,7 +250,7 @@ namespace Dot.IOC
                 }
                 return instanceResult;
             }
-
+            //根据类型实例化
             Type typeResult = null;
             try
             {
@@ -273,7 +274,7 @@ namespace Dot.IOC
                 return this.CreateInstance(typeResult);
             }
 
-            return this.CreateInstance(type);
+            return null;
         }
 
         private object CreateInstance(Type type)
