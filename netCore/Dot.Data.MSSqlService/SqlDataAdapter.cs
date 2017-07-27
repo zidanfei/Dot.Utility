@@ -40,6 +40,8 @@ namespace Dot.Data.MSSqlService
                     DataTable dt = new DataTable();
                     foreach (var item in cols)
                     {
+                        //var col = new DataColumn(item.ColumnName, item.DataType);
+                        //col.AllowDBNull = true;
                         dt.Columns.Add(item.ColumnName, item.DataType);
                     }
                     while (reader.Read())
@@ -47,7 +49,8 @@ namespace Dot.Data.MSSqlService
                         var newrow = dt.NewRow();
                         foreach (DataColumn item in dt.Columns)
                         {
-                            newrow[item.ColumnName] = reader[item.ColumnName].ToString();
+                            if (reader[item.ColumnName] != DBNull.Value)
+                                newrow[item.ColumnName] = reader[item.ColumnName].ToString();
 
                         }
                         dt.Rows.Add(newrow);

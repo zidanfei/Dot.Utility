@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OracleClient;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,30 +23,30 @@ namespace Dot.TestDB
         private void btnTest_Click(object sender, EventArgs e)
         {
             string constr = txtCon.Text;
-            string sql = txtSql.Text;
             if (string.IsNullOrEmpty(constr))
             {
 
             }
 
-            if (string.IsNullOrEmpty(sql))
-            {
 
-            }
-            sql = string.Format( @"select count(*) from ({0}) m", sql);
             try
             {
                 if (cmbType.Text.Equals("MsSql", StringComparison.OrdinalIgnoreCase))
                 {
-                    var count= SqlServerHelper.ExecuteScalar(constr, CommandType.Text, sql);
-                    MessageBox.Show("连接成功！数据有 " + count+" 条");
+                    SqlConnection connection = new SqlConnection(constr);
+                    connection.Open();
+                    //var count= SqlServerHelper.ExecuteScalar(constr, CommandType.Text, sql);
+                    MessageBox.Show("连接成功！");
                     return;
 
                 }
                 else if (cmbType.Text.Equals("Oracle", StringComparison.OrdinalIgnoreCase))
                 {
-                    var count = OracleHelper.ExecuteScalar(constr, CommandType.Text, sql);
-                    MessageBox.Show("连接成功！数据有 " + count+" 条");
+                    OracleConnection connection = new OracleConnection(constr);
+                    connection.Open();
+
+                    //var count = OracleHelper.ExecuteScalar(constr, CommandType.Text, sql);
+                    MessageBox.Show("连接成功！");
                     return;
 
                 }

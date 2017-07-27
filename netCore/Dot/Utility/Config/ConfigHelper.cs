@@ -63,7 +63,10 @@ namespace Dot.Utility.Config
             {
                 if (configuration == null)
                 {
-                    configuration = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json").Build();
+                    configuration = new ConfigurationBuilder()
+                        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                        .Build();
                 }
                 return configuration;
             }
@@ -110,6 +113,25 @@ namespace Dot.Utility.Config
                 return companyConfig;
         }
 
+        /// <summary>
+        /// 获取环境变量
+        /// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/environments
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetEnvironmentVariables(string key= "PATH")
+        {
+            var builder = new ConfigurationBuilder().AddEnvironmentVariables();
+            var configuration = builder.Build();
+            var path = configuration.GetSection(key)?.Value;
+            return path;
+        }
+
+        public string ASPNETCORE_ENVIRONMENT
+        {
+            get { return Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"); }
+        }
+        
         ///// <summary>
         ///// 是否存在key配置项
         ///// </summary>

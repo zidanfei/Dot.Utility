@@ -8,6 +8,7 @@ namespace Dot.Config.Model
 {
     /// <summary>
     /// 平台配置信息
+    /// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration
     /// </summary>
     [Serializable]
     public class PlatformConfig

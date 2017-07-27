@@ -76,7 +76,7 @@ namespace Dot.Utility.Mail
         /// <value>
         /// The attach file path list.
         /// </value>
-        List<string> AttachFilePathList { get; }
+        List<FileInfo> AttachFilePathList { get; }
 
         /// <summary>
         /// Gets the attach file stream list.
@@ -101,7 +101,7 @@ namespace Dot.Utility.Mail
     {
         public EmailHelper(string subject, string to)
         {
-            AttachFilePathList = new List<string>();
+            AttachFilePathList = new List<FileInfo>();
             AttachFileList = new List<Attachment>();
             //AttachFileStreamList = new List<AttachFile>();
             Subject = subject;
@@ -135,9 +135,9 @@ namespace Dot.Utility.Mail
             return SendEmail();
         }
 
-        public void AddAttachFile(string path)
+        public void AddAttachFile(FileInfo file)
         {
-            AttachFilePathList.Add(path);
+            AttachFilePathList.Add(file);
         }
 
         //public void AddAttachFile(string name, string body)
@@ -257,15 +257,16 @@ namespace Dot.Utility.Mail
             }
         }
 
-        void AddAttachment(MailMessage mailMessage, List<string> list)
+        void AddAttachment(MailMessage mailMessage, List<FileInfo> list)
         {
             if (null != list)
             {
-                foreach (var path in list)
+                foreach (var file in list)
                 {
-                    if (!string.IsNullOrEmpty(path))
+                    if (file != null)
                     {
-                        mailMessage.Attachments.Add(new Attachment(path.Trim()));
+
+                        mailMessage.Attachments.Add(new Attachment(file.Open(FileMode.Open), file.Name));
                     }
                 }
             }
@@ -411,7 +412,7 @@ namespace Dot.Utility.Mail
         /// <value>
         /// The attach file path list.
         /// </value>
-        public List<string> AttachFilePathList
+        public List<FileInfo> AttachFilePathList
         {
             get;
             private set;
