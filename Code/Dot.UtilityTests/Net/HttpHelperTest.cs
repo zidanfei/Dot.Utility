@@ -7,9 +7,9 @@ using System.Text;
 
 using System.Text.RegularExpressions;
 
-namespace Dot.UtilityTests.Net
+namespace Dot.Utility.Net.Tests
 {
-    [TestClass]
+    [TestClass()]
     public class HttpHelperTest
     {
         [TestMethod]
@@ -18,6 +18,6 @@ namespace Dot.UtilityTests.Net
             HttpHelper helper = new HttpHelper();
             var d = helper.Get("", "", "", "");
         }
-
     }
 }
+ 

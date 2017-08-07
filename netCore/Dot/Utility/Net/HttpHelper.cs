@@ -84,8 +84,7 @@ namespace Dot.Utility.Net
 
             return string.Empty;
         }
-
-        public string Login(string url, IDictionary<string, string> parameters, out CookieContainer credentials)
+        public string Login(string url, IDictionary<string, string> parameters, CookieContainer reqCcokies, out CookieContainer credentials)
         {
             StringBuilder buffer = new StringBuilder();
             if (parameters != null && parameters.Count > 0)
@@ -101,10 +100,10 @@ namespace Dot.Utility.Net
                     {
                         buffer.AppendFormat("{0}={1}", item.Key, item.Value);
                     }
-                    i++; 
+                    i++;
                 }
             }
-            return Login(url, buffer.ToString(), out credentials);
+            return Login(url, buffer.ToString(), reqCcokies, out credentials);
         }
 
         /// <summary>
@@ -112,12 +111,13 @@ namespace Dot.Utility.Net
         /// </summary>
         /// <param name="url"></param>
         /// <param name="content"></param>
-        /// <param name="credentials">cookie容器</param>
+        /// <param name="reqCcokies">Request Cookies</param>
+        /// <param name="resCookies">Response Cookies</param>
         /// <returns>Return content</returns>
-        public string Login(string url, string content, out CookieContainer credentials)
+        public string Login(string url, string content, CookieContainer reqCcokies, out CookieContainer resCookies)
         {
             string contentType = "application/x-www-form-urlencoded";
-            credentials = new CookieContainer();
+            resCookies = new CookieContainer();
             //contentType = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             int failedTimes = _tryTimes;
             while (failedTimes-- > 0)
@@ -145,6 +145,11 @@ namespace Dot.Utility.Net
                     {
                         req.Credentials = CredentialCache.DefaultCredentials;
                     }
+                    if (reqCcokies != null)
+                    {
+                        //req.CookieContainer = new CookieContainer();
+                        req.CookieContainer = (reqCcokies);
+                    }
                     req.Proxy = _proxy;
                     req.Accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
                     //req.Connection = "Keep-Alive";
@@ -157,7 +162,7 @@ namespace Dot.Utility.Net
                     var co = res.GetResponseHeader("Set-Cookie");
                     if (!string.IsNullOrEmpty(co))
                     {
-                        credentials.SetCookies(new Uri(url), co);
+                        resCookies.SetCookies(new Uri(url), co);
                     }
 
                     StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.GetEncoding(ChatSet));
