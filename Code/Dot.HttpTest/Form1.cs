@@ -21,10 +21,12 @@ namespace Dot.HttpTest
             InitializeComponent();
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "urls.xml");
             var root = XElement.Load(path);
-            cmbTemplate.Items.Add(new { Key = "", Value = "--请选择--" });         
+            cmbTemplate.Items.Add(new { Key = "", Value = "--请选择--" });
             foreach (var item in root.Elements("url"))
             {
-                cmbTemplate.Items.Add(new { Key = item.Attribute("id").Value,
+                cmbTemplate.Items.Add(new
+                {
+                    Key = item.Attribute("id").Value,
                     Value = item.Attribute("id").Value,
                     getUrl = item.Attribute("getUrl").Value,
                     userInfo = item.Attribute("userInfo").Value,
@@ -44,7 +46,7 @@ namespace Dot.HttpTest
             //GetHtml222(loginUrl, content, null);
             HttpHelper helper = new HttpHelper();
             CookieContainer credentials;
-            var login = helper.Login(loginUrl, content, out credentials);
+            var login = helper.Login(loginUrl, content, null, out credentials);
             var con = helper.Get(conUlr, null, null, credentials);
             txtResponse.Text = con;
         }
@@ -61,15 +63,15 @@ namespace Dot.HttpTest
             var query = (from item in root.Elements("url")
                          where item.Attribute("id").Value.Equals(id, StringComparison.OrdinalIgnoreCase)
                          select new
-                        {
-                            id = item.Attribute("id").Value,
-                            getUrl = item.Attribute("getUrl").Value,
-                            userInfo = item.Attribute("userInfo").Value,
-                            loginUrl = item.Attribute("loginUrl").Value,
-                        }).FirstOrDefault();
-            txtLoginUrl.Text = System.Web.HttpUtility.UrlDecode( query.loginUrl);
+                         {
+                             id = item.Attribute("id").Value,
+                             getUrl = item.Attribute("getUrl").Value,
+                             userInfo = item.Attribute("userInfo").Value,
+                             loginUrl = item.Attribute("loginUrl").Value,
+                         }).FirstOrDefault();
+            txtLoginUrl.Text = System.Web.HttpUtility.UrlDecode(query.loginUrl);
             txtContent.Text = System.Web.HttpUtility.UrlDecode(query.userInfo);
-            txtUrl.Text = System.Web.HttpUtility.UrlDecode(query.getUrl); 
+            txtUrl.Text = System.Web.HttpUtility.UrlDecode(query.getUrl);
 
         }
     }
